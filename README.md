@@ -1,4 +1,4 @@
-# DJANGO, DRF & MYSQL TEMPLATE
+# BOOTSTRAP E-COMMERCE WEBSITE
 
 ## Requirements
 - Python 3.8

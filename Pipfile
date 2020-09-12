@@ -36,6 +36,7 @@ django-guardian = "*"
 djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 django-rest-auth = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"

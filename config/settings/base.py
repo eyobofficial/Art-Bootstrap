@@ -36,7 +36,8 @@ INSTALLED_APPS += [
 # Project apps
 INSTALLED_APPS += [
     'accounts.apps.AccountsConfig',
-    'shared.apps.SharedConfig'
+    'shared.apps.SharedConfig',
+    'themes.apps.ThemesConfig'
 ]
 
 MIDDLEWARE = [
@@ -87,31 +88,6 @@ DATABASES = {
     }
 }
 
-
-# SQLITE
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'mydatabase',
-#     }
-# }
-
-
-#  POSTRESQL
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': '',
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -146,19 +122,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 # Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-
-
-# Authentications
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.PhoneNumberBackend'
-]
 
 
 # Custom Auth User Model
@@ -171,14 +143,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Default Admin Account
 DEFAULT_ADMIN_EMAIL = config('ADMIN_EMAIL')
-DEFAULT_ADMIN_PHONE_NUMBER = config('ADMIN_PHONE_NUMBER')
 DEFAULT_ADMIN_PASSWORD = config('ADMIN_PASSWORD')
 DEFAULT_ADMIN_FIRST_NAME = config('ADMIN_FIRST_NAME', '')
 DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 
 
 # Project Name
-PROJECT_NAME = 'Django_Starter'
+PROJECT_NAME = 'Bootstrap Shop'
 
 
 # Celery
@@ -188,11 +159,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
-
-
-# Django Phonenumber Field
-PHONENUMBER_DEFAULT_REGION = 'ET'
-PHONENUMBER_DB_FORMAT = 'NATIONAL'
 
 
 # Start-up fixtures
