@@ -43,6 +43,7 @@ class Theme(models.Model):
     """Bootstrap themes."""
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=120)
+    slug = models.SlugField(max_length=200)
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
