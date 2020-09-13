@@ -1,0 +1,45 @@
+- model: themes.category
+  pk: 1
+  fields:
+    title: Admin & Dashboards
+    slug: admin-and-dashboards
+- model: themes.category
+  pk: 2
+  fields:
+    title: E-commerce
+    slug: e-commerce
+- model: themes.category
+  pk: 3
+  fields:
+    title: SaaS
+    slug: saas
+- model: themes.category
+  pk: 4
+  fields:
+    title: Landing Pages
+    slug: landing-pages
+- model: themes.category
+  pk: 5
+  fields:
+    title: Resume & Portfolio
+    slug: resume-and-portfolio
+- model: themes.category
+  pk: 6
+  fields:
+    title: Blog & Magazines
+    slug: blog-and-magazines
+- model: themes.category
+  pk: 7
+  fields:
+    title: Multipurpose & Corporate
+    slug: multipurpose-and-corporate
+- model: themes.category
+  pk: 8
+  fields:
+    title: Directory & Listings
+    slug: directory-and-listings
+- model: themes.category
+  pk: 9
+  fields:
+    title: Other Templates
+    slug: other-templates

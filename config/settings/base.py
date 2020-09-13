@@ -162,7 +162,7 @@ CELERY_TIMEZONE = TIME_ZONE
 
 
 # Start-up fixtures
-FIXTURES = []
+FIXTURES = ['categories']
 
 
 # Environment
