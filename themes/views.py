@@ -9,6 +9,7 @@ class IndexView(BaseThemesMixin, ListView):
     model = Theme
     template_name = 'themes/index.html'
     queryset = Theme.objects.filter(is_published=True)
+    page_title = 'Home - Bootstrapshop'
 
     def get_context_data(self, **kwargs):
         kwargs.update({

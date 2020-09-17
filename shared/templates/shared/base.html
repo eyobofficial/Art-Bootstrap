@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ page_title|default:'Custom Page Name' }}</title>
+  <title>{{ page_title|default_if_none:'Custom Page Name' }}</title>
 
   <!-- SEO Meta Tags-->
   <meta name="description" content="Bootstrap themes and templates shop.">
