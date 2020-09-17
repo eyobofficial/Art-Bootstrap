@@ -44,6 +44,7 @@ class Theme(models.Model):
     """Bootstrap themes."""
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=120)
+    subtitle = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200)
     category = models.ForeignKey(
         Category,
@@ -66,7 +67,6 @@ class Theme(models.Model):
     preview_url = models.URLField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-created_at', )
@@ -86,7 +86,6 @@ class ThemePhoto(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Theme Photo'

@@ -1,0 +1,85 @@
+{% extends 'themes/base.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- Hero section-->
+  <section class="hero-section bg-accent bg-position-center-top bg-no-repeat py-5">
+    <div class="pb-lg-5 mb-lg-3">
+      <div class="container py-lg-5 my-lg-5">
+        <div class="row mb-4 mb-sm-5">
+          <div class="col-lg-7 col-md-9 text-center text-sm-left">
+            <h1 class="text-white line-height-base">
+              <span class='font-weight-light'>Over</span> 1,500 <span class='font-weight-light'>curated</span> Design <span class='font-weight-light'>resources</span>, Images, Graphic <span class='font-weight-light'>&amp;</span> Website <span class='font-weight-light'>templates</span>
+            </h1>
+            <h2 class="h5 text-white font-weight-light">High quality items created by our global community</h2>
+          </div>
+        </div>
+        <div class="row pb-lg-5 mb-4 mb-sm-5">
+          <div class="col-lg-6 col-md-8">
+            <div class="input-group input-group-overlay input-group-lg">
+              <input class="form-control form-control-lg rounded-right-0" type="text" placeholder="Bootstrap template name">
+              <div class="input-group-append">
+                <button class="btn btn-primary btn-lg font-size-base" type="button">
+                  <i class="czi-search mr-1"></i> Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Featured products (Carousel)-->
+    <section class="container position-relative pt-3 pt-lg-0 pb-5 mt-lg-n10" style="z-index: 10;">
+      <div class="card px-lg-2 border-0 box-shadow-lg">
+        <div class="card-body px-4 pt-5 pb-4">
+          <h2 class="h3 text-center">Featured Bootstrap Templates</h2>
+          <p class="text-muted text-center">Every week we hand-pick some of the best templates from our collection</p>
+          <!-- Carousel-->
+          <div class="cz-carousel pt-4">
+            <div class="cz-carousel-inner" data-carousel-options="{&quot;items&quot;: 2, &quot;gutter&quot;: 15, &quot;controls&quot;: false, &quot;nav&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;500&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3}, &quot;992&quot;:{&quot;items&quot;:3, &quot;gutter&quot;: 30}}}">
+              <!-- Featured themes-->
+              {% for theme in featured_themes  %}
+                <div>
+                  {% include 'themes/components/theme-card.html' with theme=theme %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent products grid-->
+    <section class="container pb-5 mb-lg-3">
+      <!-- Heading-->
+      <div class="d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
+        <h2 class="h3 mb-0 pt-3 mr-2">Recent Templates</h2>
+        <div class="pt-3">
+          <select class="custom-select">
+            <option>All categories</option>
+            {% for category in category_list %}
+              <option>{{ category.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <!-- Grid-->
+      <div class="row pt-2 mx-n2">
+        <!-- Product-->
+        {% for theme in theme_list %}
+        <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-grid-gutter">
+          <!-- Product-->
+          {% include 'themes/components/theme-card.html' with theme=theme %}
+        </div>
+        {% endfor %}
+      </div>
+      <!-- More button-->
+      <div class="text-center">
+        <a class="btn btn-outline-accent" href="#">
+          View more templates<i class="czi-arrow-right font-size-ms ml-1"></i>
+        </a>
+      </div>
+    </section>
+{% endblock %}

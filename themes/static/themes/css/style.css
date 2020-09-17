@@ -1,0 +1,7 @@
+/**
+* CSS Styles for `themes` app.
+**/
+
+.hero-section {
+    background-image: url('../img/marketplace-hero.jpg');
+}
