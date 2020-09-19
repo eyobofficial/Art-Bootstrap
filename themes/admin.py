@@ -30,7 +30,7 @@ class ThemePhotoInline(admin.StackedInline):
 @admin.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):
     list_display = (
-        'title', 'category', 'theme_version', 'is_featured',
+        'title', 'category', 'theme_version', 'download_count', 'is_featured',
         'is_published', 'created_at'
     )
     list_editable = ('is_featured', 'is_published')
