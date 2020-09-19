@@ -5,3 +5,11 @@
 .hero-section {
     background-image: url('../img/marketplace-hero.jpg');
 }
+
+a.nav-link-style.disabled:hover {
+    cursor: not-allowed !important;
+}
+
+a.nav-link-style.disabled > span {
+    color: #ccc;
+}

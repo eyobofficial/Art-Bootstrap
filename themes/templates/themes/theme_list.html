@@ -1,0 +1,95 @@
+{% extends 'themes/base.html' %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<div class="bg-accent pt-4 pb-5">
+  <div class="container pt-2 pb-3 pt-lg-3 pb-lg-4">
+    <div class="d-lg-flex justify-content-between pb-3">
+      <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+            <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="czi-home"></i>Home</a></li>
+            <li class="breadcrumb-item text-nowrap"><a href="home-marketplace.html">Category</a>
+            </li>
+            <li class="breadcrumb-item text-nowrap active" aria-current="page">{{ category.title }}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
+        <h1 class="h3 text-light mb-0">{{ category.title }}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page Content-->
+<div class="container pb-5 mb-2 mb-md-4">
+  <!-- Toolbar-->
+  <div class="bg-light box-shadow-lg rounded-lg mt-n5 mb-4">
+    <div class="d-flex align-items-center pl-2">
+      <!-- Search-->
+      <div class="input-group-overlay">
+        <div class="input-group-prepend-overlay">
+          <span class="input-group-text"><i class="czi-search"></i></span>
+        </div>
+        <input class="form-control prepended-form-control border-0 box-shadow-0" type="text" placeholder="Search in this category...">
+      </div>
+      <!-- Sort-->
+      <div class="d-flex align-items-center">
+        <div class="dropdown py-4 border-left">
+          <a class="nav-link-style font-size-md font-weight-medium dropdown-toggle p-4" href="#" data-toggle="dropdown">
+            <span class="d-inline-block py-1"><i class="czi-thumb-up align-middle opacity-60 mt-n1 mr-2"></i>Newest</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a class="dropdown-item" href="#"><i class="czi-rocket mr-2 opacity-60"></i>Bestsellers</a></li>
+            <li><a class="dropdown-item" href="#"><i class="czi-arrow-down mr-2 opacity-60"></i>Low Price</a></li>
+            <li><a class="dropdown-item" href="#"><i class="czi-arrow-up mr-2 opacity-60"></i>High Price</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Pagination-->
+      <div class="d-none d-md-flex align-items-center border-left pl-4">
+        <span class="font-size-md text-nowrap mr-4">Pages&nbsp; {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+        <!-- previous -->
+        {% if page_obj.has_previous %}
+          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.previous_page_number }}">
+            <span class="d-inline-block py-1"><i class="czi-arrow-left"></i></span>
+          </a>
+        {% else %}
+          <a class="nav-link-style p-4 border-left disabled" href="#">
+            <span class="d-inline-block py-1"><i class="czi-arrow-left"></i></span>
+          </a>
+        {% endif %}
+
+        <!-- next -->
+        {% if page_obj.has_next %}
+          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.next_page_number }}">
+            <span class="d-inline-block py-1"><i class="czi-arrow-right"></i></span>
+          </a>
+        {% else %}
+          <a class="nav-link-style p-4 border-left disabled" href="#">
+            <span class="d-inline-block py-1"><i class="czi-arrow-right"></i></span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- Products grid-->
+  <div class="row pt-3 mx-n2">
+    <!-- Product-->
+    {% for theme in theme_list %}
+    <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-grid-gutter">
+      {% include 'themes/components/theme-card.html' with theme=theme %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <!-- Pagination-->
+    <hr class="my-3">
+    {% include 'shared/components/paginator.html' with paginator=paginator page_obj=page_obj %}
+  {% endif %}
+</div>
+{% endblock %}

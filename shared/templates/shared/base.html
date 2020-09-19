@@ -33,6 +33,7 @@
 
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="{% static 'css/theme.min.css' %}">
+  <link rel="stylesheet" media="screen" href="{% static 'css/base.css' %}">
 
   <!-- Extra CSS tags -->
   {% block extra-custom-css %}{% endblock %}
@@ -42,10 +43,10 @@
   <header class="bg-light box-shadow-sm navbar-sticky">
     <div class="navbar navbar-expand-lg navbar-light">
       <div class="container">
-        <a class="navbar-brand d-none d-sm-block mr-4 order-lg-1" href="#" style="min-width: 7rem;">
+        <a class="navbar-brand d-none d-sm-block mr-4 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 7rem;">
           <img width="142" src="{% static 'shared/img/logo-dark.png' %}" alt="Cartzilla"/>
         </a>
-        <a class="navbar-brand d-sm-none mr-2 order-lg-1" href="#" style="min-width: 4.625rem;">
+        <a class="navbar-brand d-sm-none mr-2 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 4.625rem;">
           <img width="74" src="{% static 'shared/img/logo-icon.png' %}" alt="Cartzilla"/>
         </a>
         <!-- Toolbar-->
@@ -110,7 +111,7 @@
               <ul class="dropdown-menu py-1">
                 {% for category in category_list %}
                 <li class="dropdown">
-                  <a class="dropdown-item" href="#" data-toggle="dropdown">{{ category.title }}</a>
+                  <a class="dropdown-item" href="{% url 'themes:theme-list' category.slug %}">{{ category.title }}</a>
                 </li>
                 {% endfor %}
               </ul>

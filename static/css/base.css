@@ -1,0 +1,13 @@
+.pagination .page-item.disabled a.page-link {
+    border: none;
+    color: #ccc;
+}
+
+.pagination .page-item.disabled:hover {
+    cursor: not-allowed !important;
+}
+
+
+.pagination .page-item.disabled:hover a.page-link {
+    background-color: transparent;
+}

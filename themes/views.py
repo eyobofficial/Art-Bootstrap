@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from .mixins import BaseThemesMixin
@@ -16,3 +17,31 @@ class IndexView(BaseThemesMixin, ListView):
             'featured_themes': self.get_queryset().filter(is_featured=True)
         })
         return super().get_context_data(**kwargs)
+
+
+class ThemeListView(BaseThemesMixin, ListView):
+    """Themes sorted by their category."""
+    model = Theme
+    queryset = Theme.objects.filter(is_published=True)
+    template_name = 'themes/theme_list.html'
+    paginate_by = 12
+    ordering = '-created_at'
+
+    def get_queryset(self):
+        category = self.get_category()
+        qs = super().get_queryset()
+        qs = qs.filter(category=category)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({'category': self.get_category()})
+        return super().get_context_data(**kwargs)
+
+    def get_category(self):
+        category_slug = self.kwargs.get('slug')
+        category = get_object_or_404(Category, slug=category_slug)
+        return category
+
+    def get_page_title(self):
+        category = self.get_category()
+        return category.title
