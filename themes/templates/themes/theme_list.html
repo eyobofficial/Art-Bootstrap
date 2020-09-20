@@ -1,7 +1,6 @@
 {% extends 'themes/base.html' %}
 
 {% block content %}
-
 <!-- Breadcrumb -->
 <div class="bg-accent pt-4 pb-5">
   <div class="container pt-2 pb-3 pt-lg-3 pb-lg-4">
@@ -39,12 +38,54 @@
       <div class="d-flex align-items-center">
         <div class="dropdown py-4 border-left">
           <a class="nav-link-style font-size-md font-weight-medium dropdown-toggle p-4" href="#" data-toggle="dropdown">
-            <span class="d-inline-block py-1"><i class="czi-thumb-up align-middle opacity-60 mt-n1 mr-2"></i>Newest</span>
+            <span class="d-inline-block py-1">
+              {% if sort == 'bestseller' %}
+                <i class="czi-rocket mr-2 opacity-60"></i>Bestsellers
+              {% elif sort == 'price_asc' %}
+                <i class="czi-arrow-down mr-2 opacity-60"></i>Low Price
+              {% elif sort == 'price_desc' %}
+                <i class="czi-arrow-up mr-2 opacity-60"></i>High Price
+              {% else %}
+                <i class="czi-thumb-up align-middle opacity-60 mt-n1 mr-2"></i>Newest
+              {% endif %}
+            </span>
           </a>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li><a class="dropdown-item" href="#"><i class="czi-rocket mr-2 opacity-60"></i>Bestsellers</a></li>
-            <li><a class="dropdown-item" href="#"><i class="czi-arrow-down mr-2 opacity-60"></i>Low Price</a></li>
-            <li><a class="dropdown-item" href="#"><i class="czi-arrow-up mr-2 opacity-60"></i>High Price</a></li>
+            {% if sort == 'bestseller' or sort == 'price_asc' or sort == 'price_desc' %}
+            <!-- Newest -->
+            <li>
+              <a class="dropdown-item" href="{{ request.path }}">
+                <i class="czi-thumb-up align-middle opacity-60 mt-n1 mr-2"></i>Newest
+              </a>
+            </li>
+            {% endif %}
+
+            {% if sort != 'bestseller' %}
+            <!-- bestseller -->
+            <li>
+              <a class="dropdown-item" href="?sort=bestseller">
+                <i class="czi-rocket mr-2 opacity-60"></i>Bestsellers
+              </a>
+            </li>
+            {% endif %}
+
+            {% if sort != 'price_asc' %}
+            <!-- low price to high price -->
+            <li>
+              <a class="dropdown-item" href="?sort=price_asc">
+                <i class="czi-arrow-down mr-2 opacity-60"></i>Low Price
+              </a>
+            </li>
+            {% endif %}
+
+            {% if sort != 'price_desc' %}
+            <!-- low price to high price -->
+            <li>
+              <a class="dropdown-item" href="?sort=price_desc">
+                <i class="czi-arrow-up mr-2 opacity-60"></i>High Price
+              </a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -54,7 +95,7 @@
 
         <!-- previous -->
         {% if page_obj.has_previous %}
-          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.previous_page_number }}">
+          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">
             <span class="d-inline-block py-1"><i class="czi-arrow-left"></i></span>
           </a>
         {% else %}
@@ -65,7 +106,7 @@
 
         <!-- next -->
         {% if page_obj.has_next %}
-          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.next_page_number }}">
+          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">
             <span class="d-inline-block py-1"><i class="czi-arrow-right"></i></span>
           </a>
         {% else %}
@@ -89,7 +130,7 @@
   {% if is_paginated %}
     <!-- Pagination-->
     <hr class="my-3">
-    {% include 'shared/components/paginator.html' with paginator=paginator page_obj=page_obj %}
+    {% include 'shared/components/paginator.html' with paginator=paginator page_obj=page_obj sort=sort %}
   {% endif %}
 </div>
 {% endblock %}

@@ -1,10 +1,9 @@
 <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
-
   <!-- previous -->
   <ul class="pagination">
     {% if page_obj.has_previous %}
     <li class="page-item">
-      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">
         <i class="czi-arrow-left mr-2"></i>Prev
       </a>
     </li>
@@ -27,7 +26,7 @@
         </li>
       {% else %}
         <li class="page-item d-none d-sm-block">
-          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          <a class="page-link" href="?page={{ i }}&sort={{ sort }}">{{ i }}</a>
         </li>
       {% endif %}
     {% endfor %}
@@ -37,7 +36,7 @@
   <ul class="pagination">
     {% if page_obj.has_next %}
     <li class="page-item">
-      <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">
         Next<i class="czi-arrow-right ml-2"></i>
       </a>
     </li>

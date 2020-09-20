@@ -24,7 +24,7 @@ class ThemeListView(BaseThemesMixin, ListView):
     model = Theme
     queryset = Theme.objects.filter(is_published=True)
     template_name = 'themes/theme_list.html'
-    paginate_by = 12
+    paginate_by = 3
     ordering = '-created_at'
 
     def get_queryset(self):
@@ -34,8 +34,21 @@ class ThemeListView(BaseThemesMixin, ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        kwargs.update({'category': self.get_category()})
+        kwargs.update({
+            'category': self.get_category(),
+            'sort': self.request.GET.get('sort')
+        })
         return super().get_context_data(**kwargs)
+
+    def get_ordering(self):
+        sort = self.request.GET.get('sort')
+        if sort == 'bestseller':
+            return '-download_count'
+        elif sort == 'price_asc':
+            return 'price'
+        elif sort == 'price_desc':
+            return '-price'
+        return super().get_ordering()
 
     def get_category(self):
         category_slug = self.kwargs.get('slug')
