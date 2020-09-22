@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Tag, Technology, Theme, ThemePhoto
+from .models import Category, Tag, Technology, Theme
 
 
 @admin.register(Category)
@@ -22,11 +22,6 @@ class TechnologyAdmin(admin.ModelAdmin):
     search_fields = ('title', )
 
 
-class ThemePhotoInline(admin.StackedInline):
-    model = ThemePhoto
-    extra = 1
-
-
 @admin.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):
     list_display = (
@@ -36,6 +31,5 @@ class ThemeAdmin(admin.ModelAdmin):
     list_editable = ('is_featured', 'is_published', 'download_count')
     list_filter = ('category', 'is_published', 'is_featured')
     search_fields = ('title', 'description')
-    prepopulated_fields = {'slug': ('title', )}
+    prepopulated_fields = {'slug': ('title', 'subtitle')}
     filter_horizontal = ('tags', 'technologies')
-    inlines = (ThemePhotoInline, )

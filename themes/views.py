@@ -58,3 +58,14 @@ class ThemeListView(BaseThemesMixin, ListView):
     def get_page_title(self):
         category = self.get_category()
         return category.title
+
+
+class ThemeDetailView(BaseThemesMixin, DetailView):
+    """Theme detail view."""
+    model = Theme
+    queryset = Theme.objects.filter(is_published=True)
+    template_name = 'themes/theme_detail.html'
+
+    def get_page_title(self):
+        obj = self.get_object()
+        return f'{obj.title} - {obj.subtitle}'

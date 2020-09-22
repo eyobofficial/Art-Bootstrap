@@ -42,10 +42,22 @@ class Technology(models.Model):
 
 class Theme(models.Model):
     """Bootstrap themes."""
+
+    # Bootstrap Versions
+    BOOTSTRAP_3 = 3
+    BOOTSTRAP_4 = 4
+    BOOTSTRAP_5 = 5
+
+    BOOTSTRAP_VERSION_OPTIONS = (
+        (BOOTSTRAP_3, '3.x'),
+        (BOOTSTRAP_4, '4.x'),
+        (BOOTSTRAP_5, '5.x'),
+    )
+
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=120)
     subtitle = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -54,11 +66,14 @@ class Theme(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     technologies = models.ManyToManyField(Technology, blank=True)
     description = models.TextField(blank=True)
-    theme_version = models.FloatField(null=True, blank=True)
-    bootstrap_version = models.FloatField(null=True, blank=True)
+    theme_version = models.CharField(max_length=10, blank=True, default='')
+    bootstrap_version = models.IntegerField(
+        choices=BOOTSTRAP_VERSION_OPTIONS,
+        default=BOOTSTRAP_4
+    )
     is_published = models.BooleanField('published', default=True)
     is_featured = models.BooleanField('featured', default=False)
-    thumbnail = models.ImageField(null=True, blank=True)
+    photo = models.ImageField(null=True, blank=True)
     file = models.FileField(
         'theme file',
         null=True, blank=True,
@@ -71,26 +86,6 @@ class Theme(models.Model):
 
     class Meta:
         ordering = ('-created_at', )
-
-    def __str__(self):
-        return self.title
-
-
-class ThemePhoto(models.Model):
-    """Bootstrap theme photos."""
-    theme = models.ForeignKey(
-        Theme,
-        on_delete=models.CASCADE,
-        related_name='photos'
-    )
-    photo = models.ImageField()
-    title = models.CharField(max_length=120)
-    description = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Theme Photo'
-        verbose_name_plural = 'Theme Photos'
 
     def __str__(self):
         return self.title

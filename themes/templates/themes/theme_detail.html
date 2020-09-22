@@ -1,0 +1,127 @@
+{% extends 'themes/base.html' %}
+{% load humanize %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="page-title-overlap bg-accent pt-4">
+  <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+    <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+          <li class="breadcrumb-item">
+            <a class="text-nowrap" href="{% url 'themes:home' %}"><i class="czi-home"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item text-nowrap">
+            <a href="{% url 'themes:theme-list' theme.category.slug %}">{{ theme.category.title }}</a>
+          </li>
+          <li class="breadcrumb-item text-nowrap active" aria-current="page">{{ theme.title }}</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
+      <h1 class="h3 text-light mb-0">
+        {{ theme.title }} <span class="h4 text-light d-none d-md-inline-block">&mdash; {{ theme.subtitle }}</span>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<!-- Page Content-->
+<section class="container mb-3 pb-3 theme-detail">
+  <div class="bg-light box-shadow-lg rounded-lg overflow-hidden">
+    <div class="row">
+      <!-- Content-->
+      <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
+        <div class="pt-2 px-4 pr-lg-0 pl-xl-5">
+          <!-- Product gallery-->
+          <div class="cz-gallery">
+            <a class="gallery-item rounded-lg mb-grid-gutter" href="#" data-sub-html="&lt;h6 class=&quot;font-size-sm text-light&quot;&gt;Simple iPhone X Mockups&lt;/h6&gt;">
+              <img src="{{ theme.photo.url }}" alt="{{ theme.title }} - {{ theme.subtitle }}"/>
+              <span class="gallery-item-caption">{{ theme.title }} - {{ theme.subtitle }}</span>
+            </a>
+          </div>
+          <!-- Wishlist + Sharing-->
+          <div class="text-center py-1">
+            <button class="btn btn-outline-accent preview-btn" type="button">
+              <i class="czi-heart font-size-lg mr-2"></i>Add to Favorite
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Sidebar-->
+      <aside class="col-lg-4">
+        <hr class="d-lg-none">
+        <div class="cz-sidebar-static h-100 ml-auto border-left">
+          <div class="accordion" id="licenses">
+            <div class="card border-top-0 border-left-0 border-right-0">
+              <div class="card-header d-flex justify-content-between align-items-center py-3 border-0">
+                <div class="custom-control custom-radio">
+                  <input class="custom-control-input" type="checkbox" checked disabled>
+                  <label class="custom-control-label font-weight-medium text-dark">Extended license</label>
+                </div>
+                <h5 class="mb-0 text-accent font-weight-normal">${{ theme.price | intcomma }}</h5>
+              </div>
+              <div>
+                <div class="card-body py-0 pb-2">
+                  <ul class="list-unstyled font-size-sm">
+                    <li class="d-flex align-items-center"><i class="czi-check-circle text-success mr-1"></i><span class="font-size-ms">Responsive Design</span></li>
+                    <li class="d-flex align-items-center"><i class="czi-check-circle text-success mr-1"></i><span class="font-size-ms">Use for multiple projects</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block btn-shadow mt-4" type="button" data-toggle="toast" data-target="#cart-toast">
+            <i class="czi-cart font-size-lg mr-2"></i>Add to Cart
+          </button>
+          <div class="bg-secondary rounded p-3 mb-2 mt-4">
+            <i class="czi-download h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
+            {% if theme.download_count > 0 %}
+              <span class="d-inline-block h6 mb-0 mr-1">{{ theme.download_count|intcomma }}</span>
+            {% else %}
+              <span class="d-inline-block h6 mb-0 mr-1">No</span>
+            {% endif %}
+            <span class="font-size-sm">Sales</span>
+          </div>
+
+          <div class="bg-secondary rounded p-3 mb-4">
+            <i class="czi-bookmark h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
+            <span class="font-size-sm">Multipurpose &amp; Corporate</span>
+          </div>
+          <ul class="list-unstyled font-size-sm">
+            <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+              <span class="text-dark font-weight-medium">Version</span>
+              <a class="product-meta" href="#">{{ theme.theme_version }}</a>
+            </li>
+            <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+              <span class="text-dark font-weight-medium">Bootstrap</span>
+              <a class="product-meta" href="#">{{ theme.get_bootstrap_version_display }}</a>
+            </li>
+            <li class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+              <span class="text-dark font-weight-medium">Released</span>
+              <span class="text-muted">{{ theme.created_at|date:'F d, Y' }}</span>
+            </li>
+          </ul>
+
+          <!-- Social Media Icons -->
+          <div class="mt-5 text-center">
+            <i class="czi-share-alt font-size-lg align-middle text-muted mr-2"></i>
+            <a class="social-btn sb-outline sb-facebook sb-sm ml-2" href="#">
+              <i class="czi-facebook"></i>
+            </a>
+            <a class="social-btn sb-outline sb-twitter sb-sm ml-2" href="#">
+              <i class="czi-twitter"></i>
+            </a>
+            <a class="social-btn sb-outline sb-pinterest sb-sm ml-2" href="#">
+              <i class="czi-pinterest"></i>
+            </a>
+            <a class="social-btn sb-outline sb-instagram sb-sm ml-2" href="#">
+              <i class="czi-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

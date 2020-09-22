@@ -13,3 +13,14 @@ a.nav-link-style.disabled:hover {
 a.nav-link-style.disabled > span {
     color: #ccc;
 }
+
+#licenses > .card {
+    border-radius: 0;
+}
+
+@media all and (max-width: 600px) {
+    .theme-detail .preview-btn {
+        display: block;
+        width: 100%;
+    }
+}

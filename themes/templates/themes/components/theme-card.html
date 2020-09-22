@@ -4,11 +4,13 @@
   <div class="product-thumb">
     <button class="btn-wishlist btn-sm" type="button"><i class="czi-heart"></i></button>
     <div class="product-card-actions">
-      <a class="btn btn-light btn-icon btn-shadow font-size-base mx-2" href="#"><i class="czi-eye"></i></a>
+      <a class="btn btn-light btn-icon btn-shadow font-size-base mx-2" href="{% url 'themes:theme-detail' theme.slug %}">
+        <i class="czi-eye"></i>
+      </a>
       <button class="btn btn-light btn-icon btn-shadow font-size-base mx-2" type="button" data-toggle="toast" data-target="#cart-toast"><i class="czi-cart"></i></button>
     </div>
     <a class="product-thumb-overlay" href="#"></a>
-    <img src="{{ theme.thumbnail.url }}" alt="{{ theme.title }}">
+    <img src="{{ theme.photo.url }}" alt="{{ theme.title }}">
   </div>
   <div class="card-body">
     <h3 class="product-title font-size-sm mb-2">

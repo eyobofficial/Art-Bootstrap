@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 services:
   web:
     build: .
@@ -71,4 +71,3 @@ volumes:
   mysql_data:
   static_volume:
   media_volume:
-
