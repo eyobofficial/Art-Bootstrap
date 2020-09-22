@@ -66,6 +66,11 @@ class ThemeDetailView(BaseThemesMixin, DetailView):
     queryset = Theme.objects.filter(is_published=True)
     template_name = 'themes/theme_detail.html'
 
+    def get_context_data(self, **kwargs):
+        theme = self.get_object()
+        kwargs.update({'related_themes': theme.tags.similar_objects()[:4]})
+        return super().get_context_data(**kwargs)
+
     def get_page_title(self):
         obj = self.get_object()
         return f'{obj.title} - {obj.subtitle}'
