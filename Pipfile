@@ -37,6 +37,7 @@ djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 django-rest-auth = "*"
 pillow = "*"
+django-taggit = "*"
 
 [requires]
 python_version = "3.8"

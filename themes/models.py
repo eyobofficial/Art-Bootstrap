@@ -1,6 +1,5 @@
-import uuid
-
 from django.db import models
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -12,17 +11,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-        ordering = ('title', )
-
-    def __str__(self):
-        return self.title
-
-
-class Tag(models.Model):
-    """Theme tag."""
-    title = models.CharField(max_length=30, unique=True)
-
-    class Meta:
         ordering = ('title', )
 
     def __str__(self):
@@ -54,7 +42,6 @@ class Theme(models.Model):
         (BOOTSTRAP_5, '5.x'),
     )
 
-    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=120)
     subtitle = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True)
@@ -63,7 +50,7 @@ class Theme(models.Model):
         on_delete=models.CASCADE,
         related_name='themes'
     )
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = TaggableManager()
     technologies = models.ManyToManyField(Technology, blank=True)
     description = models.TextField(blank=True)
     theme_version = models.CharField(max_length=10, blank=True, default='')
