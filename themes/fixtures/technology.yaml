@@ -1,0 +1,40 @@
+- model: themes.technology
+  pk: 1
+  fields:
+    title: HTML5
+- model: themes.technology
+  pk: 2
+  fields:
+    title: CSS3
+- model: themes.technology
+  pk: 3
+  fields:
+    title: Bootstrap 3.x
+- model: themes.technology
+  pk: 4
+  fields:
+    title: Bootstrap 4.x
+- model: themes.technology
+  pk: 5
+  fields:
+    title: Bootstrap 5.x
+- model: themes.technology
+  pk: 6
+  fields:
+    title: SASS
+- model: themes.technology
+  pk: 7
+  fields:
+    title: SCSS
+- model: themes.technology
+  pk: 8
+  fields:
+    title: FontAwesome
+- model: themes.technology
+  pk: 9
+  fields:
+    title: Chart.js
+- model: themes.technology
+  pk: 10
+  fields:
+    title: Leaflet.js

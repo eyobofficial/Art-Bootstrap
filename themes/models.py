@@ -89,3 +89,19 @@ class Theme(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ThemeFeature(models.Model):
+    """Features of the template."""
+    theme = models.ForeignKey(
+        Theme,
+        on_delete=models.CASCADE,
+        related_name='features'
+    )
+    summary = models.CharField(max_length=255)
+
+    class Meta:
+        order_with_respect_to = 'theme'
+
+    def __str__(self):
+        return self.summary
