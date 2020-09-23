@@ -9,7 +9,7 @@
       </a>
       <button class="btn btn-light btn-icon btn-shadow font-size-base mx-2" type="button" data-toggle="toast" data-target="#cart-toast"><i class="czi-cart"></i></button>
     </div>
-    <a class="product-thumb-overlay" href="#"></a>
+    <a class="product-thumb-overlay" href="{% url 'themes:theme-detail' theme.slug %}"></a>
     <img src="{{ theme.photo.url }}" alt="{{ theme.title }}">
   </div>
   <div class="card-body">
