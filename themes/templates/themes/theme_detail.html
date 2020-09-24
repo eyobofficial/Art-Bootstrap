@@ -42,7 +42,7 @@
           </div>
           <!-- Wishlist + Sharing-->
           <div class="text-center py-1">
-            <button class="btn btn-outline-accent preview-btn" type="button">
+            <button class="btn btn-outline-accent preview-btn" type="button" data-toggle="toast" data-target="#wishlist-toast">
               <i class="czi-heart font-size-lg mr-2"></i>Add to Favorite
             </button>
           </div>
@@ -174,28 +174,60 @@
   </div>
 </section>
 
-<!-- Related products carousel-->
-{% if related_themes %}
-<section class="container mb-5 pb-lg-3">
-  <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-4 mb-4">
-    <h2 class="h3 mb-0 pt-2">Related templates</h2>
-    <div class="pt-2">
-      <a class="btn btn-outline-accent btn-sm" href="#">
-        More mockups<i class="czi-arrow-right ml-1 mr-n1"></i>
-      </a>
+  <!-- Related products carousel-->
+  {% if related_themes %}
+  <section class="container mb-5 pb-lg-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-4 mb-4">
+      <h2 class="h3 mb-0 pt-2">Related templates</h2>
+      <div class="pt-2">
+        <a class="btn btn-outline-accent btn-sm" href="#">
+          More mockups<i class="czi-arrow-right ml-1 mr-n1"></i>
+        </a>
+      </div>
+    </div>
+    <!-- Carousel-->
+    <div class="cz-carousel">
+      <div class="cz-carousel-inner" data-carousel-options="{&quot;items&quot;: 2, &quot;gutter&quot;: 16, &quot;controls&quot;: false, &quot;nav&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;500&quot;:{&quot;items&quot;:2 },&quot;768&quot;:{&quot;items&quot;:3}, &quot;992&quot;:{&quot;items&quot;:4}}}">
+        <!-- Product-->
+        {% for theme in related_themes %}
+          <div>
+          {% include 'themes/components/theme-card.html' with theme=theme %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Toast: Added to Cart-->
+  <div class="toast-container toast-top-right">
+    <div class="toast mb-3" id="cart-toast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <i class="czi-check-circle mr-2"></i>
+        <h6 class="font-size-sm text-white mb-0 mr-auto">Added to Cart</h6>
+        <button class="close text-white ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        <strong>{{ theme.title }}</strong> template is added to the cart.
+      </div>
     </div>
   </div>
-  <!-- Carousel-->
-  <div class="cz-carousel">
-    <div class="cz-carousel-inner" data-carousel-options="{&quot;items&quot;: 2, &quot;gutter&quot;: 16, &quot;controls&quot;: false, &quot;nav&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;500&quot;:{&quot;items&quot;:2 },&quot;768&quot;:{&quot;items&quot;:3}, &quot;992&quot;:{&quot;items&quot;:4}}}">
-      <!-- Product-->
-      {% for theme in related_themes %}
-        <div>
-        {% include 'themes/components/theme-card.html' with theme=theme %}
-        </div>
-      {% endfor %}
+
+  <!-- Toast: Added to wishlist-->
+  <div class="toast-container toast-top-right">
+    <div class="toast mb-3" id="wishlist-toast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-primary text-white">
+        <i class="czi-heart-circle mr-2"></i>
+        <h6 class="font-size-sm text-white mb-0 mr-auto">Added to Wishlist</h6>
+        <button class="close text-white ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        <strong>{{ theme.title }}</strong> template is added to your wishlist.
+      </div>
     </div>
   </div>
-</section>
-{% endif %}
 {% endblock %}
