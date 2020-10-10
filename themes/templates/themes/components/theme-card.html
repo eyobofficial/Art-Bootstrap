@@ -2,19 +2,29 @@
 
 <div class="card product-card-alt">
   <div class="product-thumb">
-    <button class="btn-wishlist btn-sm" type="button"><i class="czi-heart"></i></button>
+    <button
+      data-slug="{{ theme.slug }}"
+      class="btn-wishlist btn-favorite btn-sm"
+      type="button">
+      <i class="czi-heart"></i>
+    </button>
     <div class="product-card-actions">
       <a class="btn btn-light btn-icon btn-shadow font-size-base mx-2" href="{% url 'themes:theme-detail' theme.slug %}">
         <i class="czi-eye"></i>
       </a>
-      <button class="btn btn-light btn-icon btn-shadow font-size-base mx-2" type="button" data-toggle="toast" data-target="#cart-toast"><i class="czi-cart"></i></button>
+      <button
+        data-slug="{{ theme.slug }}"
+        class="btn btn-light btn-icon btn-shadow font-size-base mx-2 btn-cart"
+        type="button"><i class="czi-cart"></i></button>
     </div>
     <a class="product-thumb-overlay" href="{% url 'themes:theme-detail' theme.slug %}"></a>
     <img src="{{ theme.photo.url }}" alt="{{ theme.title }}">
   </div>
   <div class="card-body">
     <h3 class="product-title font-size-sm mb-2">
-      <a href="#">{{ theme.title }} – {{ theme.subtitle }}</a>
+      <a href="{% url 'themes:theme-detail' theme.slug %}">
+        {{ theme.title }} – {{ theme.subtitle }}
+      </a>
     </h3>
     <div class="d-flex flex-wrap justify-content-between align-items-center">
       <div class="font-size-sm mr-2">

@@ -1,0 +1,16 @@
+{% load humanize %}
+
+<div class="media d-block d-sm-flex py-4 border-bottom">
+  <a class="d-block position-relative mb-3 mb-sm-0 mr-sm-4 mx-auto" href="#" style="width: 12.5rem;">
+    <img class="rounded-lg" src="{{ theme.photo.url }}" alt="{{ theme.title }}">
+    <span class="close-floating" data-toggle="tooltip" title="Remove from Cart">
+      <i class="czi-close"></i>
+    </span>
+  </a>
+  <div class="media-body text-center text-sm-left">
+    <h3 class="h6 product-title mb-2">
+      <a href="{% url 'themes:theme-detail' theme.slug %}">{{ theme.title }} &mdash; {{ theme.subtitle }}</a>
+    </h3>
+    <div class="d-inline-block text-accent">${{ theme.price|intcomma }}</div>
+  </div>
+</div>

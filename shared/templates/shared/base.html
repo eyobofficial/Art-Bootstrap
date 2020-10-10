@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ page_title|default_if_none:'Custom Page Name' }}</title>
+  <title>{% block title %}{% endblock %}</title>
 
   <!-- SEO Meta Tags-->
   <meta name="description" content="Bootstrap themes and templates shop.">
@@ -60,40 +60,21 @@
               <i class="navbar-tool-icon czi-search"></i>
             </div>
           </a>
-          <a class="navbar-tool d-none d-lg-flex" href="#">
+          <a class="navbar-tool d-none d-lg-flex" href="{% url 'wishlist:wishlist-items' %}">
             <span class="navbar-tool-tooltip">Favorites</span>
             <div class="navbar-tool-icon-box">
               <i class="navbar-tool-icon czi-heart"></i>
             </div>
           </a>
 
-          <div class="navbar-tool dropdown ml-2">
-            <a class="navbar-tool-icon-box border dropdown-toggle" href="#">
-              <img width="32" src="{% static 'shared/img/marketplace/account/avatar-sm.png' %}" alt="Avatar"/>
-            </a>
-            <a class="navbar-tool-text ml-n1" href="#">Jane Doe</a>
-            <div class="dropdown-menu dropdown-menu-right" style="min-width: 14rem;">
-              <h6 class="dropdown-header">Account</h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="czi-settings opacity-60 mr-2"></i>Settings
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="czi-basket opacity-60 mr-2"></i>Purchases
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="czi-heart opacity-60 mr-2"></i>Favorites <span class="font-size-xs text-muted ml-auto">4</span>
-              </a>
-
-              <!-- Divider -->
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="czi-sign-out opacity-60 mr-2"></i>Sign Out
-              </a>
-            </div>
-          </div>
-          <div class="navbar-tool ml-4">
-            <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="#">
-              <span class="navbar-tool-label">2</span><i class="navbar-tool-icon czi-cart"></i>
+          <div class="navbar-tool">
+            <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}">
+              {% if cart.themes.count > 0 %}
+                <span class="navbar-tool-label cart-count">{{ cart.themes.count }}</span>
+              {% else %}
+                <span class="navbar-tool-label cart-count d-none"></span>
+              {% endif %}
+              <i class="navbar-tool-icon czi-cart"></i>
             </a>
           </div>
         </div>
@@ -283,7 +264,7 @@
   </div>
   <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span><i class="btn-scroll-top-icon czi-arrow-up">   </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
-  <script src="{% static 'vendor/jquery/dist/jquery.slim.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js' %}"></script>
   <script src="{% static 'vendor/simplebar/dist/simplebar.min.js' %}"></script>
@@ -297,6 +278,44 @@
   <script src="{% static 'js/theme.min.js' %}"></script>
 
   <!-- Extra vendor JavaScript scripts -->
-  {% block extra-custom-js %}{% endblock %}
+  {% block extra-custom-js %}
+    {% include 'shared/components/toast.html' %}
+    <script>
+      $(function() {
+        // Add to cart
+        $('.btn-cart').click(function() {
+          const slug = $(this).data('slug');
+          const cartUrl = `/cart/add/theme/${slug}/`;
+          const cartToastUrl = `/cart/themes/${slug}/cart-toast/`;
+          const $btn = $(this);
+
+          $.get(cartUrl, function(data) {
+            $btn.attr('disabled', true);
+            $.get(cartToastUrl, function(data) {
+              $('.toast').html(data);
+              $('.toast').toast('show');
+            });
+            $('.cart-count').removeClass('d-none').html(data['cart_count']);
+          });
+        });
+
+        // Add to wishlisht
+        $('.btn-favorite').click(function() {
+          const slug = $(this).data('slug');
+          const wishlistUrl = `/wishlist/add/theme/${slug}/`;
+          const wishlistToastUrl = `/wishlist/themes/${slug}/wishlist-toast/`;
+          const $btn = $(this);
+
+          $.get(wishlistUrl, function(data) {
+            $btn.attr('disabled', true);
+            $.get(wishlistToastUrl, function(data) {
+              $('.toast').html(data);
+              $('.toast').toast('show');
+            });
+          });
+        });
+      });
+    </script>
+  {% endblock %}
 </body>
 </html>

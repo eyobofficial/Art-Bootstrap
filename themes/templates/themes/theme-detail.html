@@ -1,30 +1,12 @@
 {% extends 'themes/base.html' %}
 {% load humanize %}
 
+{% block title %}{{ theme.title }} - {{ theme.subtitle }}{% endblock %}
+
 {% block content %}
+
 <!-- Breadcrumb -->
-<div class="page-title-overlap bg-accent pt-4">
-  <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
-    <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-          <li class="breadcrumb-item">
-            <a class="text-nowrap" href="{% url 'themes:home' %}"><i class="czi-home"></i>Home</a>
-          </li>
-          <li class="breadcrumb-item text-nowrap">
-            <a href="{% url 'themes:theme-list' theme.category.slug %}">{{ theme.category.title }}</a>
-          </li>
-          <li class="breadcrumb-item text-nowrap active" aria-current="page">{{ theme.title }}</li>
-        </ol>
-      </nav>
-    </div>
-    <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
-      <h1 class="h3 text-light mb-0">
-        {{ theme.title }} <span class="h4 text-light d-none d-md-inline-block">&mdash; {{ theme.subtitle }}</span>
-      </h1>
-    </div>
-  </div>
-</div>
+{% include 'themes/breadcrumbs/theme-detail-breadcrumb.html' with theme=theme %}
 
 <!-- Page Content-->
 <section class="container mb-3 pb-3 theme-detail">
@@ -33,16 +15,20 @@
       <!-- Content-->
       <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-lg-3">
         <div class="pt-2 px-4 pr-lg-0 pl-xl-5">
-          <!-- Product gallery-->
+          <!-- Preview -->
           <div class="cz-gallery">
             <a class="gallery-item rounded-lg mb-grid-gutter" href="#" data-sub-html="&lt;h6 class=&quot;font-size-sm text-light&quot;&gt;Simple iPhone X Mockups&lt;/h6&gt;">
               <img src="{{ theme.photo.url }}" alt="{{ theme.title }} - {{ theme.subtitle }}"/>
               <span class="gallery-item-caption">{{ theme.title }} - {{ theme.subtitle }}</span>
             </a>
           </div>
+
           <!-- Wishlist + Sharing-->
           <div class="text-center py-1">
-            <button class="btn btn-outline-accent preview-btn" type="button" data-toggle="toast" data-target="#wishlist-toast">
+            <button
+              data-slug="{{ theme.slug }}"
+              class="btn btn-outline-accent btn-favorite"
+              type="button">
               <i class="czi-heart font-size-lg mr-2"></i>Add to Favorite
             </button>
           </div>
@@ -71,7 +57,9 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary btn-block btn-shadow mt-4" type="button" data-toggle="toast" data-target="#cart-toast">
+          <button
+            data-slug="{{ theme.slug }}"
+            class="btn btn-primary btn-block btn-shadow mt-4 btn-cart">
             <i class="czi-cart font-size-lg mr-2"></i>Add to Cart
           </button>
           <div class="bg-secondary rounded p-3 mb-2 mt-4">
@@ -198,36 +186,4 @@
     </div>
   </section>
   {% endif %}
-
-  <!-- Toast: Added to Cart-->
-  <div class="toast-container toast-top-right">
-    <div class="toast mb-3" id="cart-toast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header bg-success text-white">
-        <i class="czi-check-circle mr-2"></i>
-        <h6 class="font-size-sm text-white mb-0 mr-auto">Added to Cart</h6>
-        <button class="close text-white ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="toast-body">
-        <strong>{{ theme.title }}</strong> template is added to the cart.
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast: Added to wishlist-->
-  <div class="toast-container toast-top-right">
-    <div class="toast mb-3" id="wishlist-toast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header bg-primary text-white">
-        <i class="czi-heart-circle mr-2"></i>
-        <h6 class="font-size-sm text-white mb-0 mr-auto">Added to Wishlist</h6>
-        <button class="close text-white ml-2 mb-1" type="button" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="toast-body">
-        <strong>{{ theme.title }}</strong> template is added to your wishlist.
-      </div>
-    </div>
-  </div>
 {% endblock %}

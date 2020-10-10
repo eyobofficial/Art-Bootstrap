@@ -10,7 +10,6 @@ class IndexView(BaseThemesMixin, ListView):
     model = Theme
     template_name = 'themes/index.html'
     queryset = Theme.objects.filter(is_published=True)
-    page_title = 'Home - Bootstrapshop'
 
     def get_context_data(self, **kwargs):
         kwargs.update({
@@ -23,7 +22,7 @@ class ThemeListView(BaseThemesMixin, ListView):
     """Themes sorted by their category."""
     model = Theme
     queryset = Theme.objects.filter(is_published=True)
-    template_name = 'themes/theme_list.html'
+    template_name = 'themes/theme-list.html'
     paginate_by = 3
     ordering = '-created_at'
 
@@ -55,22 +54,15 @@ class ThemeListView(BaseThemesMixin, ListView):
         category = get_object_or_404(Category, slug=category_slug)
         return category
 
-    def get_page_title(self):
-        category = self.get_category()
-        return category.title
-
 
 class ThemeDetailView(BaseThemesMixin, DetailView):
     """Theme detail view."""
     model = Theme
     queryset = Theme.objects.filter(is_published=True)
-    template_name = 'themes/theme_detail.html'
+    template_name = 'themes/theme-detail.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         theme = self.get_object()
-        kwargs.update({'related_themes': theme.tags.similar_objects()[:4]})
-        return super().get_context_data(**kwargs)
-
-    def get_page_title(self):
-        obj = self.get_object()
-        return f'{obj.title} - {obj.subtitle}'
+        context['related_themes'] = theme.tags.similar_objects()[:4]
+        return context

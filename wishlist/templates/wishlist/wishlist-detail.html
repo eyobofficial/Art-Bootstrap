@@ -1,0 +1,42 @@
+{% extends 'cart/base.html' %}
+{% load humanize %}
+
+{% block title %}Your Wishlist{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+{% include 'wishlist/breadcrumbs/wishlist-breadcrumb.html' %}
+
+<!-- Page Content-->
+<div class="container mb-5 pb-3">
+  <div class="bg-light box-shadow-lg rounded-lg overflow-hidden">
+    <div class="row">
+      <!-- Content-->
+      <section class="col-lg-11 pt-2 pt-lg-4 pb-4 mb-3">
+        <div class="pt-2 px-4 pr-lg-0 pl-xl-5">
+          <!-- Header-->
+          <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3">
+            <div class="py-1">
+              <a class="btn btn-outline-accent btn-sm" href="#">
+                <i class="czi-arrow-left mr-1 ml-n1"></i>Back to shopping
+              </a>
+            </div>
+            <div class="d-none d-sm-block py-1 font-size-ms">You have {{ wishlist.themes.count }} templates in your wishlist.</div>
+            <div class="py-1">
+              <a class="btn btn-outline-danger btn-sm" href="#">
+                <i class="czi-close font-size-xs mr-1 ml-n1"></i>Clear wishlist
+              </a>
+            </div>
+          </div>
+
+          {% for theme in wishlist.themes.all %}
+            <!-- Wishlist Item -->
+            {% include 'wishlist/components/wishlist-item.html' with theme=theme %}
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

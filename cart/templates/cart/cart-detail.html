@@ -1,0 +1,54 @@
+{% extends 'cart/base.html' %}
+{% load humanize %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+{% include 'cart/breadcrumbs/cart-breadcrumb.html' %}
+
+<!-- Page Content-->
+<div class="container mb-5 pb-3">
+  <div class="bg-light box-shadow-lg rounded-lg overflow-hidden">
+    <div class="row">
+      <!-- Content-->
+      <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-3">
+        <div class="pt-2 px-4 pr-lg-0 pl-xl-5">
+          <!-- Header-->
+          <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3">
+            <div class="py-1">
+              <a class="btn btn-outline-accent btn-sm" href="#">
+                <i class="czi-arrow-left mr-1 ml-n1"></i>Back to shopping
+              </a>
+            </div>
+            <div class="d-none d-sm-block py-1 font-size-ms">You have {{ cart.themes.count }} templates in your cart</div>
+            <div class="py-1">
+              <a class="btn btn-outline-danger btn-sm" href="#">
+                <i class="czi-close font-size-xs mr-1 ml-n1"></i>Clear cart
+              </a>
+            </div>
+          </div>
+
+          {% for theme in cart.themes.all %}
+            <!-- Cart Item -->
+            {% include 'cart/components/cart-item.html' with theme=theme %}
+          {% endfor %}
+        </div>
+      </section>
+      <!-- Sidebar-->
+      <aside class="col-lg-4">
+        <hr class="d-lg-none">
+        <div class="cz-sidebar-static h-100 ml-auto border-left">
+          <div class="text-center mb-4 pb-3 border-bottom">
+            <h2 class="h6 mb-3 pb-1">Cart total</h2>
+            <h3 class="font-weight-normal">${{ cart.get_total_amount|intcomma }}</h3>
+          </div>
+          <a class="btn btn-primary btn-shadow btn-block mt-4" href="marketplace-checkout.html"><i class="czi-locked font-size-lg mr-2"></i>Secure Checkout</a>
+          <div class="text-center pt-2"><small class="text-form text-muted">100% satisfaction guaranteed</small></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+{% endblock %}

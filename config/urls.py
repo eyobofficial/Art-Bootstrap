@@ -22,6 +22,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', include('themes.urls', namespace='themes')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('wishlist/', include('wishlist.urls', namespace='wishlist')),
+    path('cart/', include('cart.urls', namespace='cart')),
     path('admin/', admin.site.urls)
 ]
 
