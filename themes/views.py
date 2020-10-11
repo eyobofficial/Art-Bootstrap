@@ -19,24 +19,15 @@ class IndexView(BaseThemesMixin, ListView):
 
 
 class ThemeListView(BaseThemesMixin, ListView):
-    """Themes sorted by their category."""
+    """List view for all themes."""
+    template_name = 'themes/theme-list.html'
     model = Theme
     queryset = Theme.objects.filter(is_published=True)
-    template_name = 'themes/theme-list.html'
-    paginate_by = 3
+    paginate_by = 15
     ordering = '-created_at'
 
-    def get_queryset(self):
-        category = self.get_category()
-        qs = super().get_queryset()
-        qs = qs.filter(category=category)
-        return qs
-
     def get_context_data(self, **kwargs):
-        kwargs.update({
-            'category': self.get_category(),
-            'sort': self.request.GET.get('sort')
-        })
+        kwargs.update({'sort': self.request.GET.get('sort', '')})
         return super().get_context_data(**kwargs)
 
     def get_ordering(self):
@@ -48,6 +39,20 @@ class ThemeListView(BaseThemesMixin, ListView):
         elif sort == 'price_desc':
             return '-price'
         return super().get_ordering()
+
+
+class CategoryThemeListView(ThemeListView):
+    """Themes sorted by their category."""
+
+    def get_queryset(self):
+        category = self.get_category()
+        qs = super().get_queryset()
+        qs = qs.filter(category=category)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({'category': self.get_category()})
+        return super().get_context_data(**kwargs)
 
     def get_category(self):
         category_slug = self.kwargs.get('slug')

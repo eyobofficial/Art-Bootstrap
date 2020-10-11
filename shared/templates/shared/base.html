@@ -92,7 +92,7 @@
               <ul class="dropdown-menu py-1">
                 {% for category in category_list %}
                 <li class="dropdown">
-                  <a class="dropdown-item" href="{% url 'themes:theme-list' category.slug %}">{{ category.title }}</a>
+                  <a class="dropdown-item" href="{% url 'themes:category-theme-list' category.slug %}">{{ category.title }}</a>
                 </li>
                 {% endfor %}
               </ul>
@@ -256,10 +256,17 @@
     </div>
   </footer>
 
+  <!-- Toast widget -->
+  {% include 'shared/components/toast.html' %}
+
   <!-- Toolbar for handheld devices-->
   <div class="cz-handheld-toolbar">
     <div class="d-table table-fixed w-100">
-      <a class="d-table-cell cz-handheld-toolbar-item" href="account-wishlist.html"><span class="cz-handheld-toolbar-icon"><i class="czi-heart"></i></span><span class="cz-handheld-toolbar-label">Wishlist</span></a><a class="d-table-cell cz-handheld-toolbar-item" href="#navbarCollapse" data-toggle="collapse" onclick="window.scrollTo(0, 0)"><span class="cz-handheld-toolbar-icon"><i class="czi-menu"></i></span><span class="cz-handheld-toolbar-label">Menu</span></a><a class="d-table-cell cz-handheld-toolbar-item" href="shop-cart.html"><span class="cz-handheld-toolbar-icon"><i class="czi-cart"></i><span class="badge badge-primary badge-pill ml-1">4</span></span><span class="cz-handheld-toolbar-label">$265.00</span></a>
+      <a class="d-table-cell cz-handheld-toolbar-item" href="#">
+        <span class="cz-handheld-toolbar-icon"><i class="czi-heart"></i></span>
+        <span class="cz-handheld-toolbar-label">Wishlist</span>
+      </a>
+      <a class="d-table-cell cz-handheld-toolbar-item" href="#navbarCollapse" data-toggle="collapse" onclick="window.scrollTo(0, 0)"><span class="cz-handheld-toolbar-icon"><i class="czi-menu"></i></span><span class="cz-handheld-toolbar-label">Menu</span></a><a class="d-table-cell cz-handheld-toolbar-item" href="shop-cart.html"><span class="cz-handheld-toolbar-icon"><i class="czi-cart"></i><span class="badge badge-primary badge-pill ml-1">4</span></span><span class="cz-handheld-toolbar-label">$265.00</span></a>
     </div>
   </div>
   <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span><i class="btn-scroll-top-icon czi-arrow-up">   </i></a>
@@ -276,46 +283,9 @@
 
   <!-- Main theme script-->
   <script src="{% static 'js/theme.min.js' %}"></script>
+  <script src="{% static 'shared/js/script.js' %}"></script>
 
   <!-- Extra vendor JavaScript scripts -->
-  {% block extra-custom-js %}
-    {% include 'shared/components/toast.html' %}
-    <script>
-      $(function() {
-        // Add to cart
-        $('.btn-cart').click(function() {
-          const slug = $(this).data('slug');
-          const cartUrl = `/cart/add/theme/${slug}/`;
-          const cartToastUrl = `/cart/themes/${slug}/cart-toast/`;
-          const $btn = $(this);
-
-          $.get(cartUrl, function(data) {
-            $btn.attr('disabled', true);
-            $.get(cartToastUrl, function(data) {
-              $('.toast').html(data);
-              $('.toast').toast('show');
-            });
-            $('.cart-count').removeClass('d-none').html(data['cart_count']);
-          });
-        });
-
-        // Add to wishlisht
-        $('.btn-favorite').click(function() {
-          const slug = $(this).data('slug');
-          const wishlistUrl = `/wishlist/add/theme/${slug}/`;
-          const wishlistToastUrl = `/wishlist/themes/${slug}/wishlist-toast/`;
-          const $btn = $(this);
-
-          $.get(wishlistUrl, function(data) {
-            $btn.attr('disabled', true);
-            $.get(wishlistToastUrl, function(data) {
-              $('.toast').html(data);
-              $('.toast').toast('show');
-            });
-          });
-        });
-      });
-    </script>
-  {% endblock %}
+  {% block extra-custom-js %}{% endblock %}
 </body>
 </html>

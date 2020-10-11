@@ -7,7 +7,7 @@
             <a class="text-nowrap" href="{% url 'themes:home' %}"><i class="czi-home"></i>Home</a>
           </li>
           <li class="breadcrumb-item text-nowrap">
-            <a href="{% url 'themes:theme-list' theme.category.slug %}">{{ theme.category.title }}</a>
+            <a href="{% url 'themes:category-theme-list' theme.category.slug %}">{{ theme.category.title }}</a>
           </li>
           <li class="breadcrumb-item text-nowrap active" aria-current="page">{{ theme.title }}</li>
         </ol>
