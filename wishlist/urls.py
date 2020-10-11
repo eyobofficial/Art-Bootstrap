@@ -7,7 +7,7 @@ app_name = 'wishlist'
 
 urlpatterns = [
     path('', WishlistDetailView.as_view(), name='wishlist-items'),
-    path('add/theme/<slug:theme_slug>/', favorite, name='favorite'),
+    path('add/themes/<slug:theme_slug>/', favorite, name='favorite'),
     path(
         'themes/<slug:slug>/wishlist-toast/',
         WishlistToastView.as_view(),

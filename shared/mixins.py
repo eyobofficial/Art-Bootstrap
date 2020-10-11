@@ -4,6 +4,8 @@ from cart.models import Cart
 from wishlist.models import Wishlist
 from themes.models import Category
 
+from .utils import get_session_key
+
 
 class BaseMixin(ContextMixin):
     """
@@ -12,7 +14,7 @@ class BaseMixin(ContextMixin):
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        self.session_key = self._get_session_key()
+        self.session_key = get_session_key(request)
 
     def get_context_data(self, **kwargs):
         cart, _ = Cart.objects.get_or_create(session_key=self.session_key)
@@ -23,9 +25,3 @@ class BaseMixin(ContextMixin):
             'wishlist': wishlist
         })
         return super().get_context_data(**kwargs)
-
-    def _get_session_key(self):
-        """Returns a session key for the current user."""
-        if self.request.session.session_key is None:
-            self.request.session.save()
-        return self.request.session.session_key

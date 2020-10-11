@@ -9,7 +9,7 @@
 {% include 'cart/breadcrumbs/cart-breadcrumb.html' %}
 
 <!-- Page Content-->
-<div class="container mb-5 pb-3">
+<div class="container cart-container mb-5 pb-3">
   <div class="bg-light box-shadow-lg rounded-lg overflow-hidden">
     <div class="row">
       <!-- Content-->
@@ -24,7 +24,7 @@
             </div>
             <div class="d-none d-sm-block py-1 font-size-ms">You have {{ cart.themes.count }} templates in your cart</div>
             <div class="py-1">
-              <a class="btn btn-outline-danger btn-sm" href="#">
+              <a class="btn btn-outline-danger btn-sm" href="{% url 'cart:cart-clear' %}">
                 <i class="czi-close font-size-xs mr-1 ml-n1"></i>Clear cart
               </a>
             </div>
@@ -51,4 +51,16 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra-custom-js %}
+  {{ block.super }}
+  <script>
+    $(function() {
+      $('.btn-cart-remove').click(function() {
+        const url = $(this).data('url');
+        window.location.href = url;
+      });
+    });
+  </script>
 {% endblock %}

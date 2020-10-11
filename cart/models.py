@@ -1,4 +1,4 @@
-import uuid
+import uuid as uuid_lib
 from functools import reduce
 from operator import add
 
