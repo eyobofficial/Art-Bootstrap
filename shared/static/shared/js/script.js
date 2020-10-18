@@ -31,4 +31,14 @@ $(function() {
       });
     });
   });
+
+  // Global Search query
+  $('.global-search-input').on('keypress', function(event) {
+    if (event.which == 13) {
+      const searchTerm = $(this).val();
+      const url = `/themes/?search=${searchTerm}`;
+
+      window.location.href = url;
+    }
+  });
 });

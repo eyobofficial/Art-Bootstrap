@@ -17,14 +17,20 @@
         </div>
         <div class="row pb-lg-5 mb-4 mb-sm-5">
           <div class="col-lg-6 col-md-8">
-            <div class="input-group input-group-overlay input-group-lg">
-              <input class="form-control form-control-lg rounded-right-0" type="text" placeholder="Bootstrap template name">
-              <div class="input-group-append">
-                <button class="btn btn-primary btn-lg font-size-base" type="button">
-                  <i class="czi-search mr-1"></i> Search
-                </button>
+            <form action="{% url 'themes:theme-list' %}">
+              <div class="input-group input-group-overlay input-group-lg">
+                <input
+                  class="form-control form-control-lg rounded-right-0"
+                  type="text"
+                  name="search"
+                  placeholder="Bootstrap template name">
+                <div class="input-group-append">
+                  <button class="btn btn-primary btn-lg font-size-base" type="submit">
+                    <i class="czi-search mr-1"></i> Search
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -58,12 +64,9 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
       <h2 class="h3 mb-0 pt-3 mr-2">Recent Templates</h2>
       <div class="pt-3">
-        <select class="custom-select">
-          <option>All categories</option>
-          {% for category in category_list %}
-            <option>{{ category.title }}</option>
-          {% endfor %}
-        </select>
+        <a class="btn btn-outline-accent" href="{% url 'themes:theme-list' %}">
+          More templates<i class="czi-arrow-right font-size-ms ml-1"></i>
+        </a>
       </div>
     </div>
     <!-- Grid-->
@@ -75,12 +78,6 @@
         {% include 'themes/components/theme-card.html' with theme=theme %}
       </div>
       {% endfor %}
-    </div>
-    <!-- More button-->
-    <div class="text-center">
-      <a class="btn btn-outline-accent" href="{% url 'themes:theme-list' %}">
-        View more templates<i class="czi-arrow-right font-size-ms ml-1"></i>
-      </a>
     </div>
   </section>
 {% endblock %}

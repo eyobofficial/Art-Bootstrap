@@ -18,7 +18,11 @@
         <div class="input-group-prepend-overlay">
           <span class="input-group-text"><i class="czi-search"></i></span>
         </div>
-        <input class="form-control prepended-form-control border-0 box-shadow-0" type="text" placeholder="Search in this category...">
+        <input
+          class="form-control prepended-form-control border-0 box-shadow-0 search-input"
+          type="text"
+          value="{{ query|default:'' }}"
+          placeholder="Search in this category...">
       </div>
       <!-- Sort-->
       <div class="d-flex align-items-center">
@@ -119,4 +123,19 @@
     {% include 'shared/components/paginator.html' with paginator=paginator page_obj=page_obj sort=sort %}
   {% endif %}
 </div>
+{% endblock %}
+
+{% block extra-custom-js %}
+  {{ block.super }}
+  <script>
+    $(function() {
+      $('.search-input').on('keypress', function(event) {
+        if (event.which == 13) {
+          const searchQuery = $(this).val();
+          let url = '{{ request.url }}' + `?search=${searchQuery}`;
+          window.location.href = url;
+        }
+      });
+    });
+  </script>
 {% endblock %}
