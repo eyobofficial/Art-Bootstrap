@@ -114,6 +114,15 @@
     <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-grid-gutter">
       {% include 'themes/components/theme-card.html' with theme=theme %}
     </div>
+    {% empty %}
+    <div class="empty-row">
+
+      {% if category %}
+        <p class="label">No {{ category.title }} Templates</p>
+      {% else %}
+      <p class="label">No Matching Templates</p>
+      {% endif %}
+    </div>
     {% endfor %}
   </div>
 

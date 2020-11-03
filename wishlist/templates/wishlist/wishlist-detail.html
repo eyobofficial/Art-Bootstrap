@@ -33,6 +33,10 @@
           {% for theme in wishlist.themes.all %}
             <!-- Wishlist Item -->
             {% include 'wishlist/components/wishlist-item.html' with theme=theme %}
+          {% empty %}
+            <div class="empty-row">
+              <p class="label">Your wishlist is currently empty.</p>
+            </div>
           {% endfor %}
         </div>
       </section>

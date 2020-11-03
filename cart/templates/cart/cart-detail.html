@@ -33,6 +33,10 @@
           {% for theme in cart.themes.all %}
             <!-- Cart Item -->
             {% include 'cart/components/cart-item.html' with theme=theme %}
+          {% empty %}
+            <div class="empty-row">
+              <p class="label">Your cart is currently empty.</p>
+            </div>
           {% endfor %}
         </div>
       </section>
@@ -45,7 +49,9 @@
             <h2 class="h6 mb-3 pb-1">Cart total</h2>
             <h3 class="font-weight-normal">${{ cart.get_total_amount|intcomma }}</h3>
           </div>
-          <a class="btn btn-primary btn-shadow btn-block mt-4" href="marketplace-checkout.html"><i class="czi-locked font-size-lg mr-2"></i>Secure Checkout</a>
+          <a class="btn btn-primary btn-shadow btn-block mt-4 disabled" href="#">
+            <i class="czi-locked font-size-lg mr-2"></i>Secure Checkout
+          </a>
           <div class="text-center pt-2"><small class="text-form text-muted">100% satisfaction guaranteed</small></div>
         </div>
       </aside>
