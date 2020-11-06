@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import cart_add, cart_delete, cart_clear, CartDetailView, \
-    CartToastView
+    CartToastView, CheckoutView
 
 
 app_name = 'cart'
@@ -17,4 +17,5 @@ urlpatterns = [
         CartToastView.as_view(),
         name='cart-toast'
     ),
+    path('checkout/', CheckoutView.as_view(), name='checkout'),
 ]

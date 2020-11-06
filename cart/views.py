@@ -1,12 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import DetailView, DeleteView
+from django.views.generic import DetailView, DeleteView, CreateView
 
 from shared.utils import get_session_key
 from themes.models import Theme
 
+from .forms import PurchaseForm
 from .mixins import BaseCartMixin
-from .models import Cart
+from .models import Cart, Purchase
 
 
 def cart_add(request, theme_slug):
@@ -36,6 +37,7 @@ def cart_clear(request):
 
 
 class CartDetailView(BaseCartMixin, DetailView):
+    """Cart page with all the selected themes."""
     model = Cart
     template_name = 'cart/cart-detail.html'
 
@@ -47,3 +49,10 @@ class CartDetailView(BaseCartMixin, DetailView):
 class CartToastView(DetailView):
     model = Theme
     template_name = 'cart/cart-toast.html'
+
+
+class CheckoutView(BaseCartMixin, CreateView):
+    """Purchase themes in the cart."""
+    model = Purchase
+    form_class = PurchaseForm
+    template_name = 'cart/checkout.html'
