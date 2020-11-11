@@ -3,7 +3,7 @@ from django import forms
 from .models import Purchase
 
 
-class PurchaseForm(forms.ModelForm):
+class CheckoutForm(forms.ModelForm):
     """Form for creating/updating `Purchase` model instances."""
 
     class Meta:

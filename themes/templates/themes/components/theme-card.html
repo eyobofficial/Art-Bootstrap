@@ -12,10 +12,10 @@
       <a class="btn btn-light btn-icon btn-shadow font-size-base mx-2" href="{% url 'themes:theme-detail' theme.slug %}">
         <i class="czi-eye"></i>
       </a>
-      <button
-        data-slug="{{ theme.slug }}"
-        class="btn btn-light btn-icon btn-shadow font-size-base mx-2 btn-cart"
-        type="button"><i class="czi-cart"></i></button>
+      <a
+        href="{% url 'cart:cart-add' theme.slug %}"
+        class="btn btn-light btn-icon btn-shadow font-size-base mx-2"
+        type="button"><i class="czi-cart"></i></a>
     </div>
     <a class="product-thumb-overlay" href="{% url 'themes:theme-detail' theme.slug %}"></a>
     <img src="{{ theme.photo.url }}" alt="{{ theme.title }}">

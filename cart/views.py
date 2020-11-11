@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, DeleteView, CreateView
@@ -5,9 +6,8 @@ from django.views.generic import DetailView, DeleteView, CreateView
 from shared.utils import get_session_key
 from themes.models import Theme
 
-from .forms import PurchaseForm
 from .mixins import BaseCartMixin
-from .models import Cart, Purchase
+from .models import Cart
 
 
 def cart_add(request, theme_slug):
@@ -16,7 +16,8 @@ def cart_add(request, theme_slug):
     session_key = get_session_key(request)
     cart, _ = Cart.objects.get_or_create(session_key=session_key)
     cart.themes.add(theme)
-    return JsonResponse({'cart_count': cart.themes.count()})
+    return redirect('cart:cart-items')
+    # return JsonResponse({'cart_count': cart.themes.count()})
 
 
 def cart_delete(request, theme_slug):
@@ -44,15 +45,3 @@ class CartDetailView(BaseCartMixin, DetailView):
     def get_object(self):
         session_key = self.request.session.session_key
         return Cart.objects.get(session_key=session_key)
-
-
-class CartToastView(DetailView):
-    model = Theme
-    template_name = 'cart/cart-toast.html'
-
-
-class CheckoutView(BaseCartMixin, CreateView):
-    """Purchase themes in the cart."""
-    model = Purchase
-    form_class = PurchaseForm
-    template_name = 'cart/checkout.html'

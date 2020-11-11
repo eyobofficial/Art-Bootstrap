@@ -40,8 +40,9 @@ INSTALLED_APPS += [
     'accounts.apps.AccountsConfig',
     'shared.apps.SharedConfig',
     'themes.apps.ThemesConfig',
-    'cart.apps.CartConfig',
     'wishlist.apps.WishlistConfig',
+    'cart.apps.CartConfig',
+    'checkout.apps.CheckoutConfig',
 ]
 
 MIDDLEWARE = [

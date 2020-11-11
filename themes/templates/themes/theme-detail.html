@@ -57,11 +57,11 @@
               </div>
             </div>
           </div>
-          <button
-            data-slug="{{ theme.slug }}"
-            class="btn btn-primary btn-block btn-shadow mt-4 btn-cart">
+          <a
+            href="{% url 'cart:cart-add' theme.slug %}"
+            class="btn btn-primary btn-block btn-shadow mt-4">
             <i class="czi-cart font-size-lg mr-2"></i>Add to Cart
-          </button>
+          </a>
           <div class="bg-secondary rounded p-3 mb-2 mt-4">
             <i class="czi-download h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
             {% if theme.download_count > 0 %}

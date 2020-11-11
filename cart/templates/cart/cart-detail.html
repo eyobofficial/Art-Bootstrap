@@ -22,7 +22,9 @@
                 <i class="czi-arrow-left mr-1 ml-n1"></i>Back to shopping
               </a>
             </div>
-            <div class="d-none d-sm-block py-1 font-size-ms">You have {{ cart.themes.count }} templates in your cart</div>
+            <div class="d-none d-sm-block py-1 font-size-ms">
+              You have {{ cart.themes.count }} template{{ cart.themes.count|pluralize }} in your cart
+            </div>
             <div class="py-1">
               <a class="btn btn-outline-danger btn-sm" href="{% url 'cart:cart-clear' %}">
                 <i class="czi-close font-size-xs mr-1 ml-n1"></i>Clear cart
@@ -49,7 +51,9 @@
             <h2 class="h6 mb-3 pb-1">Cart total</h2>
             <h3 class="font-weight-normal">${{ cart.get_total_amount|intcomma }}</h3>
           </div>
-          <a class="btn btn-primary btn-shadow btn-block mt-4 disabled" href="#">
+          <a
+            class="btn btn-primary btn-shadow btn-block mt-4 {% if cart.themes.count < 1 %}disabled{% endif %}"
+            href="{% url 'checkout:checkout' %}">
             <i class="czi-locked font-size-lg mr-2"></i>Secure Checkout
           </a>
           <div class="text-center pt-2"><small class="text-form text-muted">100% satisfaction guaranteed</small></div>

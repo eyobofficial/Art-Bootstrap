@@ -1,0 +1,155 @@
+{% extends 'checkout/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+  <!-- Breadcrumb -->
+  {% include 'checkout/breadcrumbs/checkout-breadcrumb.html' %}
+
+  <div class="container mb-5 pb-3">
+    <div class="bg-light box-shadow-lg rounded-lg overflow-hidden">
+      <div class="row">
+        <!-- Content-->
+        <section class="col-lg-8 pt-2 pt-lg-4 pb-4 mb-3">
+          <div class="pt-2 px-4 pr-lg-0 pl-xl-5">
+            <!-- Title-->
+            <h2 class="h6 border-bottom pb-3 mb-3">Billing details</h2>
+            <!-- Billing detail-->
+            <form action="" method="POST">
+
+            </form>
+            <div class="row pb-4">
+              <div class="col-sm-6 form-group">
+                <label for="mc-fn">First name <span class='text-danger'>*</span></label>
+                <input class="form-control" type="text" value="Jonathan" id="mc-fn">
+              </div>
+              <div class="col-sm-6 form-group">
+                <label for="mc-ln">Last name <span class='text-danger'>*</span></label>
+                <input class="form-control" type="text" value="Doe" id="mc-ln">
+              </div>
+              <div class="col-12 form-group">
+                <label for="mc-email">Email address <span class='text-danger'>*</span></label>
+                <input class="form-control" type="email" value="contact@createx.studio" id="mc-email">
+              </div>
+            </div>
+            <!-- Order preview on mobile (screens small than 991px)-->
+            <div class="widget mb-3 d-lg-none">
+              <h2 class="widget-title">Order summary</h2>
+              {% for theme in cart.themes.all %}
+              <div class="media align-items-center pb-2 pt-2 border-bottom">
+                <a class="d-block mr-2" href="{% url 'themes:theme-detail' theme.slug %}">
+                  <img class="rounded-sm" width="64" src="{{ theme.photo.url }}" alt="{{ theme.title }}"/>
+                </a>
+                <div class="media-body pl-1">
+                  <h6 class="widget-product-title">
+                    <a href="{% url 'themes:theme-detail' theme.slug %}">{{ theme.title }}</a>
+                  </h6>
+                  <div class="widget-product-meta">
+                    <span class="text-accent border-right pr-2 mr-2">${{ theme.price }}</span>
+                    <span class="font-size-xs text-muted">Extended license</span>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+              {% if cart.themes.count > 0 %}
+              <ul class="list-unstyled font-size-lg py-3">
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="mr-2">Total:</span><span class="text-right">${{ cart.get_total_amount }}</span>
+                </li>
+              </ul>
+              {% endif %}
+            </div>
+
+            {% if cart.themes.count > 0 %}
+            <!-- Payment methods accordion-->
+            <div class="accordion mb-2" id="payment-method" role="tablist">
+              <div class="card">
+                <div class="card-header" role="tab">
+                  <h3 class="accordion-heading"><a href="#card" data-toggle="collapse"><i class="czi-card font-size-lg mr-2 mt-n1 align-middle"></i>Pay with Credit Card<span class="accordion-indicator"></span></a></h3>
+                </div>
+                <div class="collapse show" id="card" data-parent="#payment-method" role="tabpanel">
+                  <div class="card-body">
+                    <p class="font-size-sm">We accept following credit cards:&nbsp;&nbsp;<img class="d-inline-block align-middle" src="img/cards.png" style="width: 187px;" alt="Cerdit Cards"></p>
+                    <div class="card-wrapper"></div>
+                    <form class="interactive-credit-card row">
+                      <div class="form-group col-sm-6">
+                        <input class="form-control" type="text" name="number" placeholder="Card Number" required>
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <input class="form-control" type="text" name="name" placeholder="Full Name" required>
+                      </div>
+                      <div class="form-group col-sm-3">
+                        <input class="form-control" type="text" name="expiry" placeholder="MM/YY" required>
+                      </div>
+                      <div class="form-group col-sm-3">
+                        <input class="form-control" type="text" name="cvc" placeholder="CVC" required>
+                      </div>
+                      <div class="col-sm-6">
+                        <button class="btn btn-primary btn-block mt-0" type="submit">Place order</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" role="tab">
+                  <h3 class="accordion-heading"><a class="collapsed" href="#paypal" data-toggle="collapse"><i class="czi-paypal mr-2 align-middle"></i>Pay with PayPal<span class="accordion-indicator"></span></a></h3>
+                </div>
+                <div class="collapse" id="paypal" data-parent="#payment-method" role="tabpanel">
+                  <div class="card-body font-size-sm">
+                    <p><span class='font-weight-medium'>PayPal</span> - the safer, easier way to pay</p>
+                    <button class="btn btn-primary" type="button">Checkout with PayPal</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </section>
+        <!-- Sidebar-->
+        <!-- Order preview on desktop (screens larger than 991px)-->
+        <aside class="col-lg-4 d-none d-lg-block">
+          <hr class="d-lg-none">
+          <div class="cz-sidebar-static h-100 ml-auto border-left">
+            <div class="widget mb-3">
+              <h2 class="widget-title text-center">Order summary</h2>
+
+              {% for theme in cart.themes.all %}
+              <div class="media align-items-center pb-3 pt-3 border-bottom">
+                <a class="d-block mr-2" href="{% url 'themes:theme-detail' theme.slug %}">
+                  <img class="rounded-sm" width="64" src="{{ theme.photo.url }}" alt="{{ theme.title }}"/>
+                </a>
+                <div class="media-body pl-1">
+                  <h6 class="widget-product-title">
+                    <a href="{% url 'themes:theme-detail' theme.slug %}">{{ theme.title }}</a>
+                  </h6>
+                  <div class="widget-product-meta">
+                    <span class="text-accent border-right pr-2 mr-2">${{ theme.price }}</span>
+                    <span class="font-size-xs text-muted">Extended license</span>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+              <div class="empty-row">
+                <p class="label">Your cart empty.</p>
+              </div>
+              {% endfor %}
+
+              {% if cart.themes.count > 0 %}
+              <ul class="list-unstyled font-size-lg pt-3 pb-2">
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="mr-2">Total:</span>
+                  <span class="text-right">${{ cart.get_total_amount }}</span>
+                </li>
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+{% endblock %}
