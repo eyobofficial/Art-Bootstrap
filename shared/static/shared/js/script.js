@@ -1,21 +1,4 @@
 $(function() {
-  // Add to cart
-  $('.btn-cart').click(function() {
-    const slug = $(this).data('slug');
-    const cartUrl = `/cart/add/themes/${slug}/`;
-    const cartToastUrl = `/cart/themes/${slug}/cart-toast/`;
-    const $btn = $(this);
-
-    $.get(cartUrl, function(data) {
-      $btn.attr('disabled', true);
-      $.get(cartToastUrl, function(data) {
-        $('.toast').html(data);
-        $('.toast').toast('show');
-      });
-      $('.cart-count').removeClass('d-none').html(data['cart_count']);
-    });
-  });
-
   // Add to wishlisht
   $('.btn-favorite').click(function() {
     const slug = $(this).data('slug');

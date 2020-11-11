@@ -38,7 +38,7 @@
   <!-- Extra CSS tags -->
   {% block extra-custom-css %}{% endblock %}
 </head>
-<body class="toolbar-enabled">
+<body>
   <!-- Header -->
   <header class="bg-light box-shadow-sm navbar-sticky">
     <div class="navbar navbar-expand-lg navbar-light">
@@ -49,25 +49,22 @@
         <a class="navbar-brand d-sm-none mr-2 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 4.625rem;">
           <img width="74" src="{% static 'shared/img/logo-icon.png' %}" alt="Cartzilla"/>
         </a>
+
         <!-- Toolbar-->
         <div class="navbar-toolbar d-flex align-items-center order-lg-3">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <a class="navbar-tool d-none d-lg-flex" href="#searchBox" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="searchBox">
             <span class="navbar-tool-tooltip">Search</span>
             <div class="navbar-tool-icon-box">
               <i class="navbar-tool-icon czi-search"></i>
             </div>
           </a>
-          <a class="navbar-tool d-none d-lg-flex" href="{% url 'wishlist:wishlist-items' %}">
-            <span class="navbar-tool-tooltip">Favorites</span>
-            <div class="navbar-tool-icon-box">
-              <i class="navbar-tool-icon czi-heart"></i>
-            </div>
-          </a>
-
           <div class="navbar-tool">
+            <a class="navbar-tool" href="{% url 'wishlist:wishlist-items' %}">
+              <span class="navbar-tool-tooltip">Favorites</span>
+              <div class="navbar-tool-icon-box">
+                <i class="navbar-tool-icon czi-heart"></i>
+              </div>
+            </a>
             <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}">
               {% if cart.themes.count > 0 %}
                 <span class="navbar-tool-label cart-count">{{ cart.themes.count }}</span>
@@ -77,7 +74,12 @@
               <i class="navbar-tool-icon czi-cart"></i>
             </a>
           </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
+
+        <!-- Navbar collapse -->
         <div class="collapse navbar-collapse mr-auto order-lg-2" id="navbarCollapse">
           <!-- Search-->
           <div class="input-group-overlay d-lg-none my-3">
@@ -106,6 +108,7 @@
         </div>
       </div>
     </div>
+
     <!-- Search collapse-->
     <div class="search-box collapse" id="searchBox">
       <div class="card pt-2 pb-4 border-0 rounded-0">
@@ -263,17 +266,12 @@
   <!-- Toast widget -->
   {% include 'shared/components/toast.html' %}
 
-  <!-- Toolbar for handheld devices-->
-  <div class="cz-handheld-toolbar">
-    <div class="d-table table-fixed w-100">
-      <a class="d-table-cell cz-handheld-toolbar-item" href="#">
-        <span class="cz-handheld-toolbar-icon"><i class="czi-heart"></i></span>
-        <span class="cz-handheld-toolbar-label">Wishlist</span>
-      </a>
-      <a class="d-table-cell cz-handheld-toolbar-item" href="#navbarCollapse" data-toggle="collapse" onclick="window.scrollTo(0, 0)"><span class="cz-handheld-toolbar-icon"><i class="czi-menu"></i></span><span class="cz-handheld-toolbar-label">Menu</span></a><a class="d-table-cell cz-handheld-toolbar-item" href="shop-cart.html"><span class="cz-handheld-toolbar-icon"><i class="czi-cart"></i><span class="badge badge-primary badge-pill ml-1">4</span></span><span class="cz-handheld-toolbar-label">$265.00</span></a>
-    </div>
-  </div>
-  <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span><i class="btn-scroll-top-icon czi-arrow-up">   </i></a>
+  <!-- Back To Top Button-->
+  <a class="btn-scroll-top" href="#top" data-scroll>
+    <span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span>
+    <i class="btn-scroll-top-icon czi-arrow-up"></i>
+  </a>
+
   <!-- Vendor scrits: js libraries and plugins-->
   <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
