@@ -38,6 +38,7 @@ djangorestframework-simplejwt = "*"
 django-rest-auth = "*"
 pillow = "*"
 django-taggit = "*"
+django-paypal = "*"
 
 [requires]
 python_version = "3.8"
