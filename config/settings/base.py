@@ -32,6 +32,7 @@ INSTALLED_APPS += [
     'django_celery_results',
     'phonenumber_field',
     'taggit',
+    'paypal.standard.ipn',
 ]
 
 
@@ -172,3 +173,7 @@ FIXTURES = ['categories', 'technology']
 
 # Environment
 ENVIRONMENT = config('ENVIRONMENT')
+
+
+# Paypal
+PAYPAL_CURRENCY_CODE = 'USD'
