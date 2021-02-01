@@ -17,23 +17,56 @@
             <!-- Title-->
             <h2 class="h6 border-bottom pb-3 mb-3">Billing details</h2>
             <!-- Billing detail-->
-            <form action="" method="POST">
+            <form method="POST" action="{% url 'checkout:checkout' %}" id="checkout-form">
+              {% csrf_token %}
 
+              <!-- Hidden fields -->
+              <input type="hidden" name="payment_method">
+
+              <div class="row pb-4">
+                <div class="col-sm-6 form-group">
+                  <label for="first-name">First name <span class='text-danger'>*</span></label>
+                  <input
+                    class="form-control" type="text"
+                    id="first-name" name="first_name"
+                    value="{{ form.first_name.value|default:'' }}"
+                    required
+                  />
+                  {% if form.first_name.errors %}
+                    <small class="text-danger">This field is required.</small>
+                  {% endif %}
+                </div>
+                <div class="col-sm-6 form-group">
+                  <label for="last-name">Last name <span class='text-danger'>*</span></label>
+                  <input
+                    class="form-control" type="text"
+                    id="last-name" name="last_name"
+                    value="{{ form.last_name.value|default:'' }}"
+                    required
+                  />
+                  {% if form.last_name.errors %}
+                    <small class="text-danger">This field is required.</small>
+                  {% endif %}
+                </div>
+                <div class="col-12 form-group">
+                  <label for="email">Email address <span class='text-danger'>*</span></label>
+                  <input
+                    class="form-control" type="email"
+                    id="email" name="email"
+                    value="{{ form.email.value|default:'' }}"
+                    required
+                  />
+                  {% if form.email.errors %}
+                    <small class="text-danger">This field is required.</small>
+                  {% else %}
+                    <small class="text-default">
+                      <i class="fas fa-exclamation-circle"></i>
+                      A download link will be sent using this e-mail.
+                    </small>
+                  {% endif %}
+                </div>
+              </div>
             </form>
-            <div class="row pb-4">
-              <div class="col-sm-6 form-group">
-                <label for="mc-fn">First name <span class='text-danger'>*</span></label>
-                <input class="form-control" type="text" value="Jonathan" id="mc-fn">
-              </div>
-              <div class="col-sm-6 form-group">
-                <label for="mc-ln">Last name <span class='text-danger'>*</span></label>
-                <input class="form-control" type="text" value="Doe" id="mc-ln">
-              </div>
-              <div class="col-12 form-group">
-                <label for="mc-email">Email address <span class='text-danger'>*</span></label>
-                <input class="form-control" type="email" value="contact@createx.studio" id="mc-email">
-              </div>
-            </div>
             <!-- Order preview on mobile (screens small than 991px)-->
             <div class="widget mb-3 d-lg-none">
               <h2 class="widget-title">Order summary</h2>
@@ -68,40 +101,23 @@
             <div class="accordion mb-2" id="payment-method" role="tablist">
               <div class="card">
                 <div class="card-header" role="tab">
-                  <h3 class="accordion-heading"><a href="#card" data-toggle="collapse"><i class="czi-card font-size-lg mr-2 mt-n1 align-middle"></i>Pay with Credit Card<span class="accordion-indicator"></span></a></h3>
+                  <h3 class="accordion-heading">
+                    <a href="#paypal" data-toggle="collapse">
+                      <i class="czi-paypal mr-2 align-middle"></i>
+                      Pay with PayPal
+                      <span class="accordion-indicator"></span>
+                    </a>
+                  </h3>
                 </div>
-                <div class="collapse show" id="card" data-parent="#payment-method" role="tabpanel">
-                  <div class="card-body">
-                    <p class="font-size-sm">We accept following credit cards:&nbsp;&nbsp;<img class="d-inline-block align-middle" src="img/cards.png" style="width: 187px;" alt="Cerdit Cards"></p>
-                    <div class="card-wrapper"></div>
-                    <form class="interactive-credit-card row">
-                      <div class="form-group col-sm-6">
-                        <input class="form-control" type="text" name="number" placeholder="Card Number" required>
-                      </div>
-                      <div class="form-group col-sm-6">
-                        <input class="form-control" type="text" name="name" placeholder="Full Name" required>
-                      </div>
-                      <div class="form-group col-sm-3">
-                        <input class="form-control" type="text" name="expiry" placeholder="MM/YY" required>
-                      </div>
-                      <div class="form-group col-sm-3">
-                        <input class="form-control" type="text" name="cvc" placeholder="CVC" required>
-                      </div>
-                      <div class="col-sm-6">
-                        <button class="btn btn-primary btn-block mt-0" type="submit">Place order</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" role="tab">
-                  <h3 class="accordion-heading"><a class="collapsed" href="#paypal" data-toggle="collapse"><i class="czi-paypal mr-2 align-middle"></i>Pay with PayPal<span class="accordion-indicator"></span></a></h3>
-                </div>
-                <div class="collapse" id="paypal" data-parent="#payment-method" role="tabpanel">
+                <div class="show" id="paypal" data-parent="#payment-method" role="tabpanel">
                   <div class="card-body font-size-sm">
                     <p><span class='font-weight-medium'>PayPal</span> - the safer, easier way to pay</p>
-                    <button class="btn btn-primary" type="button">Checkout with PayPal</button>
+                    <form action="{{ paypal_form.get_endpoint }}" method="POST">
+                      {{ paypal_form.as_p }}
+                      <button class="btn btn-primary" id="paypal-btn" type="button">
+                        Checkout with PayPal
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -152,4 +168,38 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block extra-custom-js %}
+  <script>
+    $(function() {
+      const $paypalForm = $('#paypal form');
+      const $paypalButton = $('#paypal-btn');
+
+      $paypalButton.on('click', function(event) {
+        $paypalButton.attr('disabled', true);
+        const $checkoutForm = $('#checkout-form');
+        const url = $checkoutForm.attr('action');
+        $checkoutForm.find('[name=payment_method]')
+                     .val(Number.parseInt('{{ PAYPAL }}'));
+
+        $.ajax({
+          url: url,
+          method: 'POST',
+          data: $checkoutForm.serialize(),
+          success: function(data) {
+            const orderId = data.order_id;
+            $paypalForm.find('#id_invoice').val(orderId);
+            $paypalForm.submit();
+          },
+          error: function(error) {
+            $checkoutForm.replaceWith(
+              $(error.responseText).find('#checkout-form')
+            );
+            $paypalButton.removeAttr('disabled');
+          }
+        });
+      });
+    });
+  </script>
 {% endblock %}

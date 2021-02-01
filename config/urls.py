@@ -26,7 +26,8 @@ urlpatterns = [
     path('wishlist/', include('wishlist.urls', namespace='wishlist')),
     path('cart/', include('cart.urls', namespace='cart')),
     path('checkout/', include('checkout.urls', namespace='checkout')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]
 
 # Media Assets
@@ -34,3 +35,4 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Update Admin Site Title
 admin.site.site_header = admin.site.site_title = settings.PROJECT_NAME
+admin.site.enable_nav_sidebar = False
