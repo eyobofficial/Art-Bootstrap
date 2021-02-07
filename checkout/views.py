@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView
 from django.views.decorators.csrf import csrf_exempt
@@ -54,6 +54,7 @@ class CheckoutView(BaseCheckoutMixin, CreateView):
             'amount': f'{cart.get_total_amount():2f}',
             'item_name': 'Bootstrap Template',
             'invoice': '',
+            'custom': str(cart.session_key),  # Cart session key
             'currency_code': settings.PAYPAL_CURRENCY_CODE,
             'notify_url': f'http://{host}{paypal_ipn}',
             'return_url': f'http://{host}{paypal_done}',
@@ -72,16 +73,9 @@ class PaymentDoneView(BaseCheckoutMixin, DetailView):
         return order_id or Order.objects.filter(pk=order_id).exists()
 
     def get_object(self):
-        # Reset cart
-        cart = self._get_cart()
-        cart.themes.clear()
-
         # Get completed Order object from session
         order_id = self._get_order_id()
-        order = get_object_or_404(Order, pk=order_id)
-        order.status = Order.COMPLETED
-        order.save()
-        return order
+        return get_object_or_404(Order, pk=order_id)
 
     def get_context_data(self, **kwargs):
         kwargs.update(related_themes=self._get_related_themes())

@@ -39,6 +39,7 @@ pillow = "*"
 django-taggit = "*"
 django-paypal = "*"
 django-timezone-field = "==4.1"
+sendgrid = "*"
 
 [requires]
 python_version = "3.8"
