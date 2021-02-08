@@ -89,4 +89,4 @@ class PaymentDoneView(BaseCheckoutMixin, DetailView):
         order_theme_pks = [t.pk for t in order.themes.all()]
         return Theme.objects.filter(
             is_published=True
-        ).exclude(pk__in=order_theme_pks).order_by('-download_count')[:4]
+        ).exclude(pk__in=order_theme_pks).order_by('?')[:4]

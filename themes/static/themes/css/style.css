@@ -22,6 +22,11 @@ a.nav-link-style.disabled > span {
     border-radius: 0;
 }
 
+.czi-heart-active {
+    color: #fe696a;
+    font-weight: bolder;
+}
+
 @media all and (max-width: 600px) {
     .theme-detail .preview-btn {
         display: block;

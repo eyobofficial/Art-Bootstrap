@@ -60,11 +60,14 @@
           </a>
           <div class="navbar-tool">
             <a class="navbar-tool" href="{% url 'wishlist:wishlist-items' %}">
-              <span class="navbar-tool-tooltip">Favorites</span>
+              <span class="navbar-tool-tooltip">Wishlist</span>
               <div class="navbar-tool-icon-box">
+                <span class="navbar-tool-label favorite-dot {% if wishlist.themes.count == 0 %}d-none{% endif %}"></span>
                 <i class="navbar-tool-icon czi-heart"></i>
               </div>
             </a>
+          </div>
+          <div class="navbar-tool">
             <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}">
               {% if cart.themes.count > 0 %}
                 <span class="navbar-tool-label cart-count">{{ cart.themes.count }}</span>
