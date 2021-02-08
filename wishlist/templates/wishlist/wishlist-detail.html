@@ -22,9 +22,13 @@
                 <i class="czi-arrow-left mr-1 ml-n1"></i>Back to shopping
               </a>
             </div>
-            <div class="d-none d-sm-block py-1 font-size-ms">You have {{ wishlist.themes.count }} templates in your wishlist.</div>
+            {% with wishlist.themes.count as wishlist_count %}
+              <div class="d-none d-sm-block py-1 font-size-ms">
+                You have {{ wishlist_count }} template{{ wishlist_count|pluralize }} in your wishlist.
+              </div>
+            {% endwith %}
             <div class="py-1">
-              <a class="btn btn-outline-danger btn-sm" href="#">
+              <a class="btn btn-outline-danger btn-sm" href="{% url 'wishlist:wishlist-clear' %}">
                 <i class="czi-close font-size-xs mr-1 ml-n1"></i>Clear wishlist
               </a>
             </div>
@@ -43,4 +47,21 @@
     </div>
   </div>
 </div>
+
+  <!-- Related products carousel-->
+  {% if related_themes %}
+    {% include 'themes/components/theme-related.html' with related_themes=related_themes %}
+  {% endif %}
+{% endblock %}
+
+{% block extra-custom-js %}
+  {{ block.super }}
+  <script>
+    $(function() {
+      $('.btn-wishlist-remove').click(function() {
+        const url = $(this).data('url');
+        window.location.href = url;
+      });
+    });
+  </script>
 {% endblock %}

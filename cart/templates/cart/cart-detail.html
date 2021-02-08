@@ -22,9 +22,11 @@
                 <i class="czi-arrow-left mr-1 ml-n1"></i>Back to shopping
               </a>
             </div>
-            <div class="d-none d-sm-block py-1 font-size-ms">
-              You have {{ cart.themes.count }} template{{ cart.themes.count|pluralize }} in your cart
-            </div>
+            {% with cart.themes.count as cart_count %}
+              <div class="d-none d-sm-block py-1 font-size-ms">
+                You have {{ cart_count }} template{{ cart_count|pluralize }} in your cart.
+              </div>
+            {% endwith %}
             <div class="py-1">
               <a class="btn btn-outline-danger btn-sm" href="{% url 'cart:cart-clear' %}">
                 <i class="czi-close font-size-xs mr-1 ml-n1"></i>Clear cart

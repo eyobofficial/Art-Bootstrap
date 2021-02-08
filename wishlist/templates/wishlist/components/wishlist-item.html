@@ -3,7 +3,11 @@
 <div class="media d-block d-sm-flex py-4 border-bottom">
   <a class="d-block position-relative mb-3 mb-sm-0 mr-sm-4 mx-auto" href="#" style="width: 12.5rem;">
     <img class="rounded-lg" src="{{ theme.photo.url }}" alt="{{ theme.title }}">
-    <span class="close-floating" data-toggle="tooltip" title="Remove from Cart">
+    <span
+      data-url="{% url 'wishlist:wishlist-delete' theme.slug %}"
+      class="close-floating btn-wishlist-remove"
+      data-toggle="tooltip"
+      title="Remove from Wishlist">
       <i class="czi-close"></i>
     </span>
   </a>

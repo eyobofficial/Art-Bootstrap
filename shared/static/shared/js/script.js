@@ -5,6 +5,7 @@ $(function() {
     const wishlistUrl = `/wishlist/add/themes/${slug}/`;
     const wishlistToastUrl = `/wishlist/themes/${slug}/wishlist-toast/`;
     const $btn = $(this);
+    const $wishlistDot = $('.favorite-dot');
 
     $.get(wishlistUrl, function(data) {
       $btn.attr('disabled', true);
@@ -12,7 +13,9 @@ $(function() {
         $('.toast').html(data);
         $('.toast').toast('show');
       });
+      $wishlistDot.removeClass('d-none');
     });
+    $(this).find('.czi-heart').addClass('czi-heart-active');
   });
 
   // Global Search query

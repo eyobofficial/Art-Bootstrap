@@ -6,7 +6,7 @@
       data-slug="{{ theme.slug }}"
       class="btn-wishlist btn-favorite btn-sm"
       type="button">
-      <i class="czi-heart"></i>
+      <i class="czi-heart {% if theme in wishlist.themes.all %}czi-heart-active{% endif %}"></i>
     </button>
     <div class="product-card-actions">
       <a class="btn btn-light btn-icon btn-shadow font-size-base mx-2" href="{% url 'themes:theme-detail' theme.slug %}">

@@ -34,3 +34,10 @@ a[disabled],
 .btn[disabled] {
     cursor: not-allowed !important;
 }
+
+.favorite-dot {
+    top: 0.7rem !important;
+    right: 0.5rem !important;
+    width: 0.6rem !important;
+    height: 0.6rem !important;
+}
