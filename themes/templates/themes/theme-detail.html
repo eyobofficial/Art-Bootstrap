@@ -1,5 +1,5 @@
 {% extends 'themes/base.html' %}
-{% load humanize %}
+{% load humanize social_share %}
 
 {% block title %}{{ theme.title }} - {{ theme.subtitle }}{% endblock %}
 
@@ -98,18 +98,9 @@
           <!-- Social Media Icons -->
           <div class="mt-5 text-center">
             <i class="czi-share-alt font-size-lg align-middle text-muted mr-2"></i>
-            <a class="social-btn sb-outline sb-facebook sb-sm ml-2" href="#">
-              <i class="czi-facebook"></i>
-            </a>
-            <a class="social-btn sb-outline sb-twitter sb-sm ml-2" href="#">
-              <i class="czi-twitter"></i>
-            </a>
-            <a class="social-btn sb-outline sb-pinterest sb-sm ml-2" href="#">
-              <i class="czi-pinterest"></i>
-            </a>
-            <a class="social-btn sb-outline sb-instagram sb-sm ml-2" href="#">
-              <i class="czi-instagram"></i>
-            </a>
+            {% post_to_facebook theme %}
+            {% post_to_twitter theme.seo_title theme %}
+            {% save_to_pinterest theme %}
           </div>
         </div>
       </aside>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from taggit.managers import TaggableManager
 
 
@@ -78,6 +79,13 @@ class Theme(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('themes:theme-detail', args=[self.slug])
+
+    @property
+    def seo_title(self):
+        return f'{self.title} - {self.subtitle}'
 
 
 class ThemeFeature(models.Model):
