@@ -33,6 +33,7 @@ INSTALLED_APPS += [
     'phonenumber_field',
     'taggit',
     'paypal.standard.ipn',
+    'django_social_share',
 ]
 
 

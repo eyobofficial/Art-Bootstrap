@@ -40,6 +40,7 @@ django-taggit = "*"
 django-paypal = "*"
 django-timezone-field = "==4.1"
 sendgrid = "*"
+django-social-share = "*"
 
 [requires]
 python_version = "3.8"
