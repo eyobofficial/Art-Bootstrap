@@ -1,6 +1,15 @@
+import uuid as uuid_lib
+
 from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
+
+
+def themes_upload_location(instance, filename):
+    """
+    Location for uploading theme files.
+    """
+    return f'themes/{uuid_lib.uuid4()}/{filename}'
 
 
 class Category(models.Model):
@@ -66,6 +75,7 @@ class Theme(models.Model):
     photo = models.ImageField(null=True, blank=True)
     file = models.FileField(
         'theme file',
+        upload_to=themes_upload_location,
         null=True, blank=True,
         help_text='Archived theme file.'
     )
