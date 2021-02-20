@@ -133,6 +133,12 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 CORS_ORIGIN_ALLOW_ALL = True
 
 
+# Static
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
 # Default Admin Account
 DEFAULT_ADMIN_EMAIL = config('ADMIN_EMAIL')
 DEFAULT_ADMIN_PASSWORD = config('ADMIN_PASSWORD')
