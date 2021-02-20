@@ -27,7 +27,6 @@ coverage = "*"
 django-celery-results = "*"
 ipython = "*"
 pyyaml = "*"
-django-phonenumber-field = {extras = ["phonenumbers"],version = "*"}
 django-livereload-server = "*"
 coreapi = "~=1.32.0"
 pygments = ">=2.4.0"
@@ -41,6 +40,12 @@ django-paypal = "*"
 django-timezone-field = "==4.1"
 sendgrid = "*"
 django-social-share = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.8"
+
+[packages.django-phonenumber-field]
+extras = [ "phonenumbers",]
+version = "*"
