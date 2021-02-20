@@ -31,7 +31,7 @@ class DownloadEmail(BaseEmail):
                 'theme_title': theme.title,
                 'theme_subtitle': theme.subtitle,
                 'first_name': self.order.first_name,
-                'download_url': f'{settings.HOSTNAME}{theme.file.url}'
+                'download_url': f'{theme.file.url}'
             })
             try:
                 mail.subject = f'{theme.title} - {theme.subtitle}'
