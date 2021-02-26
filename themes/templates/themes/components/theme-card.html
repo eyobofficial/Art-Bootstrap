@@ -12,10 +12,18 @@
       <a class="btn btn-light btn-icon btn-shadow font-size-base mx-2" href="{% url 'themes:theme-detail' theme.slug %}">
         <i class="czi-eye"></i>
       </a>
+
+      {% if theme.is_free %}
+      <a
+        href="{% url 'themes:theme-detail' theme.slug %}"
+        class="btn btn-light btn-icon btn-shadow font-size-base mx-2"
+        type="button"><i class="czi-download"></i></a>
+      {% else %}
       <a
         href="{% url 'cart:cart-add' theme.slug %}"
         class="btn btn-light btn-icon btn-shadow font-size-base mx-2"
         type="button"><i class="czi-cart"></i></a>
+      {% endif %}
     </div>
     <a class="product-thumb-overlay" href="{% url 'themes:theme-detail' theme.slug %}"></a>
     <img src="{{ theme.photo.url }}" alt="{{ theme.title }}">
@@ -35,7 +43,13 @@
           {{ theme.download_count|intcomma }}<span class="font-size-xs ml-1">Sales</span>
         {% endif %}
       </div>
-      <div class="bg-faded-accent text-accent rounded-sm py-1 px-2">${{ theme.price }}</div>
+      <div class="bg-faded-accent text-accent rounded-sm py-1 px-2">
+        {% if theme.is_free %}
+          Free
+        {% else %}
+          ${{ theme.price }}
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

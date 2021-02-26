@@ -49,7 +49,13 @@
                   <input class="custom-control-input" type="checkbox" checked disabled>
                   <label class="custom-control-label font-weight-medium text-dark">Extended license</label>
                 </div>
-                <h5 class="mb-0 text-accent font-weight-normal">${{ theme.price | intcomma }}</h5>
+                <h5 class="mb-0 text-accent font-weight-normal">
+                  {% if theme.is_free %}
+                    Free
+                  {% else %}
+                    ${{ theme.price | intcomma }}
+                  {% endif %}
+                </h5>
               </div>
               <div>
                 <div class="card-body py-0 pb-2">
@@ -61,11 +67,20 @@
               </div>
             </div>
           </div>
+          {% if theme.is_free %}
+          <button
+            type="button"
+            data-url="{% url 'themes:free-download' theme.slug %}"
+            class="btn btn-accent btn-block btn-shadow mt-4 btn-modal btn-download">
+            <i class="czi-download font-size-lg mr-2"></i>Download
+          </button>
+          {% else %}
           <a
             href="{% url 'cart:cart-add' theme.slug %}"
             class="btn btn-primary btn-block btn-shadow mt-4">
             <i class="czi-cart font-size-lg mr-2"></i>Add to Cart
           </a>
+          {% endif %}
           <div class="bg-secondary rounded p-3 mb-2 mt-4">
             <i class="czi-download h5 text-muted align-middle mb-0 mt-n1 mr-2"></i>
             {% if theme.download_count > 0 %}
@@ -161,4 +176,8 @@
   {% if related_themes %}
     {% include 'themes/components/theme-related.html' with related_themes=related_themes %}
   {% endif %}
+{% endblock %}
+
+{% block modal %}
+  {% include 'shared/components/modal-widget.html' with modal_id='downloadModal' %}
 {% endblock %}

@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from cart.models import Cart
 
 from paypal.standard.ipn.signals import valid_ipn_received
-from .emails.download import DownloadEmail
+from .emails.download import PremiumDownloadEmail
 from .models import Order
 
 
@@ -21,7 +21,7 @@ def paypal_payment_completed(sender, **kwargs):
             cart_session_key = ipn.custom
 
             # E-mail download links
-            DownloadEmail(order).send()
+            PremiumDownloadEmail(order).send()
 
             # Reset shopping cart
             try:

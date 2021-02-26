@@ -1,0 +1,63 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Download</h4>
+      <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+
+    <form action="{% url 'themes:free-download' theme.slug %}" method="POST" autocomplete="off" id="free-download-form">
+      {% csrf_token %}
+      <div class="modal-body">
+        <div class="row pb-1">
+          <div class="col-sm-6 form-group">
+            <label for="firstName">First name <span class='text-danger'>*</span></label>
+            <input class="form-control" type="text" name="first_name" id="firstName" required>
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="lastName">Last name <span class='text-danger'>*</span></label>
+            <input class="form-control" type="text" name="last_name" id="lastName" required>
+          </div>
+
+          <div class="col-sm-12 form-group">
+            <label for="email">Email address <span class='text-danger'>*</span></label>
+            <input class="form-control" type="email" name="email" id="email" requird>
+            <small class="text-default email-info">
+              <i class="czi-announcement"></i>
+              A download link will be sent to this e-mail address.
+            </small>
+            <small class="text-success email-success d-none">
+              <i class="czi-check-circle"></i>&nbsp;
+              Sent. Please check your inbox for our e-mail.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary btn-shadow btn-sm" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    const $form = $('#free-download-form');
+
+    $form.on('submit', function(event) {
+      event.preventDefault();
+      $form.find('button[type=submit]').attr('disabled', true);
+      const formData = $form.serialize()
+      const url = $form.attr('action');
+
+      $.post(url, formData, function(data) {
+        $form.get(0).reset();
+        $form.find('.email-info').addClass('d-none');
+        $form.find('.email-success').removeClass('d-none');
+        $('.btn-download').attr('disabled', true);
+      });
+    });
+  });
+</script>
+
+
