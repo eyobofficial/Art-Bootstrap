@@ -1,9 +1,14 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, FormView
+from django.views.generic.detail import SingleObjectMixin
 
+from checkout.emails.download import FreeDownloadEmail
+from shared.models import Subscription
+from .forms import ThemeDownloadForm
 from .mixins import BaseThemesMixin
 from .models import Category, Theme
-
 
 class IndexView(BaseThemesMixin, ListView):
     """Home page of theme shop."""
@@ -71,3 +76,33 @@ class ThemeDetailView(BaseThemesMixin, DetailView):
         theme = self.get_object()
         context['related_themes'] = theme.tags.similar_objects()[:4]
         return context
+
+
+class FreeDownloadView(BaseThemesMixin, SingleObjectMixin, FormView):
+    """View to download free themes."""
+    model = Theme
+    queryset = Theme.objects.filter(is_published=True, is_free=True)
+    form_class = ThemeDownloadForm
+    template_name = 'themes/modals/free-download-form.html'
+    success_url = reverse_lazy('themes:home')
+
+    def get_context_data(self, **kwargs):
+        self.object = self.get_object()
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        first_name = form.cleaned_data['first_name']
+        last_name = form.cleaned_data['last_name']
+        email = form.cleaned_data['email']
+        theme = self.get_object()
+
+        # Send download link
+        FreeDownloadEmail(first_name, last_name, email, theme).send()
+
+        # Subscribe the user
+        Subscription.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+        return HttpResponse()

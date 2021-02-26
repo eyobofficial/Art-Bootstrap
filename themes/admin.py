@@ -25,10 +25,10 @@ class ThemeFeatureInline(admin.StackedInline):
 class ThemeAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'category', 'theme_version', 'download_count', 'is_featured',
-        'is_published', 'created_at'
+        'is_published', 'is_free'
     )
-    list_editable = ('is_featured', 'is_published', 'download_count')
-    list_filter = ('category', 'is_published', 'is_featured')
+    list_editable = ('is_featured', 'is_published', 'is_free', 'download_count')
+    list_filter = ('category', 'is_published', 'is_featured', 'is_free')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title', 'subtitle')}
     filter_horizontal = ('technologies', )
