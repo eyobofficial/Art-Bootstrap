@@ -5,7 +5,9 @@ from .models import Category, Technology, Theme, ThemeFeature
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('title', )
+    list_display = ('title', 'is_featured')
+    list_editable = ('is_featured', )
+    list_filter = ('is_featured',)
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title', )}
 

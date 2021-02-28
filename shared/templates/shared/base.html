@@ -1,4 +1,4 @@
-{% load static %}
+{% load static humanize %}
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
 
   <!-- SEO Meta Tags-->
   <meta name="description" content="Bootstrap themes and templates shop.">
-  <meta name="keywords" content="bootstrap, bootstrap 3, bootstrap 4, themes, bootstrap themes, templates, bootstrap templates">
+  <meta name="keywords" content="bootstrap, bootstrap3, bootstrap4, bootstrap5, themes, bootstrap themes, templates, bootstrap templates">
   <meta name="author" content="Eyob Tariku">
 
   <!-- Viewport-->
@@ -20,9 +20,12 @@
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/apple-touch-icon.png' %}">
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicons/favicon-32x32.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicons/favicon-16x16.png' %}">
-  <link rel="mask-icon" color="#fe6a6a" href="{% static 'favicons/safari-pinned-tab.svg' %}">
-  <meta name="msapplication-TileColor" content="#ffffff">
+  <link rel="manifest" href="{% static 'favicons/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'favicons/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
+
+
 
   <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
   <link rel="stylesheet" media="screen" href="{% static 'vendor/simplebar/dist/simplebar.min.css' %}"/>
@@ -34,6 +37,7 @@
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="{% static 'css/theme.min.css' %}">
   <link rel="stylesheet" media="screen" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="screen" href="{% static 'shared/css/style.css' %}">
 
   <!-- Extra CSS tags -->
   {% block extra-custom-css %}{% endblock %}
@@ -43,11 +47,18 @@
   <header class="bg-light box-shadow-sm navbar-sticky">
     <div class="navbar navbar-expand-lg navbar-light">
       <div class="container">
-        <a class="navbar-brand d-none d-sm-block mr-4 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 7rem;">
-          <img width="142" src="{% static 'shared/img/logo-dark.png' %}" alt="Cartzilla"/>
+
+        <!-- Logo -->
+        <a class="navbar-brand d-none d-sm-block mr-5 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 7rem;">
+          <h1 class="h4 mb-0 navbar-brand-logo">
+            <i class="czi-idea text-primary h3"></i>
+            ART<span class="text-muted text-md-left">Bootstrap</span>
+          </h1>
         </a>
         <a class="navbar-brand d-sm-none mr-2 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 4.625rem;">
-          <img width="74" src="{% static 'shared/img/logo-icon.png' %}" alt="Cartzilla"/>
+          <h1 class="h4 mb-0 navbar-brand-logo">
+            <i class="czi-idea text-primary mr-1"></i>AB
+          </h1>
         </a>
 
         <!-- Toolbar-->
@@ -139,35 +150,33 @@
       <div class="row">
         <div class="col-md-6 text-center text-md-left mb-4">
           <div class="text-nowrap mb-3">
-            <a class="d-inline-block align-middle mt-n2 mr-2" href="#">
-              <img class="d-block" width="117" src="{% static 'shared/img/footer-logo-light.png' %}" alt="Cartzilla"/>
-            </a>
-            <span class="d-inline-block align-middle h5 font-weight-light text-white mb-0">Marketplace</span>
+            <h1 class="h4 mb-0" title="Art Bootstrap">
+              <i class="czi-idea text-primary h3"></i>
+              <span class="text-light">ART</span>
+              <span class="text-muted text-md-left">Bootstrap</span>
+            </h1>
           </div>
           <p class="font-size-sm text-white opacity-70 pb-1">High quality Bootstrap templates for your next project.</p>
           <h6 class="d-inline-block pr-3 mr-3 border-right border-light">
-            <span class="text-primary">65,478 </span><span class="font-weight-normal text-white">Products</span>
+            <span class="text-primary">{{ theme_count|intcomma }}+ </span><span class="font-weight-normal text-white">Product{{ theme_count|pluralize }}</span>
           </h6>
           <h6 class="d-inline-block pr-3 mr-3 border-right border-light">
-            <span class="text-primary">2,521 </span><span class="font-weight-normal text-white">Members</span>
+            <span class="text-primary">{{ category_list.count|intcomma }}+ </span><span class="font-weight-normal text-white">Categories</span>
           </h6>
           <h6 class="d-inline-block mr-3">
-            <span class="text-primary">897 </span><span class="font-weight-normal text-white">Vendors</span>
+            <span class="text-primary">{{ sale_count|intcomma }} </span><span class="font-weight-normal text-white">Monthly Sale{{ sale_count|pluralize }}</span>
           </h6>
           <div class="widget mt-4 text-md-nowrap text-center text-md-left">
-            <a class="social-btn sb-light sb-twitter mr-2 mb-2" href="#">
+            <a class="social-btn sb-light sb-twitter mr-2 mb-2" href="{{ twitter }}" target="_blank">
               <i class="czi-twitter"></i>
             </a>
-            <a class="social-btn sb-light sb-facebook mr-2 mb-2" href="#">
+            <a class="social-btn sb-light sb-facebook mr-2 mb-2" href="{{ facebook }}" target="_blank">
               <i class="czi-facebook"></i>
             </a>
-            <a class="social-btn sb-light sb-dribbble mr-2 mb-2" href="#">
-              <i class="czi-dribbble"></i>
+            <a class="social-btn sb-light sb-instagram mr-2 mb-2" href="{{ instagram }}" target="_blank">
+              <i class="czi-instagram"></i>
             </a>
-            <a class="social-btn sb-light sb-behance mr-2 mb-2" href="#">
-              <i class="czi-behance"></i>
-            </a>
-            <a class="social-btn sb-light sb-pinterest mr-2 mb-2" href="#">
+            <a class="social-btn sb-light sb-pinterest mr-2 mb-2" href="{{ pinterest }}" target="_blank">
               <i class="czi-pinterest"></i>
             </a>
           </div>
@@ -178,50 +187,32 @@
           <div class="btn-group dropdown d-block mx-auto mb-3">
             <button class="btn btn-outline-light border-light dropdown-toggle" type="button" data-toggle="dropdown">Categories</button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Photos</a></li>
-              <li><a class="dropdown-item" href="#">Graphics</a></li>
-              <li><a class="dropdown-item" href="#">UI Design</a></li>
-              <li><a class="dropdown-item" href="#">Web Themes</a></li>
-              <li><a class="dropdown-item" href="#">Fonts</a></li>
-              <li><a class="dropdown-item" href="#">Add-Ons</a></li>
-            </ul>
-          </div>
-          <div class="btn-group dropdown d-block mx-auto">
-            <button class="btn btn-outline-light border-light dropdown-toggle" type="button" data-toggle="dropdown">For members</button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Licenses</a></li>
-              <li><a class="dropdown-item" href="#">Return policy</a></li>
-              <li><a class="dropdown-item" href="#">Payment methods</a></li>
-              <li><a class="dropdown-item" href="#">Become a vendor</a></li>
-              <li><a class="dropdown-item" href="#">Become an affiliate</a></li>
-              <li><a class="dropdown-item" href="#">Marketplace benefits</a></li>
+              {% for category in featured_category_list %}
+                <li><a class="dropdown-item" href="{% url 'themes:category-theme-list' category.slug %}">{{ category.title }}</a></li>
+              {% endfor %}
             </ul>
           </div>
         </div>
         <!-- Desktop menu (visible on screens above md)-->
         <div class="col-md-3 d-none d-md-block text-center text-md-left mb-4">
           <div class="widget widget-links widget-light pb-2">
-            <h3 class="widget-title text-light">Categories</h3>
+            <h3 class="widget-title text-light">Popular Categories</h3>
             <ul class="widget-list">
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Photos</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Graphics</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">UI Design</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Web Themes</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Fonts</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Add-Ons</a></li>
+              {% for category in featured_category_list %}
+                <li class="widget-list-item">
+                  <a class="widget-list-link" href="{% url 'themes:category-theme-list' category.slug %}">{{ category.title }}</a>
+                </li>
+              {% endfor %}
             </ul>
           </div>
         </div>
         <div class="col-md-3 d-none d-md-block text-center text-md-left mb-4">
           <div class="widget widget-links widget-light pb-2">
-            <h3 class="widget-title text-light">For members</h3>
+            <h3 class="widget-title text-light">My Account</h3>
             <ul class="widget-list">
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Licenses</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Return policy</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Payment methods</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Become a vendor</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Become an affiliate</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Marketplace benefits</a></li>
+              <li class="widget-list-item"><a class="widget-list-link" href="{% url 'checkout:payment-done' %}">My Downloads</a></li>
+              <li class="widget-list-item"><a class="widget-list-link" href="{% url 'wishlist:wishlist-items' %}">Wishlist</a></li>
+              <li class="widget-list-item"><a class="widget-list-link" href="{% url 'cart:cart-items' %}">Shopping Cart</a></li>
             </ul>
           </div>
         </div>
@@ -253,12 +244,13 @@
         </div>
         <hr class="hr-light pb-4 mb-3">
         <div class="d-md-flex justify-content-between">
-          <div class="pb-4 font-size-xs text-light opacity-50 text-center text-md-left">&copy; All rights reserved.</div>
+          <div class="pb-4 font-size-xs text-light opacity-50 text-center text-md-left">
+            &copy; {% now 'Y' %} ART Bootstrap. All rights reserved.
+          </div>
           <div class="widget widget-links widget-light pb-4">
             <ul class="widget-list d-flex flex-wrap justify-content-center justify-content-md-start">
-              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Help Center</a></li>
-              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Affiliates</a></li>
-              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Support</a></li>
+              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">About Us</a></li>
+              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Contact Us</a></li>
               <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Terms &amp; Conditions</a></li>
             </ul>
           </div>

@@ -149,6 +149,12 @@ DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 # Project Name
 PROJECT_NAME = 'Bootstrap Shop'
 
+# Social Media Links
+FACEBOOK_URL = ''
+TWITTER_URL = ''
+INSTAGRAM_URL = ''
+PINTEREST_URL = ''
+
 
 # Celery
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')

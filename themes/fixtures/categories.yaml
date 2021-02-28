@@ -3,11 +3,13 @@
   fields:
     title: Admin & Dashboards
     slug: admin-and-dashboards
+    is_featured: True
 - model: themes.category
   pk: 2
   fields:
     title: E-commerce
     slug: e-commerce
+    is_featured: True
 - model: themes.category
   pk: 3
   fields:
@@ -23,6 +25,7 @@
   fields:
     title: Resume & Portfolio
     slug: resume-and-portfolio
+    is_featured: True
 - model: themes.category
   pk: 6
   fields:
@@ -33,6 +36,7 @@
   fields:
     title: Multipurpose & Corporate
     slug: multipurpose-and-corporate
+    is_featured: True
 - model: themes.category
   pk: 8
   fields:
