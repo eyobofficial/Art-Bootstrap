@@ -17,6 +17,7 @@ class Category(models.Model):
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField(blank=True)
+    is_featured = models.BooleanField('featured', default=False)
 
     class Meta:
         verbose_name = 'Category'

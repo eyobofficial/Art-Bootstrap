@@ -41,3 +41,11 @@ a[disabled],
     width: 0.6rem !important;
     height: 0.6rem !important;
 }
+
+.bg-brown {
+    background-color: #626473 !important;
+}
+
+.navbar-brand-logo {
+    font-weight: 600 !important;
+}
