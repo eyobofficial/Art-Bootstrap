@@ -29,6 +29,7 @@ urlpatterns = [
     path('checkout/', include('checkout.urls', namespace='checkout')),
     path('admin/', admin.site.urls),
     path('paypal/', include('paypal.standard.ipn.urls')),
+    path('contact-us/', include('contact.urls', namespace='contact')),
 ]
 
 # Media Assets

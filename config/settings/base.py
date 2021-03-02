@@ -46,6 +46,7 @@ INSTALLED_APPS += [
     'wishlist.apps.WishlistConfig',
     'cart.apps.CartConfig',
     'checkout.apps.CheckoutConfig',
+    'contact.apps.ContactConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,7 +148,7 @@ DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 
 
 # Project Name
-PROJECT_NAME = 'Bootstrap Shop'
+PROJECT_NAME = 'Art Bootstrap'
 
 # Social Media Links
 FACEBOOK_URL = ''

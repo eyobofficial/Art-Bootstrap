@@ -1,0 +1,92 @@
+{% extends 'contact/base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+  <!-- Breadcrumb -->
+  {% include 'contact/breadcrumbs/contact-form.html' %}
+
+  <div class="container contact-container mb-5 pb-3">
+    <div class="row">
+      <div class="col-lg-6 col-md-12 offset-lg-3 py-5">
+        <h2 class="h4 mb-1">Drop us a line</h2>
+        <p class="text-muted mb-4">We would love to hear your thoughts, comments, and questions.</p>
+        <form class="mb-2" method="POST" action="{% url 'contact:contact-form' %}">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="firstName">First Name &nbsp;<span class="text-danger">*</span></label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="firstName"
+                  name="first_name"
+                  value="{{ form.first_name.value|default_if_none:'' }}" required>
+                {% if form.first_name.errors %}
+                  <small class="text-danger">Please fill in you first name.</small>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="lastName">Last Name &nbsp;<span class="text-danger">*</span></label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="LastName"
+                  name="last_name"
+                  value="{{ form.last_name.value|default_if_none:'' }}" required>
+                {% if form.last_name.errors %}
+                  <small class="text-danger">Please fill in you last name.</small>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="email">Email address &nbsp;<span class="text-danger">*</span></label>
+                <input
+                  class="form-control"
+                  type="email"
+                  id="email"
+                  name="email"
+                  value="{{ form.email.value|default_if_none:'' }}" required>
+                {% if form.email.errors %}
+                  <small class="text-danger">Please provide valid email address.</small>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="subject">Subject &nbsp;<span class="text-danger">*</span></label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value="{{ form.subject.value|default_if_none:'' }}" required>
+                {% if form.subject.errors %}
+                  <small class="text-danger">Please fill in the subject.</small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message &nbsp;<span class="text-danger">*</span></label>
+            <textarea
+              class="form-control"
+              id="message"
+              name="content"
+              rows="6"
+              placeholder="Please describe in detail your request" required>{{ form.content.value|default_if_none:'' }}</textarea>
+            {% if form.content.errors %}
+              <small class="text-danger">Please fill in your message.</small>
+            {% endif %}
+          </div>
+          <button class="btn btn-primary" type="submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

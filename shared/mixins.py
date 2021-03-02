@@ -13,6 +13,7 @@ class BaseMixin(ContextMixin):
     """
     Base view mixin for all project views.
     """
+    page_name = None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -22,6 +23,7 @@ class BaseMixin(ContextMixin):
         cart, _ = Cart.objects.get_or_create(session_key=self.session_key)
         wishlist, _ = Wishlist.objects.get_or_create(session_key=self.session_key)
         kwargs.update({
+            'page_name': self.page_name,
             'category_list': Category.objects.order_by('id'),
             'featured_category_list': Category.objects.filter(
                 is_featured=True).order_by('id'),
