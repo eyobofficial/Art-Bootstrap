@@ -48,6 +48,7 @@ INSTALLED_APPS += [
     'checkout.apps.CheckoutConfig',
     'contact.apps.ContactConfig',
     'about.apps.AboutConfig',
+    'policy.apps.PolicyConfig',
 ]
 
 MIDDLEWARE = [

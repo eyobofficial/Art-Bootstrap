@@ -253,9 +253,15 @@
           </div>
           <div class="widget widget-links widget-light pb-4">
             <ul class="widget-list d-flex flex-wrap justify-content-center justify-content-md-start">
-              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">About Us</a></li>
-              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Contact Us</a></li>
-              <li class="widget-list-item ml-4"><a class="widget-list-link font-size-ms" href="#">Terms &amp; Conditions</a></li>
+              <li class="widget-list-item ml-4">
+                <a class="widget-list-link font-size-ms" href="{% url 'about:about-us' %}">About Us</a>
+              </li>
+              <li class="widget-list-item ml-4">
+                <a class="widget-list-link font-size-ms" href="{% url 'contact:contact-form' %}">Contact Us</a>
+              </li>
+              <li class="widget-list-item ml-4">
+                <a class="widget-list-link font-size-ms" href="{% url 'policy:terms' %}">Terms &amp; Agreements</a>
+              </li>
             </ul>
           </div>
         </div>
