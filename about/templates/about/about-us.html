@@ -1,0 +1,26 @@
+{% extends 'about/base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+  <!-- Breadcrumb -->
+  {% include 'about/breadcrumbs/about-us.html' %}
+
+  <div class="container py-5 my-3">
+    <div class="row justify-content-between">
+      <div class="col-lg-5">
+        <h2 class="h4 pb-2">Welcome to ArtBootstrap</h2>
+        <p class="text-justify">We're dedicated to giving you the very best of Bootstrap templates, with a focus on adaptability, flexibility, and engineering beauty.
+          Both our free and premium themes are aggregated and carefully curatd from the best online resources.
+          We have, by far, the largest collection of free Bootstrap templates. Even our premium templates are all easily affordable!</p>
+        <p class="text-justify">Our Bootstrap tempates come in a number of categories and tags so you could easily find the perfect template for your unique use-case.
+          We hope to become your number one source for all things Bootstrap! </p>
+      </div>
+      <div class="offset-lg-1 col-lg-5 d-none d-lg-flex">
+        <img src="{% static 'about/img/website.svg' %}" width="400" alt="Bootstrap design">
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
