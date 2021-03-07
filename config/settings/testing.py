@@ -13,3 +13,11 @@ HOSTNAME = 'http://testing.artbootstrap.com'
 # Paypal
 PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True
+
+
+# Cacheing
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+    }
+}

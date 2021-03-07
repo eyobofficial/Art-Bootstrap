@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.humanize',
-    'livereload',
     'django.contrib.staticfiles',
 ]
 
@@ -60,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -153,10 +151,10 @@ DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 PROJECT_NAME = 'Art Bootstrap'
 
 # Social Media Links
-FACEBOOK_URL = ''
-TWITTER_URL = ''
-INSTAGRAM_URL = ''
-PINTEREST_URL = ''
+FACEBOOK_URL = 'https://www.facebook.com/artbootstrap'
+TWITTER_URL = 'https://twitter.com/ArtBootstrap'
+INSTAGRAM_URL = 'https://instagram.com/artbootstrap'
+PINTEREST_URL = 'https://pinterest.com/artbootstrap'
 
 
 # Celery
