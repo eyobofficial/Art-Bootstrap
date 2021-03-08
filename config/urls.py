@@ -21,17 +21,22 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('admin/clearcache/', include('clearcache.urls')),  # Must come before admin url
+    path('admin/', admin.site.urls),
+
+    # app urls
     path('', include('themes.urls', namespace='themes')),
     path('shared/', include('shared.urls', namespace='shared')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('wishlist/', include('wishlist.urls', namespace='wishlist')),
     path('cart/', include('cart.urls', namespace='cart')),
     path('checkout/', include('checkout.urls', namespace='checkout')),
-    path('admin/', admin.site.urls),
-    path('paypal/', include('paypal.standard.ipn.urls')),
     path('contact-us/', include('contact.urls', namespace='contact')),
     path('about-us/', include('about.urls', namespace='about')),
     path('policy/', include('policy.urls', namespace='policy')),
+
+    # Paypal URL
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]
 
 # Media Assets

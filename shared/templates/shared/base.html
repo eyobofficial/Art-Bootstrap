@@ -71,7 +71,7 @@
             </div>
           </a>
           <div class="navbar-tool">
-            <a class="navbar-tool" href="{% url 'wishlist:wishlist-items' %}">
+            <a class="navbar-tool" href="{% url 'wishlist:wishlist-items' %}" aria-label="Show wishlist">
               <span class="navbar-tool-tooltip">Wishlist</span>
               <div class="navbar-tool-icon-box">
                 <span class="navbar-tool-label favorite-dot {% if wishlist.themes.count == 0 %}d-none{% endif %}"></span>
@@ -80,7 +80,7 @@
             </a>
           </div>
           <div class="navbar-tool">
-            <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}">
+            <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}" aria-label="Show cart">
               {% if cart.themes.count > 0 %}
                 <span class="navbar-tool-label cart-count">{{ cart.themes.count }}</span>
               {% else %}
@@ -89,7 +89,7 @@
               <i class="navbar-tool-icon czi-cart"></i>
             </a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <i class="navbar-tool-icon czi-menu ml-1"></i>
           </button>
         </div>
@@ -166,26 +166,26 @@
             </h1>
           </div>
           <p class="font-size-sm text-white opacity-70 pb-1">High quality Bootstrap templates for your next project.</p>
-          <h6 class="d-inline-block pr-3 mr-3 border-right border-light">
-            <span class="text-primary">{{ theme_count|intcomma }}+ </span><span class="font-weight-normal text-white">Product{{ theme_count|pluralize }}</span>
-          </h6>
-          <h6 class="d-inline-block pr-3 mr-3 border-right border-light">
-            <span class="text-primary">{{ category_list.count|intcomma }}+ </span><span class="font-weight-normal text-white">Categories</span>
-          </h6>
-          <h6 class="d-inline-block mr-3">
-            <span class="text-primary">{{ sale_count|intcomma }} </span><span class="font-weight-normal text-white">Monthly Sale{{ sale_count|pluralize }}</span>
-          </h6>
+          <p class="h6 d-inline-block pr-3 mr-3 border-right border-light">
+            <span class="text-primary mr-1">{{ theme_count|intcomma }}+ </span><span class="font-weight-normal text-white">Product{{ theme_count|pluralize }}</span>
+          </p>
+          <p class="h6 d-inline-block pr-3 mr-3 border-right border-light">
+            <span class="text-primary mr-1">{{ category_list.count|intcomma }}+ </span><span class="font-weight-normal text-white">Categories</span>
+          </p>
+          <p class="h6 d-inline-block mr-3">
+            <span class="text-primary mr-1">{{ sale_count|intcomma }} </span><span class="font-weight-normal text-white">Monthly Sale{{ sale_count|pluralize }}</span>
+          </p>
           <div class="widget mt-4 text-md-nowrap text-center text-md-left">
-            <a class="social-btn sb-light sb-twitter mr-2 mb-2" href="{{ twitter }}" rel="noopener" target="_blank">
+            <a class="social-btn sb-light sb-twitter mr-2 mb-2" href="{{ twitter }}" rel="noopener" target="_blank" aria-label="Twitter">
               <i class="czi-twitter"></i>
             </a>
-            <a class="social-btn sb-light sb-facebook mr-2 mb-2" href="{{ facebook }}" rel="noopener" target="_blank">
+            <a class="social-btn sb-light sb-facebook mr-2 mb-2" href="{{ facebook }}" rel="noopener" target="_blank" aria-label="Facebook">
               <i class="czi-facebook"></i>
             </a>
-            <a class="social-btn sb-light sb-instagram mr-2 mb-2" href="{{ instagram }}" rel="noopener" target="_blank">
+            <a class="social-btn sb-light sb-instagram mr-2 mb-2" href="{{ instagram }}" rel="noopener" target="_blank" aria-label="Instagram">
               <i class="czi-instagram"></i>
             </a>
-            <a class="social-btn sb-light sb-pinterest mr-2 mb-2" href="{{ pinterest }}" rel="noopener" target="_blank">
+            <a class="social-btn sb-light sb-pinterest mr-2 mb-2" href="{{ pinterest }}" rel="noopener" target="_blank" aria-label="Pinterest">
               <i class="czi-pinterest"></i>
             </a>
           </div>
@@ -194,7 +194,7 @@
         <!-- Mobile dropdown menu (visible on screens below md)-->
         <div class="col-12 d-md-none text-center mb-4 pb-2">
           <div class="btn-group dropdown d-block mx-auto mb-3">
-            <button class="btn btn-outline-light border-light dropdown-toggle" type="button" data-toggle="dropdown">Categories</button>
+            <button class="btn btn-outline-light border-light dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-label="Toggle categories">Categories</button>
             <ul class="dropdown-menu">
               {% for category in featured_category_list %}
                 <li><a class="dropdown-item" href="{% url 'themes:category-theme-list' category.slug %}">{{ category.title }}</a></li>
@@ -205,7 +205,7 @@
         <!-- Desktop menu (visible on screens above md)-->
         <div class="col-md-3 d-none d-md-block text-center text-md-left mb-4">
           <div class="widget widget-links widget-light pb-2">
-            <h3 class="widget-title text-light">Popular Categories</h3>
+            <h2 class="h3 widget-title text-light">Popular Categories</h2>
             <ul class="widget-list">
               {% for category in featured_category_list %}
                 <li class="widget-list-item">
@@ -217,7 +217,7 @@
         </div>
         <div class="col-md-3 d-none d-md-block text-center text-md-left mb-4">
           <div class="widget widget-links widget-light pb-2">
-            <h3 class="widget-title text-light">My Account</h3>
+            <h2 class="h3 widget-title text-light">My Account</h2>
             <ul class="widget-list">
               <li class="widget-list-item"><a class="widget-list-link" href="{% url 'checkout:payment-done' %}">My Downloads</a></li>
               <li class="widget-list-item"><a class="widget-list-link" href="{% url 'wishlist:wishlist-items' %}">Wishlist</a></li>
@@ -231,14 +231,20 @@
     <div class="pt-5 bg-darker">
       <div class="container">
         <div class="widget w-100 mb-4 pb-3 text-center mx-auto" style="max-width: 28rem;">
-          <h3 class="widget-title text-light pb-1">Subscribe to newsletter</h3>
+          <h2 class="h3 widget-title text-light pb-1">Subscribe to newsletter</h2>
           <form class="cz-subscribe-form validate" action="{% url 'shared:subscribe' %}" method="post" id="subscriptionForm">
             {% csrf_token %}
             <div class="input-group input-group-overlay flex-nowrap">
               <div class="input-group-prepend-overlay">
                 <span class="input-group-text text-muted font-size-base"><i class="czi-mail"></i></span>
               </div>
-              <input class="form-control prepended-form-control" type="email" name="email" placeholder="Your email" required>
+              <input
+                class="form-control prepended-form-control"
+                type="email"
+                name="email"
+                placeholder="Your email"
+                aria-label="Your email"
+                required>
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" name="subscribe">Subscribe</button>
               </div>
@@ -280,7 +286,7 @@
 
   <!-- Back To Top Button-->
   {% cache 3600 to_top_nav %}
-  <a class="btn-scroll-top" href="#top" data-scroll>
+  <a class="btn-scroll-top" href="#top" data-scroll aria-label="Top">
     <span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span>
     <i class="btn-scroll-top-icon czi-arrow-up"></i>
   </a>

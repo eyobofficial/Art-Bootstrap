@@ -22,12 +22,13 @@
           class="form-control prepended-form-control border-0 box-shadow-0 search-input"
           type="text"
           value="{{ query|default:'' }}"
-          placeholder="Search in this category...">
+          placeholder="Search in this category..."
+          aria-label="Search">
       </div>
       <!-- Sort-->
       <div class="d-flex align-items-center">
         <div class="dropdown py-4 border-left">
-          <a class="nav-link-style font-size-md font-weight-medium dropdown-toggle p-4" href="#" data-toggle="dropdown">
+          <a class="nav-link-style font-size-md font-weight-medium dropdown-toggle p-4" href="#" data-toggle="dropdown" aria-label="Sort by">
             <span class="d-inline-block py-1">
               {% if sort == 'bestseller' %}
                 <i class="czi-rocket mr-2 opacity-60"></i>Bestsellers
@@ -85,22 +86,22 @@
 
         <!-- previous -->
         {% if page_obj.has_previous %}
-          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">
+          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}" aria-label="Previous">
             <span class="d-inline-block py-1"><i class="czi-arrow-left"></i></span>
           </a>
         {% else %}
-          <a class="nav-link-style p-4 border-left disabled" href="#">
+          <a class="nav-link-style p-4 border-left disabled" href="#" aria-label="No previous page">
             <span class="d-inline-block py-1"><i class="czi-arrow-left"></i></span>
           </a>
         {% endif %}
 
         <!-- next -->
         {% if page_obj.has_next %}
-          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">
+          <a class="nav-link-style p-4 border-left" href="?page={{ page_obj.next_page_number }}&sort={{ sort }}" aria-label="Next">
             <span class="d-inline-block py-1"><i class="czi-arrow-right"></i></span>
           </a>
         {% else %}
-          <a class="nav-link-style p-4 border-left disabled" href="#">
+          <a class="nav-link-style p-4 border-left disabled" href="#" aria-label="No next page">
             <span class="d-inline-block py-1"><i class="czi-arrow-right"></i></span>
           </a>
         {% endif %}
