@@ -1,5 +1,5 @@
 {% extends 'cart/base.html' %}
-{% load humanize %}
+{% load compress humanize %}
 
 {% block title %}Your Wishlist{% endblock %}
 
@@ -56,12 +56,14 @@
 
 {% block extra-custom-js %}
   {{ block.super }}
-  <script>
-    $(function() {
-      $('.btn-wishlist-remove').click(function() {
-        const url = $(this).data('url');
-        window.location.href = url;
+  {% compress js inline %}
+    <script>
+      $(function() {
+        $('.btn-wishlist-remove').click(function() {
+          const url = $(this).data('url');
+          window.location.href = url;
+        });
       });
-    });
-  </script>
+    </script>
+  {% endcompress %}
 {% endblock %}

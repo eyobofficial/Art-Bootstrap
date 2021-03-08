@@ -45,3 +45,9 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+
+# django-compressor
+COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_URL = STATIC_URL
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'staticfiles')

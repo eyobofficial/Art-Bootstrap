@@ -42,6 +42,8 @@ django-social-share = "*"
 boto3 = "*"
 django-storages = "*"
 python-memcached = "*"
+django-compressor = "*"
+django-htmlmin = "*"
 
 [requires]
 python_version = "3.8"

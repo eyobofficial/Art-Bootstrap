@@ -1,4 +1,4 @@
-{% load cache static humanize %}
+{% load cache static humanize compress %}
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -16,6 +16,12 @@
   <!-- Extra meta tags -->
   {% block meta %}{% endblock %}
 
+  <!-- Make connection-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+
   <!-- Favicon and Touch Icons-->
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/apple-touch-icon.png' %}">
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicons/favicon-32x32.png' %}">
@@ -27,15 +33,12 @@
 
 
   <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
-  <link rel="stylesheet" media="screen" href="{% static 'vendor/simplebar/dist/simplebar.min.css' %}"/>
-  <link rel="stylesheet" media="screen" href="{% static 'vendor/tiny-slider/dist/tiny-slider.css' %}"/>
-
-  <!-- Vendor CSS tags -->
-  {% block extra-vendor-css %}{% endblock %}
-
-  <!-- Main Theme Styles + Bootstrap-->
-  <link rel="stylesheet" media="screen" href="{% static 'css/theme.min.css' %}">
-  <link rel="stylesheet" media="screen" href="{% static 'css/base.css' %}">
+  {% compress css inline %}
+    <link rel="stylesheet" media="screen" href="{% static 'css/theme.min.css' %}">
+    <link rel="stylesheet" media="screen" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" media="screen" href="{% static 'vendor/simplebar/dist/simplebar.min.css' %}"/>
+    <link rel="stylesheet" media="screen" href="{% static 'vendor/tiny-slider/dist/tiny-slider.css' %}"/>
+  {% endcompress %}
 
   <!-- Extra CSS tags -->
   {% block extra-custom-css %}{% endblock %}
@@ -55,7 +58,7 @@
         </a>
         <a class="navbar-brand d-sm-none mr-2 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 4.625rem;">
           <h1 class="h4 mb-0 navbar-brand-logo">
-            <i class="czi-idea text-primary mr-1"></i>AB
+            ART<span class="text-muted text-md-left">Bootstrap</span>
           </h1>
         </a>
 
@@ -87,7 +90,7 @@
             </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
+            <i class="navbar-tool-icon czi-menu ml-1"></i>
           </button>
         </div>
 
@@ -102,7 +105,10 @@
           </div>
           <!-- Categories dropdown-->
           <ul class="navbar-nav mega-nav pr-lg-2 mr-lg-2">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle pl-0" href="#" data-toggle="dropdown"><i class="czi-menu align-middle mt-n1 mr-2"></i>Categories</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle pl-0" href="#" data-toggle="dropdown">
+                <i class="czi-menu align-middle mt-n1 mr-2"></i>Categories
+              </a>
               <ul class="dropdown-menu py-1">
                 {% for category in category_list %}
                 <li class="dropdown">
@@ -114,7 +120,7 @@
           </ul>
           <!-- Primary menu-->
           <ul class="navbar-nav">
-            <li class="nav-item {% if page_name == 'about_us' %}active{% endif %}"">
+            <li class="nav-item {% if page_name == 'about_us' %}active{% endif %}">
               <a class="nav-link" href="{% url 'about:about-us' %}">About</a>
             </li>
             <li class="nav-item {% if page_name == 'contact_us' %}active{% endif %}">
@@ -283,44 +289,40 @@
   <!-- Vendor scrits: js libraries and plugins-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-  <script src="{% static 'vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js' %}"></script>
-  <script src="{% static 'vendor/simplebar/dist/simplebar.min.js' %}"></script>
-  <script src="{% static 'vendor/tiny-slider/dist/min/tiny-slider.js' %}"></script>
-  <script src="{% static 'vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
 
-  <!-- Form subscription-->
-  <script>
-    $(function() {
-      const $form = $('#subscriptionForm');
-      const $submitBtn = $form.find('button[type=submit]');
-      const $emailInput = $form.find('[name=email]');
+  {% compress js %}
+    <script defer src="{% static 'vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js' %}"></script>
+    <script defer src="{% static 'vendor/simplebar/dist/simplebar.min.js' %}"></script>
+    <script defer src="{% static 'vendor/tiny-slider/dist/min/tiny-slider.js' %}"></script>
+    <script defer src="{% static 'vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+    <script defer src="{% static 'js/theme.min.js' %}"></script>
+    <script defer src="{% static 'shared/js/script.js' %}"></script>
+    <script defer>
+      $(function() {
+        const $form = $('#subscriptionForm');
+        const $submitBtn = $form.find('button[type=submit]');
+        const $emailInput = $form.find('[name=email]');
 
-      $form.on('submit', function(event) {
-        event.preventDefault();
-        $submitBtn.html("Sending...");
-        $.ajax({
-          method: 'post',
-          url: $form.attr('action'),
-          data: $form.serialize(),
-          success: function(data) {
-            $emailInput.val('');
-            $submitBtn.html("<i class='czi-check-circle'></i> Sent");
-            $submitBtn.attr('disabled', true);
-          }
+        $form.on('submit', function(event) {
+          event.preventDefault();
+          $submitBtn.html("Sending...");
+          $.ajax({
+            method: 'post',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            success: function(data) {
+              $emailInput.val('');
+              $submitBtn.html("<i class='czi-check-circle'></i> Sent");
+              $submitBtn.attr('disabled', true);
+            }
+          });
         });
       });
-    });
-  </script>
-
-  <!-- Extra vendor JavaScript scripts -->
-  {% block extra-vendor-js %}{% endblock %}
+    </script>
+  {% endcompress %}
 
   <!-- Modals -->
   {% block modal %}{% endblock %}
-
-  <!-- Main theme script-->
-  <script src="{% static 'js/theme.min.js' %}"></script>
-  <script src="{% static 'shared/js/script.js' %}"></script>
 
   <!-- Extra vendor JavaScript scripts -->
   {% block extra-custom-js %}{% endblock %}

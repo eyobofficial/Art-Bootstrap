@@ -1,7 +1,7 @@
 {% extends 'themes/base.html' %}
+{% load compress %}
 
 {% block title %}{{ category.title|default:'All Templates' }}{% endblock %}
-
 
 {% block content %}
 
@@ -136,15 +136,17 @@
 
 {% block extra-custom-js %}
   {{ block.super }}
-  <script>
-    $(function() {
-      $('.search-input').on('keypress', function(event) {
-        if (event.which == 13) {
-          const searchQuery = $(this).val();
-          let url = '{{ request.url }}' + `?search=${searchQuery}`;
-          window.location.href = url;
-        }
+  {% compress js inline %}
+    <script defer>
+      $(function() {
+        $('.search-input').on('keypress', function(event) {
+          if (event.which == 13) {
+            const searchQuery = $(this).val();
+            let url = '{{ request.url }}' + `?search=${searchQuery}`;
+            window.location.href = url;
+          }
+        });
       });
-    });
-  </script>
+    </script>
+  {% endcompress %}
 {% endblock %}
