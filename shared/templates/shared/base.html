@@ -6,15 +6,20 @@
   <title>{% block title %}Art Bootstrap{% endblock %}</title>
 
   <!-- SEO Meta Tags-->
-  <meta name="description" content="Art Bootstrap have a carefully aggregated collection free and premium Bootstrap templates.">
-  <meta name="keywords" content="bootstrap, bootstrap 3, bootstrap 4, bootstrap 5, themes, bootstrap themes, templates, bootstrap templates, designs, free templats">
-  <meta name="author" content="Eyob Tariku">
+  {% block meta-description %}
+    <meta name="description" content="Art Bootstrap have a carefully aggregated collection free and premium Bootstrap templates.">
+  {% endblock %}
 
-  <!-- Viewport-->
+  {% block meta-keywords %}
+    <meta name="keywords" content="bootstrap, bootstrap 3, bootstrap 4, bootstrap 5, themes, bootstrap themes, templates, bootstrap templates, designs, free templats">
+  {% endblock %}
+
+  <!-- Meta Tags -->
+  <meta name="author" content="Eyob Tariku">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Extra meta tags -->
-  {% block meta %}{% endblock %}
+  {% block meta-extra %}{% endblock %}
 
   <!-- Make connection-->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>

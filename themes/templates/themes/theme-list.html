@@ -3,6 +3,16 @@
 
 {% block title %}{{ category.title|default:'All Templates' }}{% endblock %}
 
+{% if category %}
+  {% block meta-description %}
+    <meta name="description" content="{{ category.description }}">
+  {% endblock %}
+
+  {% block meta-keywords %}
+    <meta name="keywords" content="{{ category.keywords }}">
+  {% endblock %}
+{% endif %}
+
 {% block content %}
 
 <!-- Breadcrumb -->
