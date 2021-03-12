@@ -47,8 +47,9 @@ urlpatterns = [
     # Paypal URL
     path('paypal/', include('paypal.standard.ipn.urls')),
 
-    # Sitemap
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps})
+    # Sitemap & robots
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
+    path('robots.txt', include('robots.urls')),
 ]
 
 # Media Assets

@@ -45,6 +45,7 @@ python-memcached = "*"
 django-compressor = "*"
 django-htmlmin = "*"
 django-clearcache = "*"
+django-robots = "*"
 
 [requires]
 python_version = "3.8"

@@ -38,6 +38,7 @@ INSTALLED_APPS += [
     'django_social_share',
     'storages',
     'compressor',
+    'robots',
 ]
 
 
@@ -213,3 +214,7 @@ PAYPAL_CURRENCY_CODE = 'USD'
 
 # Sendgrid
 SENDGRID_API_KEY = config('SENDGRID_API_KEY')
+
+
+# Robots
+ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
