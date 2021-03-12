@@ -16,9 +16,18 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
-
 from django.views.generic import TemplateView
+
+from .sitemaps import StaticSitemap, CategorySitemap, ThemeSitemap
+
+
+sitemaps = {
+    'static': StaticSitemap,
+    'category': CategorySitemap,
+    'themes': ThemeSitemap
+}
 
 urlpatterns = [
     path('admin/clearcache/', include('clearcache.urls')),  # Must come before admin url
@@ -37,6 +46,9 @@ urlpatterns = [
 
     # Paypal URL
     path('paypal/', include('paypal.standard.ipn.urls')),
+
+    # Sitemap
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps})
 ]
 
 # Media Assets

@@ -24,6 +24,7 @@ class Category(models.Model):
     )
     is_featured = models.BooleanField('featured', default=False)
     tags = TaggableManager(blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Category'
@@ -32,6 +33,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('themes:category-theme-list', args=[self.slug])
 
     @cached_property
     def keywords(self):
@@ -119,6 +123,7 @@ class Theme(models.Model):
     )
     download_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-created_at', )

@@ -21,6 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 
@@ -130,6 +132,11 @@ TIME_ZONE = 'Africa/Addis_Ababa'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+
+# Sites
+SITE_ID = 1
+
 
 # Custom Auth User Model
 AUTH_USER_MODEL = 'accounts.CustomUser'
