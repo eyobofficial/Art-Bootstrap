@@ -11,11 +11,25 @@
   {% endblock %}
 
   {% block meta-keywords %}
-    <meta name="keywords" content="bootstrap, bootstrap 3, bootstrap 4, bootstrap 5, themes, bootstrap themes, templates, bootstrap templates, designs, free templats">
+    <meta name="keywords" content="bootstrap, bootstrap 3, bootstrap 4, bootstrap 5, themes, bootstrap themes, templates, bootstrap templates, free templates">
+  {% endblock %}
+
+  {% block social-tags %}
+    <!-- Facebook Open Graph Tags -->
+    <meta property="og:url" content="{{ request.site.domain }}">
+    <meta property="og:title" content="Art Bootstrap">
+    <meta property="og:image" content="{{ request.site.domain }}{% static 'themes/img/panda-hero.png' %}">
+    <meta property="og:image:alt" content="A grey cover image with a Panda.">
+
+    <!-- Twitter Tags -->
+    <meta name="twitter:image" content="{{ request.site.domain }}{% static 'themes/img/panda-hero.png' %}">
+    <meta property="twitter:image:alt" content="A grey cover image with a Panda.">
+    <meta name="twitter:card" content="Art Bootstrap" />
+    <meta name="twitter:site" content="@ArtBootstrap" />
   {% endblock %}
 
   <!-- Meta Tags -->
-  <meta name="author" content="Eyob Tariku">
+  <meta name="author" content="Art Bootstrap">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Extra meta tags -->

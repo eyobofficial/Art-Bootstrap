@@ -4,11 +4,25 @@
 {% block title %}{{ theme.seo_title }}{% endblock %}
 
 {% block meta-description %}
-<meta name="description" content="{{ theme.seo_description }}">
+  <meta name="description" content="{{ theme.seo_description }}">
 {% endblock %}
 
 {% block meta-keywords %}
-<meta name="keywords" content="{{ theme.keywords }}">
+  <meta name="keywords" content="{{ theme.keywords }}">
+{% endblock %}
+
+{% block social-tags %}
+  <!-- Facebook Open Graph Tags -->
+  <meta property="og:url" content="{{ request.site.domain }}{{ theme.get_absolute_url }}">
+  <meta property="og:title" content="{{ theme.seo_title }}">
+  <meta property="og:image" content="{{ request.site.domain }}{{ theme.photo.url }}">
+  <meta property="og:image:alt" content="A thumbnail for {{ theme.title }}">
+
+  <!-- Twitter Tags -->
+  <meta name="twitter:image" content="{{ request.site.domain }}{{ theme.photo.url }}">
+  <meta property="twitter:image:alt" content="A thumbnail for {{ theme.title }}">
+  <meta name="twitter:card" content="{{ theme.seo_title }}" />
+  <meta name="twitter:site" content="@ArtBootstrap" />
 {% endblock %}
 
 {% block content %}
