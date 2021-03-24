@@ -10,6 +10,10 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 HOSTNAME = 'http://staging.artbootstrap.com'
 
 
+# Environment
+ENVIRONMENT = 'STAGING'
+
+
 # Paypal
 PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True

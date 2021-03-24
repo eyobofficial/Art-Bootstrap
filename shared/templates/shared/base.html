@@ -61,6 +61,17 @@
 
   <!-- Extra CSS tags -->
   {% block extra-custom-css %}{% endblock %}
+
+  {% if environment == 'PRODUCTION' %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LW5CY98D7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0LW5CY98D7');
+    </script>
+  {% endif %}
 </head>
 <body>
   <!-- Header -->

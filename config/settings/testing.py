@@ -10,6 +10,10 @@ ALLOWED_HOSTS = ['*']
 HOSTNAME = 'http://testing.artbootstrap.com'
 
 
+# Environment
+ENVIRONMENT = 'TESTING'
+
+
 # Paypal
 PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True

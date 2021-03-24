@@ -12,6 +12,10 @@ INSTALLED_APPS += [
 HOSTNAME = 'http://0.0.0.0:8080'
 
 
+# Environment
+ENVIRONMENT = 'LOCAL'
+
+
 # Paypal
 PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True

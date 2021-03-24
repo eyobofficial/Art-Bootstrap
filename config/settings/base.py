@@ -1,5 +1,5 @@
 import os
-from decouple import config
+from decouple import config, Csv
 from environ import Path
 
 
@@ -203,10 +203,6 @@ CELERY_TIMEZONE = TIME_ZONE
 
 # Start-up fixtures
 FIXTURES = ['categories', 'technology']
-
-
-# Environment
-ENVIRONMENT = config('ENVIRONMENT')
 
 
 # Paypal
