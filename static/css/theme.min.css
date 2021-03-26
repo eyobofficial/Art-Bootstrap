@@ -4217,15 +4217,6 @@ input[type="button"].btn-block {
 .navbar-toggler:focus {
     text-decoration: none;
 }
-.navbar-toggler-icon {
-    display: inline-block;
-    width: 1.5em;
-    height: 1.5em;
-    vertical-align: middle;
-    content: "";
-    background: no-repeat center center;
-    background-size: 100% 100%;
-}
 @media (max-width: 575.98px) {
     .navbar-expand-sm > .container,
     .navbar-expand-sm > .container-fluid,
@@ -4459,9 +4450,6 @@ input[type="button"].btn-block {
     color: #4b566b;
     border-color: rgba(0, 0, 0, 0);
 }
-.navbar-light .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%234b566b' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
 .navbar-light .navbar-text {
     color: #4b566b;
 }
@@ -4498,9 +4486,6 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-toggler {
     color: rgba(255, 255, 255, 0.65);
     border-color: rgba(0, 0, 0, 0);
-}
-.navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.65%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 .navbar-dark .navbar-text {
     color: rgba(255, 255, 255, 0.65);

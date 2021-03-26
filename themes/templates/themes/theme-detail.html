@@ -1,7 +1,29 @@
 {% extends 'themes/base.html' %}
 {% load humanize social_share %}
 
-{% block title %}{{ theme.title }} - {{ theme.subtitle }}{% endblock %}
+{% block title %}{{ theme.seo_title }}{% endblock %}
+
+{% block meta-description %}
+  <meta name="description" content="{{ theme.seo_description }}">
+{% endblock %}
+
+{% block meta-keywords %}
+  <meta name="keywords" content="{{ theme.keywords }}">
+{% endblock %}
+
+{% block social-tags %}
+  <!-- Facebook Open Graph Tags -->
+  <meta property="og:url" content="{{ request.site.domain }}{{ theme.get_absolute_url }}">
+  <meta property="og:title" content="{{ theme.seo_title }}">
+  <meta property="og:image" content="{{ request.site.domain }}{{ theme.photo.url }}">
+  <meta property="og:image:alt" content="A thumbnail for {{ theme.title }}">
+
+  <!-- Twitter Tags -->
+  <meta name="twitter:image" content="{{ request.site.domain }}{{ theme.photo.url }}">
+  <meta property="twitter:image:alt" content="A thumbnail for {{ theme.title }}">
+  <meta name="twitter:card" content="{{ theme.seo_title }}" />
+  <meta name="twitter:site" content="@ArtBootstrap" />
+{% endblock %}
 
 {% block content %}
 
@@ -19,10 +41,11 @@
           <div class="cz-gallery">
             <a
               class="gallery-item rounded-lg mb-grid-gutter"
-              href="{{ theme.preview_url }}"
-              target="_blank"
+              href="{{ theme.preview_url|default:'#' }}"
+              target="_blank" rel="noopener"
+              aria-label="Preview theme"
               data-sub-html="&lt;h6 class=&quot;font-size-sm text-light&quot;&gt;Simple iPhone X Mockups&lt;/h6&gt;">
-              <img src="{{ theme.photo.url }}" alt="{{ theme.title }} - {{ theme.subtitle }}"/>
+              <img src="{{ theme.photo.url }}" alt="{{ theme.seo_title }}"/>
               <span class="gallery-item-caption">Preview Theme</span>
             </a>
           </div>
@@ -46,16 +69,16 @@
             <div class="card border-top-0 border-left-0 border-right-0">
               <div class="card-header d-flex justify-content-between align-items-center py-3 border-0">
                 <div class="custom-control custom-radio">
-                  <input class="custom-control-input" type="checkbox" checked disabled>
+                  <input class="custom-control-input" type="checkbox" checked disabled aria-hidden="true">
                   <label class="custom-control-label font-weight-medium text-dark">Extended license</label>
                 </div>
-                <h5 class="mb-0 text-accent font-weight-normal">
+                <p class="h5 mb-0 text-accent font-weight-normal">
                   {% if theme.is_free %}
                     Free
                   {% else %}
                     ${{ theme.price | intcomma }}
                   {% endif %}
-                </h5>
+                </p>
               </div>
               <div>
                 <div class="card-body py-0 pb-2">
@@ -126,9 +149,9 @@
 <!-- Product description -->
 <section class="container mb-4 mb-lg-5">
   <!-- Nav tabs-->
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item"><a class="nav-link p-4 active" href="#details" data-toggle="tab" role="tab">Template details</a></li>
-    <li class="nav-item"><a class="nav-link p-4" href="#technology" data-toggle="tab" role="tab">Technology Stacks</a></li>
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link p-4 active" href="#details" data-toggle="tab">Template details</a></li>
+    <li class="nav-item"><a class="nav-link p-4" href="#technology" data-toggle="tab">Technology Stacks</a></li>
   </ul>
   <div class="tab-content pt-2">
     <!-- Product details tab-->

@@ -1,20 +1,45 @@
-{% load static humanize %}
+{% load cache static humanize compress %}
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}Art Bootstrap{% endblock %}</title>
 
   <!-- SEO Meta Tags-->
-  <meta name="description" content="Bootstrap themes and templates shop.">
-  <meta name="keywords" content="bootstrap, bootstrap3, bootstrap4, bootstrap5, themes, bootstrap themes, templates, bootstrap templates">
-  <meta name="author" content="Eyob Tariku">
+  {% block meta-description %}
+    <meta name="description" content="Art Bootstrap have a carefully aggregated collection free and premium Bootstrap templates.">
+  {% endblock %}
 
-  <!-- Viewport-->
+  {% block meta-keywords %}
+    <meta name="keywords" content="bootstrap, bootstrap 3, bootstrap 4, bootstrap 5, themes, bootstrap themes, templates, bootstrap templates, free templates">
+  {% endblock %}
+
+  {% block social-tags %}
+    <!-- Facebook Open Graph Tags -->
+    <meta property="og:url" content="{{ request.site.domain }}">
+    <meta property="og:title" content="Art Bootstrap">
+    <meta property="og:image" content="{{ request.site.domain }}{% static 'themes/img/panda-hero.png' %}">
+    <meta property="og:image:alt" content="A grey cover image with a Panda.">
+
+    <!-- Twitter Tags -->
+    <meta name="twitter:image" content="{{ request.site.domain }}{% static 'themes/img/panda-hero.png' %}">
+    <meta property="twitter:image:alt" content="A grey cover image with a Panda.">
+    <meta name="twitter:card" content="Art Bootstrap" />
+    <meta name="twitter:site" content="@ArtBootstrap" />
+  {% endblock %}
+
+  <!-- Meta Tags -->
+  <meta name="author" content="Art Bootstrap">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Extra meta tags -->
-  {% block meta %}{% endblock %}
+  {% block meta-extra %}{% endblock %}
+
+  <!-- Make connection-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://code.jquery.com" crossorigin>
 
   <!-- Favicon and Touch Icons-->
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/apple-touch-icon.png' %}">
@@ -26,21 +51,27 @@
   <meta name="theme-color" content="#ffffff">
 
 
-
   <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
-  <link rel="stylesheet" media="screen" href="{% static 'vendor/simplebar/dist/simplebar.min.css' %}"/>
-  <link rel="stylesheet" media="screen" href="{% static 'vendor/tiny-slider/dist/tiny-slider.css' %}"/>
-
-  <!-- Vendor CSS tags -->
-  {% block extra-vendor-css %}{% endblock %}
-
-  <!-- Main Theme Styles + Bootstrap-->
-  <link rel="stylesheet" media="screen" href="{% static 'css/theme.min.css' %}">
-  <link rel="stylesheet" media="screen" href="{% static 'css/base.css' %}">
-  <link rel="stylesheet" href="screen" href="{% static 'shared/css/style.css' %}">
+  {% compress css inline %}
+    <link rel="stylesheet" media="screen" href="{% static 'css/theme.min.css' %}">
+    <link rel="stylesheet" media="screen" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" media="screen" href="{% static 'vendor/simplebar/dist/simplebar.min.css' %}"/>
+    <link rel="stylesheet" media="screen" href="{% static 'vendor/tiny-slider/dist/tiny-slider.css' %}"/>
+  {% endcompress %}
 
   <!-- Extra CSS tags -->
   {% block extra-custom-css %}{% endblock %}
+
+  {% if environment == 'PRODUCTION' %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LW5CY98D7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0LW5CY98D7');
+    </script>
+  {% endif %}
 </head>
 <body>
   <!-- Header -->
@@ -57,7 +88,7 @@
         </a>
         <a class="navbar-brand d-sm-none mr-2 order-lg-1" href="{% url 'themes:home' %}" style="min-width: 4.625rem;">
           <h1 class="h4 mb-0 navbar-brand-logo">
-            <i class="czi-idea text-primary mr-1"></i>AB
+            ART<span class="text-muted text-md-left">Bootstrap</span>
           </h1>
         </a>
 
@@ -70,7 +101,7 @@
             </div>
           </a>
           <div class="navbar-tool">
-            <a class="navbar-tool" href="{% url 'wishlist:wishlist-items' %}">
+            <a class="navbar-tool" href="{% url 'wishlist:wishlist-items' %}" aria-label="Show wishlist">
               <span class="navbar-tool-tooltip">Wishlist</span>
               <div class="navbar-tool-icon-box">
                 <span class="navbar-tool-label favorite-dot {% if wishlist.themes.count == 0 %}d-none{% endif %}"></span>
@@ -79,7 +110,7 @@
             </a>
           </div>
           <div class="navbar-tool">
-            <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}">
+            <a class="navbar-tool-icon-box bg-secondary" href="{% url 'cart:cart-items' %}" aria-label="Show cart">
               {% if cart.themes.count > 0 %}
                 <span class="navbar-tool-label cart-count">{{ cart.themes.count }}</span>
               {% else %}
@@ -88,8 +119,8 @@
               <i class="navbar-tool-icon czi-cart"></i>
             </a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="navbar-tool-icon czi-menu ml-1"></i>
           </button>
         </div>
 
@@ -104,7 +135,10 @@
           </div>
           <!-- Categories dropdown-->
           <ul class="navbar-nav mega-nav pr-lg-2 mr-lg-2">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle pl-0" href="#" data-toggle="dropdown"><i class="czi-menu align-middle mt-n1 mr-2"></i>Categories</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle pl-0" href="#" data-toggle="dropdown">
+                <i class="czi-menu align-middle mt-n1 mr-2"></i>Categories
+              </a>
               <ul class="dropdown-menu py-1">
                 {% for category in category_list %}
                 <li class="dropdown">
@@ -116,7 +150,7 @@
           </ul>
           <!-- Primary menu-->
           <ul class="navbar-nav">
-            <li class="nav-item {% if page_name == 'about_us' %}active{% endif %}"">
+            <li class="nav-item {% if page_name == 'about_us' %}active{% endif %}">
               <a class="nav-link" href="{% url 'about:about-us' %}">About</a>
             </li>
             <li class="nav-item {% if page_name == 'contact_us' %}active{% endif %}">
@@ -149,6 +183,7 @@
   {% block content %}{% endblock %}
 
   <!-- Footer -->
+  {% cache 3600 footer %}
   <footer class="bg-dark pt-5">
     <div class="container pt-2 pb-3">
       <div class="row">
@@ -161,26 +196,26 @@
             </h1>
           </div>
           <p class="font-size-sm text-white opacity-70 pb-1">High quality Bootstrap templates for your next project.</p>
-          <h6 class="d-inline-block pr-3 mr-3 border-right border-light">
-            <span class="text-primary">{{ theme_count|intcomma }}+ </span><span class="font-weight-normal text-white">Product{{ theme_count|pluralize }}</span>
-          </h6>
-          <h6 class="d-inline-block pr-3 mr-3 border-right border-light">
-            <span class="text-primary">{{ category_list.count|intcomma }}+ </span><span class="font-weight-normal text-white">Categories</span>
-          </h6>
-          <h6 class="d-inline-block mr-3">
-            <span class="text-primary">{{ sale_count|intcomma }} </span><span class="font-weight-normal text-white">Monthly Sale{{ sale_count|pluralize }}</span>
-          </h6>
+          <p class="h6 d-inline-block pr-3 mr-3 border-right border-light">
+            <span class="text-primary mr-1">{{ theme_count|intcomma }}+ </span><span class="font-weight-normal text-white">Product{{ theme_count|pluralize }}</span>
+          </p>
+          <p class="h6 d-inline-block pr-3 mr-3 border-right border-light">
+            <span class="text-primary mr-1">{{ category_list.count|intcomma }}+ </span><span class="font-weight-normal text-white">Categories</span>
+          </p>
+          <p class="h6 d-inline-block mr-3">
+            <span class="text-primary mr-1">{{ sale_count|intcomma }} </span><span class="font-weight-normal text-white">Monthly Sale{{ sale_count|pluralize }}</span>
+          </p>
           <div class="widget mt-4 text-md-nowrap text-center text-md-left">
-            <a class="social-btn sb-light sb-twitter mr-2 mb-2" href="{{ twitter }}" target="_blank">
+            <a class="social-btn sb-light sb-twitter mr-2 mb-2" href="{{ twitter }}" rel="noopener" target="_blank" aria-label="Twitter">
               <i class="czi-twitter"></i>
             </a>
-            <a class="social-btn sb-light sb-facebook mr-2 mb-2" href="{{ facebook }}" target="_blank">
+            <a class="social-btn sb-light sb-facebook mr-2 mb-2" href="{{ facebook }}" rel="noopener" target="_blank" aria-label="Facebook">
               <i class="czi-facebook"></i>
             </a>
-            <a class="social-btn sb-light sb-instagram mr-2 mb-2" href="{{ instagram }}" target="_blank">
+            <a class="social-btn sb-light sb-instagram mr-2 mb-2" href="{{ instagram }}" rel="noopener" target="_blank" aria-label="Instagram">
               <i class="czi-instagram"></i>
             </a>
-            <a class="social-btn sb-light sb-pinterest mr-2 mb-2" href="{{ pinterest }}" target="_blank">
+            <a class="social-btn sb-light sb-pinterest mr-2 mb-2" href="{{ pinterest }}" rel="noopener" target="_blank" aria-label="Pinterest">
               <i class="czi-pinterest"></i>
             </a>
           </div>
@@ -189,7 +224,7 @@
         <!-- Mobile dropdown menu (visible on screens below md)-->
         <div class="col-12 d-md-none text-center mb-4 pb-2">
           <div class="btn-group dropdown d-block mx-auto mb-3">
-            <button class="btn btn-outline-light border-light dropdown-toggle" type="button" data-toggle="dropdown">Categories</button>
+            <button class="btn btn-outline-light border-light dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-label="Toggle categories">Categories</button>
             <ul class="dropdown-menu">
               {% for category in featured_category_list %}
                 <li><a class="dropdown-item" href="{% url 'themes:category-theme-list' category.slug %}">{{ category.title }}</a></li>
@@ -200,7 +235,7 @@
         <!-- Desktop menu (visible on screens above md)-->
         <div class="col-md-3 d-none d-md-block text-center text-md-left mb-4">
           <div class="widget widget-links widget-light pb-2">
-            <h3 class="widget-title text-light">Popular Categories</h3>
+            <h2 class="h3 widget-title text-light">Popular Categories</h2>
             <ul class="widget-list">
               {% for category in featured_category_list %}
                 <li class="widget-list-item">
@@ -212,7 +247,7 @@
         </div>
         <div class="col-md-3 d-none d-md-block text-center text-md-left mb-4">
           <div class="widget widget-links widget-light pb-2">
-            <h3 class="widget-title text-light">My Account</h3>
+            <h2 class="h3 widget-title text-light">My Account</h2>
             <ul class="widget-list">
               <li class="widget-list-item"><a class="widget-list-link" href="{% url 'checkout:payment-done' %}">My Downloads</a></li>
               <li class="widget-list-item"><a class="widget-list-link" href="{% url 'wishlist:wishlist-items' %}">Wishlist</a></li>
@@ -226,14 +261,20 @@
     <div class="pt-5 bg-darker">
       <div class="container">
         <div class="widget w-100 mb-4 pb-3 text-center mx-auto" style="max-width: 28rem;">
-          <h3 class="widget-title text-light pb-1">Subscribe to newsletter</h3>
+          <h2 class="h3 widget-title text-light pb-1">Subscribe to newsletter</h2>
           <form class="cz-subscribe-form validate" action="{% url 'shared:subscribe' %}" method="post" id="subscriptionForm">
             {% csrf_token %}
             <div class="input-group input-group-overlay flex-nowrap">
               <div class="input-group-prepend-overlay">
                 <span class="input-group-text text-muted font-size-base"><i class="czi-mail"></i></span>
               </div>
-              <input class="form-control prepended-form-control" type="email" name="email" placeholder="Your email" required>
+              <input
+                class="form-control prepended-form-control"
+                type="email"
+                name="email"
+                placeholder="Your email"
+                aria-label="Your email"
+                required>
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" name="subscribe">Subscribe</button>
               </div>
@@ -268,57 +309,56 @@
       </div>
     </div>
   </footer>
+  {% endcache %}
 
   <!-- Toast widget -->
   {% include 'shared/components/toast.html' %}
 
   <!-- Back To Top Button-->
-  <a class="btn-scroll-top" href="#top" data-scroll>
+  {% cache 3600 to_top_nav %}
+  <a class="btn-scroll-top" href="#top" data-scroll aria-label="Top">
     <span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span>
     <i class="btn-scroll-top-icon czi-arrow-up"></i>
   </a>
+  {% endcache %}
 
   <!-- Vendor scrits: js libraries and plugins-->
-  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js' %}"></script>
-  <script src="{% static 'vendor/simplebar/dist/simplebar.min.js' %}"></script>
-  <script src="{% static 'vendor/tiny-slider/dist/min/tiny-slider.js' %}"></script>
-  <script src="{% static 'vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-  <!-- Form subscription-->
-  <script>
-    $(function() {
-      const $form = $('#subscriptionForm');
-      const $submitBtn = $form.find('button[type=submit]');
-      const $emailInput = $form.find('[name=email]');
+  {% compress js %}
+    <script defer src="{% static 'vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js' %}"></script>
+    <script defer src="{% static 'vendor/simplebar/dist/simplebar.min.js' %}"></script>
+    <script defer src="{% static 'vendor/tiny-slider/dist/min/tiny-slider.js' %}"></script>
+    <script defer src="{% static 'vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+    <script defer src="{% static 'js/theme.min.js' %}"></script>
+    <script defer src="{% static 'shared/js/script.js' %}"></script>
+    <script defer>
+      $(function() {
+        const $form = $('#subscriptionForm');
+        const $submitBtn = $form.find('button[type=submit]');
+        const $emailInput = $form.find('[name=email]');
 
-      $form.on('submit', function(event) {
-        event.preventDefault();
-        $submitBtn.html("Sending...");
-        $.ajax({
-          method: 'post',
-          url: $form.attr('action'),
-          data: $form.serialize(),
-          success: function(data) {
-            $emailInput.val('');
-            $submitBtn.html("<i class='czi-check-circle'></i> Sent");
-            $submitBtn.attr('disabled', true);
-          }
+        $form.on('submit', function(event) {
+          event.preventDefault();
+          $submitBtn.html("Sending...");
+          $.ajax({
+            method: 'post',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            success: function(data) {
+              $emailInput.val('');
+              $submitBtn.html("<i class='czi-check-circle'></i> Sent");
+              $submitBtn.attr('disabled', true);
+            }
+          });
         });
       });
-    });
-  </script>
-
-  <!-- Extra vendor JavaScript scripts -->
-  {% block extra-vendor-js %}{% endblock %}
+    </script>
+  {% endcompress %}
 
   <!-- Modals -->
   {% block modal %}{% endblock %}
-
-  <!-- Main theme script-->
-  <script src="{% static 'js/theme.min.js' %}"></script>
-  <script src="{% static 'shared/js/script.js' %}"></script>
 
   <!-- Extra vendor JavaScript scripts -->
   {% block extra-custom-js %}{% endblock %}

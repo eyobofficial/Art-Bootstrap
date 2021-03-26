@@ -25,7 +25,7 @@
         type="button"><i class="czi-cart"></i></a>
       {% endif %}
     </div>
-    <a class="product-thumb-overlay" href="{% url 'themes:theme-detail' theme.slug %}"></a>
+    <a class="product-thumb-overlay" href="{% url 'themes:theme-detail' theme.slug %}" aria-label="Theme detail"></a>
     <img src="{{ theme.photo.url }}" alt="{{ theme.title }}">
   </div>
   <div class="card-body">

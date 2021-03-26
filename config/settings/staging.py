@@ -10,6 +10,10 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 HOSTNAME = 'http://staging.artbootstrap.com'
 
 
+# Environment
+ENVIRONMENT = 'STAGING'
+
+
 # Paypal
 PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True
@@ -36,3 +40,18 @@ STATICFILES_STORAGE = 'config.storage_backends.S3StaticStorage'
 MEDIA_LOCATION = 'mediafiles'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 DEFAULT_FILE_STORAGE = 'config.storage_backends.S3MediaStorage'
+
+
+# Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+
+# django-compressor
+COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_URL = STATIC_URL
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 COPY Pipfile* ./
 RUN apt-get update -y && apt-get install netcat -y && \
+    apt-get install memcached && \
     pip install --upgrade pip && \
     pip install pipenv && \
     pipenv install --system

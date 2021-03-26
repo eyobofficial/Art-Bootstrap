@@ -1,5 +1,7 @@
 import uuid as uuid_lib
+
 from django.db import models
+from django.utils.functional import cached_property
 
 from themes.models import Theme
 
@@ -61,6 +63,6 @@ class Order(models.Model):
     def __str__(self):
         return str(self.pk)
 
-    @property
+    @cached_property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'

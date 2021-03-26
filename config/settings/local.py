@@ -12,6 +12,10 @@ INSTALLED_APPS += [
 HOSTNAME = 'http://0.0.0.0:8080'
 
 
+# Environment
+ENVIRONMENT = 'LOCAL'
+
+
 # Paypal
 PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True
@@ -27,3 +31,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+
+# Caches
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}

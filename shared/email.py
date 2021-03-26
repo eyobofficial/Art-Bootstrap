@@ -9,7 +9,7 @@ from sendgrid.helpers.mail import Email, To, Mail, ReplyTo
 class BaseEmail:
     """Base abstract E-mail class."""
     from_email = Email('hello@artbootstrap.com', 'Art Bootstrap')
-    reply_to = ReplyTo('eyobtariku@gmail.com', 'Eyob Tariku')
+    reply_to = ReplyTo('hello@artbootstrap.com', 'Art Bootstrap')
     to_email = None
     subject = None
     template_id = None

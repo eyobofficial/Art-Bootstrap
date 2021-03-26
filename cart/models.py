@@ -29,6 +29,7 @@ class Cart(models.Model):
     def __str__(self):
         return self.session_key
 
+
     def get_total_amount(self):
         """Returns the total amount of the cart."""
         total = reduce(

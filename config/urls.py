@@ -16,22 +16,46 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
-
+from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
+from shared.views import NotFoundView
+from .sitemaps import StaticSitemap, CategorySitemap, ThemeSitemap
+
+
+# Custom `404 Not Found` view
+handler404 = cache_page(60 * 60)(NotFoundView.as_view())
+
+
+sitemaps = {
+    'static': StaticSitemap,
+    'category': CategorySitemap,
+    'themes': ThemeSitemap
+}
+
 urlpatterns = [
+    path('admin/clearcache/', include('clearcache.urls')),  # Must come before admin url
+    path('admin/', admin.site.urls),
+
+    # app urls
     path('', include('themes.urls', namespace='themes')),
     path('shared/', include('shared.urls', namespace='shared')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('wishlist/', include('wishlist.urls', namespace='wishlist')),
     path('cart/', include('cart.urls', namespace='cart')),
     path('checkout/', include('checkout.urls', namespace='checkout')),
-    path('admin/', admin.site.urls),
-    path('paypal/', include('paypal.standard.ipn.urls')),
     path('contact-us/', include('contact.urls', namespace='contact')),
     path('about-us/', include('about.urls', namespace='about')),
     path('policy/', include('policy.urls', namespace='policy')),
+
+    # Paypal URL
+    path('paypal/', include('paypal.standard.ipn.urls')),
+
+    # Sitemap & robots
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
+    path('robots.txt', include('robots.urls')),
 ]
 
 # Media Assets

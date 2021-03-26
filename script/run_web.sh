@@ -23,6 +23,7 @@ python manage.py runfixtures
 
 echo 'Collect static files...'
 python manage.py collectstatic --no-input --clear
+python manage.py compress --force
 
 # Run gunicorn server
 echo 'Start Gunicorn server...'

@@ -2,6 +2,7 @@ import uuid as uuid_lib
 
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from taggit.managers import TaggableManager
 
 
@@ -16,8 +17,14 @@ class Category(models.Model):
     """Bootstrap theme category."""
     title = models.CharField(max_length=120)
     slug = models.SlugField(max_length=200, unique=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(
+        'SEO description',
+        help_text='Category description upto 160 charchaters for SEO.',
+        max_length=160
+    )
     is_featured = models.BooleanField('featured', default=False)
+    tags = TaggableManager(blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Category'
@@ -26,6 +33,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('themes:category-theme-list', args=[self.slug])
+
+    @cached_property
+    def keywords(self):
+        return ', '.join([tag.name.lower() for tag in self.tags.all()])
 
 
 class Technology(models.Model):
@@ -66,6 +80,12 @@ class Theme(models.Model):
     tags = TaggableManager()
     technologies = models.ManyToManyField(Technology, blank=True)
     description = models.TextField(blank=True)
+    seo_description = models.TextField(
+        'SEO description',
+        max_length=160,
+        blank=True,
+        help_text='Description to display in the meta tag.'
+    )
     theme_version = models.CharField(max_length=10, blank=True, default='')
     bootstrap_version = models.IntegerField(
         choices=BOOTSTRAP_VERSION_OPTIONS,
@@ -80,7 +100,21 @@ class Theme(models.Model):
         null=True, blank=True,
         help_text='Archived theme file.'
     )
-    preview_url = models.URLField(max_length=255)
+    preview_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='URL to deployed verion of the website.'
+    )
+    source_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='URL to original theme website.'
+    )
+    repo_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='URL to the repository.'
+    )
     price = models.DecimalField(max_digits=6, decimal_places=2)
     is_free = models.BooleanField(
         'free',
@@ -89,6 +123,7 @@ class Theme(models.Model):
     )
     download_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-created_at', )
@@ -99,9 +134,13 @@ class Theme(models.Model):
     def get_absolute_url(self):
         return reverse('themes:theme-detail', args=[self.slug])
 
-    @property
+    @cached_property
     def seo_title(self):
         return f'{self.title} - {self.subtitle}'
+
+    @cached_property
+    def keywords(self):
+        return ', '.join([tag.name.lower() for tag in self.tags.all()])
 
 
 class ThemeFeature(models.Model):

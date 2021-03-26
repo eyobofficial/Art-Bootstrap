@@ -31,6 +31,7 @@ class BaseMixin(ContextMixin):
             'wishlist': wishlist,
             'theme_count': Theme.objects.filter(is_published=True).count(),
             'sale_count': Order.objects.filter(status=Order.COMPLETED).count(),
+            'environment': settings.ENVIRONMENT,
             'facebook': settings.FACEBOOK_URL,
             'twitter': settings.TWITTER_URL,
             'instagram': settings.INSTAGRAM_URL,

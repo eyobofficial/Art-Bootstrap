@@ -17,7 +17,8 @@ sudo apt-get install -y python3.8-dev \
                      libmysqlclient-dev \
                      libpython3.8-dev \
                      nginx \
-                     curl
+                     curl \
+                     memcached
 
 # Install Pipenv
 echo 'Install Pipenv...'
