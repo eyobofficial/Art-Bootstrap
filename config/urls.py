@@ -18,9 +18,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
+from shared.views import NotFoundView
 from .sitemaps import StaticSitemap, CategorySitemap, ThemeSitemap
+
+
+# Custom `404 Not Found` view
+handler404 = cache_page(60 * 60)(NotFoundView.as_view())
 
 
 sitemaps = {
