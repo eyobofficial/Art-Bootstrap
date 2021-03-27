@@ -20,10 +20,11 @@
   fields:
     title: Landing Pages
     slug: landing-pages
+    is_featured: True
 - model: themes.category
   pk: 5
   fields:
-    title: Resume & Portfolio
+    title: Resumes & Portfolios
     slug: resume-and-portfolio
     is_featured: True
 - model: themes.category
@@ -44,6 +45,11 @@
     slug: directory-and-listings
 - model: themes.category
   pk: 9
+  fields:
+    title: E-mails
+    slug: e-mails
+- model: themes.category
+  pk: 10
   fields:
     title: Other Templates
     slug: other-templates
