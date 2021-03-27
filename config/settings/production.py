@@ -5,10 +5,6 @@ DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
-# Hostname
-HOSTNAME = 'https://artbootstrap.com'
-
-
 # Environment
 ENVIRONMENT = 'PRODUCTION'
 

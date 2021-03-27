@@ -8,9 +8,6 @@ INSTALLED_APPS += [
     'django_extensions',
 ]
 
-# Hostname
-HOSTNAME = 'http://0.0.0.0:8080'
-
 
 # Environment
 ENVIRONMENT = 'LOCAL'

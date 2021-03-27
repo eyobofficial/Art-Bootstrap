@@ -8,8 +8,6 @@ services:
       - ./.env
     environment:
       - DB_HOST=${DB_HOST}
-      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     expose:
       - '8000'
     volumes:
@@ -17,7 +15,6 @@ services:
       - media_volume:/code/mediafiles
     depends_on:
       - db
-      - redis-server
   db:
     image: mysql:5.7
     restart: always
@@ -25,6 +22,9 @@ services:
       - ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
   nginx:
@@ -41,31 +41,6 @@ services:
       - media_volume:/code/mediafiles
     depends_on:
       - web
-  redis-server:
-    image: redis
-    restart: unless-stopped
-    ports:
-      - 6379:6379
-  celery:
-    build: .
-    command: celery worker -A config -l info
-    restart: always
-    env_file:
-      - ./.env
-    depends_on:
-      - redis-server
-      - db
-      - web
-  celery-beat:
-    build: .
-    command: celery beat -A config -l info
-    restart: always
-    env_file:
-      - ./.env
-    depends_on:
-      - web
-      - db
-      - celery
 
 volumes:
   mysql_data:

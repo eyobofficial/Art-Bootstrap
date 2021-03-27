@@ -30,8 +30,6 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'rest_framework',
     'corsheaders',
-    'django_celery_beat',
-    'django_celery_results',
     'phonenumber_field',
     'taggit',
     'paypal.standard.ipn',
@@ -184,21 +182,14 @@ DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 
 # Project Name
 PROJECT_NAME = 'Art Bootstrap'
+HOSTNAME = config('HOSTNAME', '127.0.0.1:8000')
+
 
 # Social Media Links
 FACEBOOK_URL = 'https://www.facebook.com/artbootstrap'
 TWITTER_URL = 'https://twitter.com/ArtBootstrap'
 INSTAGRAM_URL = 'https://instagram.com/artbootstrap'
 PINTEREST_URL = 'https://pinterest.com/artbootstrap'
-
-
-# Celery
-CELERY_BROKER_URL = config('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = config('CELERY_BROKER_URL')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
 
 
 # Start-up fixtures

@@ -6,10 +6,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-# Hostname
-HOSTNAME = 'http://testing.artbootstrap.com'
-
-
 # Environment
 ENVIRONMENT = 'TESTING'
 
@@ -19,7 +15,7 @@ PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
 PAYPAL_TEST = True
 
 
-# Cacheing
+# Caching
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
