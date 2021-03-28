@@ -246,4 +246,4 @@ deploy_key
 /logs
 /temp
 celerybeat.pid
-*.db
+db.sqlite3

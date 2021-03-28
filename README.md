@@ -1,21 +1,18 @@
-# BOOTSTRAP E-COMMERCE WEBSITE
+# Art Bootstrap
+## BOOTSTRAP E-COMMERCE WEBSITE
 
-## Requirements
+### Requirements
 - Python 3.8
 - Pipenv
-- MYSQL 5.7+
-- Redis
+- SQLite3 (Development, Testing)
+- PostgreSQL (Production, Staging)
 
-## Packages
-- Django 3.0.7
-- Django REST Framework
+### Packages
+- Django 3.1.6
 - Gunicorn
-- Celery
 - Python Decouple
 - Django Environ
-- Pendulum
 
-## DevOps Tools
+### DevOps Tools
 - Travis CI
 - Docker
-- Nginx
