@@ -44,6 +44,8 @@ django-compressor = "*"
 django-htmlmin = "*"
 django-clearcache = "*"
 django-robots = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"

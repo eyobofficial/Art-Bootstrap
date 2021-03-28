@@ -2,13 +2,15 @@ import os
 from decouple import config, Csv
 from environ import Path
 
+from django.core.management.utils import get_random_secret_key
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__) - 3
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', get_random_secret_key())
 
 
 # Application definition
