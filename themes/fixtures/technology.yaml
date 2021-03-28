@@ -38,3 +38,23 @@
   pk: 10
   fields:
     title: Leaflet.js
+- model: themes.technology
+  pk: 11
+  fields:
+    title: jQuery
+- model: themes.technology
+  pk: 12
+  fields:
+    title: React.js
+- model: themes.technology
+  pk: 13
+  fields:
+    title: Angular
+- model: themes.technology
+  pk: 14
+  fields:
+    title: Vue.js
+- model: themes.technology
+  pk: 15
+  fields:
+    title: FontIcons

@@ -8,8 +8,6 @@ services:
       - ./.env
     environment:
       - DB_HOST=${DB_HOST}
-      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     expose:
       - '8000'
     volumes:
@@ -17,16 +15,19 @@ services:
       - media_volume:/code/mediafiles
     depends_on:
       - db
-      - redis-server
   db:
-    image: mysql:5.7
+    image: postgres:12.0-alpine
     restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-    volumes:
-      - mysql_data:/var/lib/mysql
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - ${DB_PORT}:5432
   nginx:
     build:
       context: ./nginx
@@ -41,33 +42,8 @@ services:
       - media_volume:/code/mediafiles
     depends_on:
       - web
-  redis-server:
-    image: redis
-    restart: unless-stopped
-    ports:
-      - 6379:6379
-  celery:
-    build: .
-    command: celery worker -A config -l info
-    restart: always
-    env_file:
-      - ./.env
-    depends_on:
-      - redis-server
-      - db
-      - web
-  celery-beat:
-    build: .
-    command: celery beat -A config -l info
-    restart: always
-    env_file:
-      - ./.env
-    depends_on:
-      - web
-      - db
-      - celery
 
 volumes:
-  mysql_data:
+  postgres_data:
   static_volume:
   media_volume:

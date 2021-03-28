@@ -8,13 +8,13 @@ sudo apt-get update -y && sudo apt-get upgrade -y
 
 # Install MYSQL and Python
 echo 'Installing MYSQL...'
-sudo apt-get install mysql-server -y
+sudo apt-get install postgresql postgresql-contrib -y
 
 # Install Python
 echo 'Installing Python...'
 sudo apt-get install -y python3.8-dev \
                      python3.8-pip \
-                     libmysqlclient-dev \
+                     libpq-dev \
                      libpython3.8-dev \
                      nginx \
                      curl \

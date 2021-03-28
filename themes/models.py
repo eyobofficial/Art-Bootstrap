@@ -24,7 +24,6 @@ class Category(models.Model):
     )
     is_featured = models.BooleanField('featured', default=False)
     tags = TaggableManager(blank=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Category'

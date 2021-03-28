@@ -1,6 +1,9 @@
 import os
+import sys
 from decouple import config, Csv
 from environ import Path
+
+from django.core.management.utils import get_random_secret_key
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -8,7 +11,7 @@ BASE_DIR = Path(__file__) - 3
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', get_random_secret_key())
 
 
 # Application definition
@@ -30,8 +33,6 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'rest_framework',
     'corsheaders',
-    'django_celery_beat',
-    'django_celery_results',
     'phonenumber_field',
     'taggit',
     'paypal.standard.ipn',
@@ -91,21 +92,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# MYSQL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT')
-    }
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -148,7 +134,11 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-# Static
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -184,21 +174,14 @@ DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 
 # Project Name
 PROJECT_NAME = 'Art Bootstrap'
+HOSTNAME = config('HOSTNAME', '127.0.0.1:8000')
+
 
 # Social Media Links
 FACEBOOK_URL = 'https://www.facebook.com/artbootstrap'
 TWITTER_URL = 'https://twitter.com/ArtBootstrap'
 INSTAGRAM_URL = 'https://instagram.com/artbootstrap'
 PINTEREST_URL = 'https://pinterest.com/artbootstrap'
-
-
-# Celery
-CELERY_BROKER_URL = config('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = config('CELERY_BROKER_URL')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
 
 
 # Start-up fixtures

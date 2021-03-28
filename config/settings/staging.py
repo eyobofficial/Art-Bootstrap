@@ -1,17 +1,24 @@
 from .base import *
-from decouple import config, Csv
 
 
 DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
-# Hostname
-HOSTNAME = 'http://staging.artbootstrap.com'
-
-
 # Environment
 ENVIRONMENT = 'STAGING'
+
+
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+# Postgresql
+if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if config("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 
 # Paypal
@@ -28,13 +35,6 @@ AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-
-
-# Static
-STATIC_LOCATION = 'staticfiles'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-STATICFILES_STORAGE = 'config.storage_backends.S3StaticStorage'
-
 
 # Media files
 MEDIA_LOCATION = 'mediafiles'
