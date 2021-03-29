@@ -14,10 +14,10 @@ ENVIRONMENT = 'PRODUCTION'
 
 # Postgresql
 if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if config("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
+    if config('DATABASE_URL', None) is None:
+        raise Exception('DATABASE_URL environment variable not defined')
     DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        'default': dj_database_url.parse(config('DATABASE_URL')),
     }
 
 
