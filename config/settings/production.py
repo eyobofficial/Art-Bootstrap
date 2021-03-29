@@ -2,8 +2,7 @@ from .base import *
 
 
 DEBUG = config('DEBUG', False)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Environment
 ENVIRONMENT = 'PRODUCTION'
