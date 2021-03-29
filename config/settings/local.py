@@ -1,7 +1,7 @@
 from .base import *
 
 
-DEBUG = True
+DEBUG = config('DEBUG', True)
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS += [

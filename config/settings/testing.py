@@ -2,7 +2,7 @@ from .base import *
 from decouple import Csv
 
 
-DEBUG = True
+DEBUG = config('DEBUG', True)
 ALLOWED_HOSTS = ['*']
 
 
