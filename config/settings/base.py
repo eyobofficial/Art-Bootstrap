@@ -133,6 +133,11 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Cors Headers
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = None
+SESSION_COOKIE_SAMESITE = None
 
 
 # Static files (CSS, JavaScript, Images)
