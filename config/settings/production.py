@@ -36,6 +36,12 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 
+# Static
+STATIC_LOCATION = 'staticfiles'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+STATICFILES_STORAGE = 'config.storage_backends.S3StaticStorage'
+
+
 # Media files
 MEDIA_LOCATION = 'mediafiles'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
@@ -52,6 +58,6 @@ CACHES = {
 
 
 # django-compressor
+COMPRESS_STORAGE = STATICFILES_STORAGE
 COMPRESS_URL = STATIC_URL
 COMPRESS_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-COMPRESS_OFFLINE = True
