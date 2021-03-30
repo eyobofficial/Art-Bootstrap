@@ -54,3 +54,4 @@ CACHES = {
 # django-compressor
 COMPRESS_URL = STATIC_URL
 COMPRESS_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+COMPRESS_OFFLINE = True
