@@ -6,7 +6,7 @@ from themes.models import Category, Theme
 
 class StaticSitemap(Sitemap):
     """An XML sitemap for the static views."""
-    changefreq = 'monthly'
+    changefreq = 'weekly'
     priority = 0.3
 
     def items(self):
@@ -18,14 +18,11 @@ class StaticSitemap(Sitemap):
 
 class CategorySitemap(Sitemap):
     """An XML sitemap for `Category` model."""
-    changefreq = 'weekly'
+    changefreq = 'daily'
     priority = 0.9
 
     def items(self):
         return Category.objects.all()
-
-    def lastmod(self, item):
-        return item.updated_at
 
 
 class ThemeSitemap(Sitemap):
