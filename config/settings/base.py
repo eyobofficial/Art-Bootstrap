@@ -180,7 +180,7 @@ DEFAULT_ADMIN_LAST_NAME = config('ADMIN_LAST_NAME', '')
 
 # Project Name
 PROJECT_NAME = 'Art Bootstrap'
-HOSTNAME = config('HOSTNAME', '127.0.0.1:8000')
+HOSTNAME = config('HOSTNAME', default='127.0.0.1:8000')
 
 
 # Social Media Links
