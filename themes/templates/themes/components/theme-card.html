@@ -33,6 +33,9 @@
       <a href="{% url 'themes:theme-detail' theme.slug %}">
         {{ theme.title }} – {{ theme.subtitle }}
       </a>
+      {% if not theme.is_published %}
+        <span class="badge rounded-pill bg-primary font-size-xs position-static">Draft</span>
+      {% endif %}
     </h3>
     <div class="d-flex flex-wrap justify-content-between align-items-center">
       <div class="font-size-sm mr-2">
