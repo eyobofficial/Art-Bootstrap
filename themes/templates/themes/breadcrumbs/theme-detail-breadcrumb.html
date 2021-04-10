@@ -18,6 +18,9 @@
     <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
       <h2 class="h3 text-light mb-0">
         {{ theme.title }} <span class="h4 text-light d-none d-md-inline-block">&mdash; {{ theme.subtitle }}</span>
+        {% if not theme.is_published %}
+          <span class="badge rounded-pill bg-primary position-static">Draft</span>
+        {% endif %}
       </h2>
     </div>
   </div>

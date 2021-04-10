@@ -14,7 +14,13 @@ class IndexView(BaseThemesMixin, ListView):
     """Home page of theme shop."""
     model = Theme
     template_name = 'themes/index.html'
-    queryset = Theme.objects.filter(is_published=True)
+    queryset = Theme.objects.all()
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_staff:
+            qs = qs.filter(is_published=True)
+        return qs
 
     def get_context_data(self, **kwargs):
         kwargs.update({
@@ -27,9 +33,15 @@ class ThemeListView(BaseThemesMixin, ListView):
     """List view for all themes."""
     template_name = 'themes/theme-list.html'
     model = Theme
-    queryset = Theme.objects.filter(is_published=True)
+    queryset = Theme.objects.all()
     paginate_by = 15
     ordering = '-created_at'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_staff:
+            qs = qs.filter(is_published=True)
+        return qs
 
     def get_context_data(self, **kwargs):
         kwargs.update({'sort': self.request.GET.get('sort', '')})
@@ -68,8 +80,14 @@ class CategoryThemeListView(ThemeListView):
 class ThemeDetailView(BaseThemesMixin, DetailView):
     """Theme detail view."""
     model = Theme
-    queryset = Theme.objects.filter(is_published=True)
+    queryset = Theme.objects.all()
     template_name = 'themes/theme-detail.html'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_superuser:
+            qs = qs.filter(is_published=True)
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,6 +116,8 @@ class FreeDownloadView(BaseThemesMixin, SingleObjectMixin, FormView):
 
         # Send download link
         FreeDownloadEmail(first_name, last_name, email, theme).send()
+        theme.download_count += 1
+        theme.save()
 
         # Subscribe the user
         Subscription.objects.create(

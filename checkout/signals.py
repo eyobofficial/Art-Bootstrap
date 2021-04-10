@@ -22,6 +22,9 @@ def paypal_payment_completed(sender, **kwargs):
 
             # E-mail download links
             PremiumDownloadEmail(order).send()
+            for theme in order.themes.all():
+                theme.download_count += 1
+                theme.save()
 
             # Reset shopping cart
             try:
