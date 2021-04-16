@@ -16,7 +16,7 @@ def paypal_payment_completed(sender, **kwargs):
         order = get_object_or_404(Order, pk=ipn.invoice)
 
         if ipn.mc_gross == order.amount:
-            order.status == Order.COMPLETED
+            order.status = Order.COMPLETED
             order.save()
             cart_session_key = ipn.custom
 
