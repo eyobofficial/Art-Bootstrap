@@ -19,10 +19,12 @@
   <meta property="og:image:alt" content="A thumbnail for {{ theme.title }}">
 
   <!-- Twitter Tags -->
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ theme.photo.url }}">
   <meta property="twitter:image:alt" content="A thumbnail for {{ theme.title }}">
-  <meta name="twitter:card" content="{{ theme.seo_title }}" />
-  <meta name="twitter:site" content="@ArtBootstrap" />
+  <meta name="twitter:title" content="{{ theme.seo_title }}">
+  <meta name="twitter:description" content="{{ theme.seo_description }}">
+  <meta name="twitter:site" content="@ArtBootstrap">
 {% endblock %}
 
 {% block content %}
