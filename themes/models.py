@@ -92,7 +92,10 @@ class Theme(models.Model):
     )
     is_published = models.BooleanField('published', default=True)
     is_featured = models.BooleanField('featured', default=False)
-    photo = models.ImageField(null=True, blank=True)
+    photo = models.ImageField(
+        null=True, blank=True,
+        help_text='Recommended size 900x600 px.'
+    )
     file = models.FileField(
         'theme file',
         upload_to=themes_upload_location,

@@ -10,6 +10,7 @@ from .forms import ThemeDownloadForm
 from .mixins import BaseThemesMixin
 from .models import Category, Theme
 
+
 class IndexView(BaseThemesMixin, ListView):
     """Home page of theme shop."""
     model = Theme
