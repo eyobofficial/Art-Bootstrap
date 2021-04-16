@@ -138,7 +138,7 @@ class Theme(models.Model):
 
     @cached_property
     def seo_title(self):
-        return f'{self.title} - {self.subtitle}'
+        return f'{self.title} — {self.subtitle}'
 
     @cached_property
     def keywords(self):
