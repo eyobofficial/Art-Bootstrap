@@ -1,7 +1,6 @@
 import os
 import sys
-import dj_database_url
-from decouple import config, Csv
+from decouple import config
 from environ import Path
 
 from django.core.management.utils import get_random_secret_key
