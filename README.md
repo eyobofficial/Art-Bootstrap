@@ -3,16 +3,10 @@
 
 ### Requirements
 - Python 3.8
-- Pipenv
-- SQLite3 (Development, Testing)
-- PostgreSQL (Production, Staging)
+- PostgreSQL
 
 ### Packages
-- Django 3.1.6
+- Django 4.0
 - Gunicorn
 - Python Decouple
 - Django Environ
-
-### DevOps Tools
-- Travis CI
-- Docker
