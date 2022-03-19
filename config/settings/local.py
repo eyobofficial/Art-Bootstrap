@@ -14,7 +14,7 @@ ENVIRONMENT = 'LOCAL'
 
 
 # Paypal
-PAYPAL_RECEIVER_EMAIL = 'eyobofficial-facilitator@gmail.com'
+PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = True
 
 
