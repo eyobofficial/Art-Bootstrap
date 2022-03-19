@@ -58,7 +58,7 @@ urlpatterns = [
     path('robots.txt', include('robots.urls')),
 
     # Browser reload
-    path("__reload__/", include('django_browser_reload.urls')),
+    path('__reload__/', include('django_browser_reload.urls')),
 ]
 
 # Media Assets

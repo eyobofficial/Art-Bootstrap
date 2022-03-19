@@ -40,6 +40,7 @@ INSTALLED_APPS += [
     'storages',
     'compressor',
     'robots',
+    'django_browser_reload',
 ]
 
 
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -203,3 +205,7 @@ SENDGRID_API_KEY = config('SENDGRID_API_KEY')
 
 # Robots
 ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
+
+
+# Django AutoField
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

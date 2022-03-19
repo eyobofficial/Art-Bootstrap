@@ -25,7 +25,7 @@ class IndexView(BaseThemesMixin, ListView):
 
     def get_context_data(self, **kwargs):
         kwargs.update({
-            'featured_themes': self.get_queryset().filter(is_featured=True)
+            'featured_themes': self.get_queryset().filter(is_featured=True),
         })
         return super().get_context_data(**kwargs)
 

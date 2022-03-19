@@ -6,13 +6,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS += [
     'django_extensions',
-    'django_browser_reload',
 ]
 
-
-MIDDLEWARE += [
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
-]
 
 # Environment
 ENVIRONMENT = 'LOCAL'

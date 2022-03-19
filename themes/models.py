@@ -3,6 +3,7 @@ import uuid as uuid_lib
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
 
@@ -19,7 +20,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField(
         'SEO description',
-        help_text='Category description upto 160 charchaters for SEO.',
+        help_text=_('Category description upto 160 charchaters for SEO.'),
         max_length=160
     )
     is_featured = models.BooleanField('featured', default=False)
@@ -83,7 +84,7 @@ class Theme(models.Model):
         'SEO description',
         max_length=160,
         blank=True,
-        help_text='Description to display in the meta tag.'
+        help_text=_('Description to display in the meta tag.')
     )
     theme_version = models.CharField(max_length=10, blank=True, default='')
     bootstrap_version = models.IntegerField(
@@ -94,34 +95,34 @@ class Theme(models.Model):
     is_featured = models.BooleanField('featured', default=False)
     photo = models.ImageField(
         null=True, blank=True,
-        help_text='Recommended size 900x600 px.'
+        help_text=_('Recommended size 900x600 px.')
     )
     file = models.FileField(
         'theme file',
         upload_to=themes_upload_location,
         null=True, blank=True,
-        help_text='Archived theme file.'
+        help_text=_('Archived theme file.')
     )
     preview_url = models.URLField(
         max_length=255,
         blank=True,
-        help_text='URL to deployed verion of the website.'
+        help_text=_('URL to deployed verion of the website.')
     )
     source_url = models.URLField(
         max_length=255,
         blank=True,
-        help_text='URL to original theme website.'
+        help_text=_('URL to original theme website.')
     )
     repo_url = models.URLField(
         max_length=255,
         blank=True,
-        help_text='URL to the repository.'
+        help_text=_('URL to the repository.')
     )
     price = models.DecimalField(max_digits=6, decimal_places=2)
     is_free = models.BooleanField(
         'free',
         default=False,
-        help_text='Not a premium theme.'
+        help_text=_('Not a premium theme.')
     )
     download_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
