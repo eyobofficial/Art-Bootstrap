@@ -54,6 +54,7 @@ INSTALLED_APPS += [
     'contact.apps.ContactConfig',
     'about.apps.AboutConfig',
     'policy.apps.PolicyConfig',
+    'affiliates.apps.AffiliatesConfig',
 ]
 
 MIDDLEWARE = [
