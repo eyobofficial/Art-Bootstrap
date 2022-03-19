@@ -1,26 +1,12 @@
-import dj_database_url
-
 from .base import *
 from decouple import Csv
 
 
-DEBUG = config('DEBUG', False)
+DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Environment
 ENVIRONMENT = 'STAGING'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# Postgresql
-if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if config("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
 
 
 # Paypal

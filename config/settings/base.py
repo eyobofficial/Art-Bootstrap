@@ -1,5 +1,4 @@
 import os
-import sys
 from decouple import config
 from environ import Path
 
@@ -92,6 +91,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+
+# Database (PostgreSQL)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('RDS_DB_NAME'),
+        'USER': config('RDS_USERNAME'),
+        'PASSWORD': config('RDS_PASSWORD'),
+        'HOST': config('RDS_HOSTNAME'),
+        'PORT': config('RDS_PORT'),
+    }
+}
 
 
 # Password validation

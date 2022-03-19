@@ -1,24 +1,12 @@
 from .base import *
 
 
-DEBUG = config('DEBUG', True)
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
 # Environment
 ENVIRONMENT = 'TESTING'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# SQLite
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
 
 
 # Paypal
